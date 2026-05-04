@@ -1280,28 +1280,25 @@
     const promo = document.getElementById('f-promo').value.trim();
     const dir = document.getElementById('f-dir').value.trim();
 
-    // ── Enviar a info@clickson.net via Formspree ──
+    // ── Enviar a Formspree via fetch JSON (plan free compatible) ──
     try {
-      const fd = new FormData();
-      fd.append('_replyto', tel);
-      fd.append('_subject', 'Nuevo cliente ClickSon: ' + empresa);
-      fd.append('Empresa', empresa);
-      fd.append('Representante', rep);
-      fd.append('Telefono', tel);
-      fd.append('Direccion', dir || 'No indicada');
-      fd.append('Tipo_de_web', tipo ? tipo.value : 'No seleccionado');
-      fd.append('Horario', horario || 'No indicado');
-      fd.append('Promociones', promo || 'No indicadas');
-      const fotosInput = document.getElementById('f-fotos');
-      if (fotosInput && fotosInput.files.length > 0) {
-        for (let i = 0; i < Math.min(fotosInput.files.length, 5); i++) {
-          fd.append('foto_' + (i+1), fotosInput.files[i]);
-        }
-      }
+      var payload = {
+        '_replyto': tel,
+        '_subject': 'Nuevo cliente ClickSon: ' + empresa,
+        'Empresa': empresa,
+        'Representante': rep,
+        'Telefono': tel,
+        'Direccion': dir || 'No indicada',
+        'Tipo_de_web': tipo ? tipo.value : 'No seleccionado',
+        'Horario': horario || 'No indicado',
+        'Promociones': promo || 'No indicadas'
+      };
       await fetch('https://formspree.io/f/mqeneqdr', {
-        method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
       });
-    } catch(e) { console.log('Form send note:', e); }
+    } catch(e) { console.log('Form note:', e); }
 
     // ── Abrir WhatsApp con resumen ──
     let msg = '¡Hola ClickSon! Quiero mi página web 🚀\n\n';
