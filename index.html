@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNi4zLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA3OTIgNzkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA3OTIgNzkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDp1cmwoI1NWR0lEXzFfKTt9DQoJLnN0MXtmaWxsOnVybCgjU1ZHSURfMDAwMDAwNjk0MDAzNjQ5MjI4NTAzMDk4MzAwMDAwMDI1MDMzMzYxNTE2MzY5NjA2NzZfKTt9DQoJLnN0MntmaWxsOnVybCgjU1ZHSURfMDAwMDAxNjczNzM3MzI2NzQzMjY3OTY1MTAwMDAwMTQwNjgyOTMzNTcwOTQ3MDM1MjZfKTt9DQoJLnN0M3tmaWxsOnVybCgjU1ZHSURfMDAwMDAxMTA0NTMxOTgyMDk5MzY2MzMyNDAwMDAwMDgyNzM1MjA0NTkxMTgxODMwNDlfKTt9DQoJLnN0NHtmaWxsOnVybCgjU1ZHSURfMDAwMDAwOTAyNzA4NTQ3MjY0MzQ3NzgzMTAwMDAwMTc4NjI4MzcxODAzODMwMjIyNDRfKTt9DQoJLnN0NXtmaWxsOnVybCgjU1ZHSURfMDAwMDAxNDkzNTc0MTQ5MjYwNzY2NjA0MjAwMDAwMTI4MDA1MjUwMDY4MTEzMDAyODBfKTt9DQo8L3N0eWxlPg0KPGc+DQoJPGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8xXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIzNjguOTM2NCIgeTE9IjEyNy42NzcyIiB4Mj0iMzY4LjkzNjQiIHkyPSI3MTAuMjQ3MyI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjM1LjM0LDI2NC4zOWMtMS44MS0xOS4zMi05LjcyLTI4LjM5LTI4LjM1LTMzLjQyYy03LjIyLTEuOTUtMTAuNTMtMS4yMS03LjgzLDcuMzgNCgkJYzIuNDksNy45MSwzLjksMTYuMDgsMy45LDI0LjVjLTAuMDUsMTE3LjY5LDAuMDUsMjM1LjM5LTAuMDgsMzUzLjA4YzAsMC4yLTAuMDEsMC4zOS0wLjAxLDAuNTljLTYuNzQtMi43LTE1LjA0LTUuNzYtMjMuNDQtOC42NQ0KCQljLTQuNi0zLjYzLTkuMTgtNy4yOS0xMy42NS0xMS4wN2MtMTYuMzctMTMuODMtMzMuMy0xNS42My01Mi41OS02LjZjLTI0LjI0LDExLjM0LTQ3LjQ4LDI0LjU4LTcxLjQ3LDM2LjM2DQoJCWMtMTAuNDQsNS4xMy0yMC44LDEwLjUtMzEuODIsMTQuNDJjLTAuODMtMC40Ni0xLjY3LTAuOTItMi41MS0xLjM4Yy0xLTAuNTUtMi4wMS0xLTMuMDMtMS4zOWMwLjAyLTMwLjc3LTAuMDEtNjEuNTQtMC4xMS05Mi4zMg0KCQljLTAuMDEtMy4yMywxLjI4LTQuNTgsNC40OC00LjU0YzIuNzcsMC4wNCw1LjU2LTAuMTIsOC4zMy0wLjMxYzM3LjM2LTIuNTYsNjUuODUtMzIuNzcsNjUuOTItNzAuMDENCgkJYzAuMDgtMzkuODksMC4wNC03OS43OCwwLjAyLTExOS42N2MwLTMuMjYsMC4xOS02LjUxLTAuODUtOS43NWMtMy43Ny0xMS42OS0xNC42LTE4LjY4LTI2LjMtMTYuNzkNCgkJYy0xMS41LDEuODUtMTkuNjYsMTEuNjgtMTkuNjgsMjQuMjFjLTAuMDYsMzkuODksMC4wNiw3OS43OCwwLjAxLDExOS42N2MtMC4wMiwxNS0xNy4zNywyMy4yOC0zMi4xNywyOC4yNg0KCQljMC4zNS0xLjc2LDAuMzUtMy42NSwwLjM0LTUuNThjLTAuMDItNzUuMjQsMC4wMy0xNTAuNDctMC4wMi0yMjUuNzFjLTAuMDEtMTguNTMtMTIuOTEtMzIuMTMtMzAuMTItMzIuMTcNCgkJYy0xNy43NS0wLjA1LTMxLjEsMTMuNTgtMzEuMiwzMi4wNGMtMC4wOSwxNi40MSwwLjAxLDMyLjgyLDAuMDEsNDkuMjNjLTAuMDEsNTQuNTMtMC4xMiwxMDkuMDcsMC4wOCwxNjMuNg0KCQljMC4wMiw2LjA5LTEuOCw3LjMyLTcuNDMsNi4wNmMtMTUuOTYtMy41NS0yNS4xNy0xNC42LTI1LjItMzEuMmMtMC4wNi0zNC44NCwwLjA4LTY5LjY4LTAuMDMtMTA0LjUyDQoJCWMtMC4wNS0xNC4zOC05LjM4LTI0LjA1LTIyLjY3LTI0Yy0xMy44NiwwLjA0LTIzLjUyLDkuNzYtMjMuNTYsMjQuMDZjLTAuMSwzNS44NS0wLjA1LDcxLjctMC4xMSwxMDcuNTUNCgkJYy0wLjAyLDEzLjc5LDMuOTMsMjYuNDMsMTEuNiwzNy43NmMxNC42MSwyMS41OSwzNS44OSwzMS44NCw2MS4yLDM0LjUyYzQuMzEsMC40Niw2LjE5LDEuNCw2LjE1LDYuMTUNCgkJYy0wLjIsMjcuMjYtMC4xNiw1NC41My0wLjA2LDgxLjhjMC4wMSwxLjU3LTAuMTQsMi43MS0wLjUsMy41MWMtNi44OS00LjkyLTE0LjEzLTYuNjItMjEuODQtNS4yOWMtMi4zMi0wLjU5LTQuNjktMS4wMy03LjE2LTEuMTUNCgkJYy0xNC41Ni0wLjc0LTI3LjIyLDQuODQtMzkuNDQsMTEuNTFjLTcuNzcsNC4yNC0xNS40Nyw4LjU5LTIzLjIxLDEyLjg4bC00Ni43LTYuNTVjLTExLjg3LTIuODktMjEuOTUsMS44LTMxLjg5LDcuMTUNCgkJYy02LjA0LDMuMjUtMTEuOTQsNi43My0xNy44NywxMC4xOGMtNS45MywzLjQ1LTkuODEsMi0xMy4wMi00LjE4Yy00LjgzLTkuMjktNi4yLTE5LjAyLTYuMTktMjkuMzENCgkJYzAuMDgtMTIwLjIyLDAuMDItMjQwLjQ0LDAuMDctMzYwLjY2YzAuMDItNDEuNzUsMjQuMDgtNjUuNyw2Ni4xNy02NS43M2M4OC4wOS0wLjA3LDE3Ni4xOCwwLjAxLDI2NC4yNywwLjA2DQoJCWMxNi45LDAuMDEsMTYuOTksMC4xMywxMy4xMywxNi4xNWMtMS4xNCw0LjcyLTIuMTMsOS4zOCwyLjQ1LDEyLjg1YzQuMTIsMy4xMiw4LjI5LDEuNiwxMi4xNS0wLjY2DQoJCWMxOS4zMS0xMS4zLDM4Ljc0LTIyLjQyLDU3Ljc5LTM0LjE0YzkuMjQtNS42OSw5LjIzLTEyLjg0LDAuMTgtMTguNDhjLTE4Ljk4LTExLjgzLTM4LjI2LTIzLjE5LTU3LjQ0LTM0LjcNCgkJYy0zLjkzLTIuMzYtOC4wOS0zLjQyLTEyLjE5LTAuNTJjLTQuNTUsMy4yMy00LjQxLDcuNzMtMy4yNywxMi42NGMzLjU0LDE1LjM5LDMuNDcsMTUuNDktMTIuNjQsMTUuNQ0KCQljLTg5Ljg5LDAuMDQtMTc5Ljc5LTAuMDMtMjY5LjY4LDAuMDhjLTU0LjE2LDAuMDYtOTMuNTcsMzkuNTMtOTMuNTksOTMuNjVjLTAuMDQsMTIwLjU4LDAuODYsMjQxLjE3LTAuMzcsMzYxLjc0DQoJCWMtMC41MSw0OS42NywzOC4wOSw5Ny4xNCw5NC44Myw5Ny4xMmMxMTQuOC0wLjA0LDIyOS42MSwwLjMzLDM0NC40MS0wLjI1YzM4Ljc1LTAuMTksNjcuMzgtMTguNDksODQuNjgtNTMuNzMNCgkJYzcuNzEtMTUuNzEsOS4zMy0zMi41NSw5LjM1LTQ5LjU2YzAuMTUtMTEwLjgzLDAuMDgtMjIxLjY3LDAuMDgtMzMyLjVDNjM1LjYsMjcwLjg4LDYzNS42NCwyNjcuNjIsNjM1LjM0LDI2NC4zOXogTTMyNy41Nyw2NjAuMzQNCgkJYy0zLjMzLTAuNjYtNy4zMy0wLjA2LTEwLjEyLTQuOTZjMTMuMzEtNC41MiwxMy45Ny0xMC45OSwyLjc2LTE5LjE3Yy0zLjAyLTIuMjEtMC43My00LjgxLDEuMTYtNi45DQoJCWM1LjU1LDEuODQsMTIuNTIsNS4wMywyMi40OSw5LjU2YzYuOCwzLjA5LDEzLjY2LDYsMjAuNTYsOC43NGM0Ljg5LDMuNDEsMTAuMDgsNS45NywxNS42OCw1LjgxYzEzLjI3LDQuNjEsMjYuNzgsOC40Nyw0MC42MiwxMS40NA0KCQljLTAuMTIsMC4yNS0wLjIzLDAuNDktMC4zNSwwLjc0bC0zNC43Niw2LjE0QzM2Ni4yNyw2NjcuOTgsMzQ2LjkxLDY2NC4xOCwzMjcuNTcsNjYwLjM0eiBNMTcxLjIxLDY1NC45NQ0KCQljMTcuMzEtMTQuNDcsMzQuODQtMTIuNDgsNTMuNTYtMy4yNGMtOC43OSw0LjI2LTE3Ljc2LDguMTYtMjcuMDksMTEuMzdjLTguNDUsMi45MS0xNi42Myw2LjQ5LTI0LjY2LDEwLjQxDQoJCWMtMC4xMS0wLjA1LTAuMjMtMC4wOC0wLjM0LTAuMTNjLTUuMDctMi4zOS0xMi43My0zLjU2LTEzLjMyLTkuNTlDMTU4LjcxLDY1Ny4xNiwxNjcuMzQsNjU4LjE4LDE3MS4yMSw2NTQuOTV6IE0xODEsNjc0Ljg4DQoJCWMtMC45MiwwLjEtMS45LDAuMDUtMi44OC0wLjA1YzEyLjE3LTQuMTIsMjQuNjItNy4yNSwzNy4zNi05LjU0YzkuMDQtMS42MiwxNy44OC0zLjc4LDI2LjUzLTYuNWM2LjYyLDIuMjMsMTMuNjQsNC4zLDIxLjA4LDYuOTMNCgkJQzIzNC4yNSw2NjguOTgsMjA3LjY0LDY3Mi4wNSwxODEsNjc0Ljg4eiIvPg0KCQ0KCQk8bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzAwMDAwMTY1MjIwMTU0ODE0MjEwOTU3MDYwMDAwMDA4NjA5MTg4ODI3OTYyODIxNzgwXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSI2NjkuOTA3NyIgeTE9IjIwOS4zNjk0IiB4Mj0iNjY5LjkwNzciIHkyPSIyNjIuMTQ1NCI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzAwMDAwMTY1MjIwMTU0ODE0MjEwOTU3MDYwMDAwMDA4NjA5MTg4ODI3OTYyODIxNzgwXyk7IiBkPSJNNjkxLjgyLDI0MS41Nw0KCQljLTQuODItNC4zMi05LjY4LTguNi0xNC40Mi0xMy4wMWMtNS43OS01LjM5LTExLjIxLTExLjIyLTE3LjI5LTE2LjI3Yy00LjYyLTMuODQtMTAuMTEtNC4xLTE0LjY3LDAuNDENCgkJYy00LjIzLDQuMTktNC4zMSw5LjQ5LTAuNDIsMTMuNjJjMTEuMDksMTEuNzksMjIuMTgsMjMuNjMsMzUsMzMuNjJjMy43NSwyLjkyLDguMDksMi44MiwxMi4xNywwLjM3YzMuMjUtMS45NSw1LjM0LTQuNzcsNS40NS05LjIzDQoJCUM2OTcuMjMsMjQ3LjMzLDY5NC44NCwyNDQuMjgsNjkxLjgyLDI0MS41N3oiLz4NCgkNCgkJPGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8wMDAwMDAyMjUyNDMzODQ0NTMxNTYwMTY2MDAwMDAxNTIxNDUwNzE2MTE2NDExNzQzM18iIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iNjE2LjE2MjUiIHkxPSI2My4xNTk1IiB4Mj0iNjE2LjE2MjUiIHkyPSIxMjkuMzc5OSI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzAwMDAwMDIyNTI0MzM4NDQ1MzE1NjAxNjYwMDAwMDE1MjE0NTA3MTYxMTY0MTE3NDMzXyk7IiBkPSJNNjExLjk0LDEyOS4yNw0KCQljNy41NCwwLjkyLDExLjM0LTQuMTIsMTIuMzQtMTAuNzVjMi4wNC0xMy40NiwzLjQ3LTI3LjAyLDUuMTUtNDAuNTRjMC4yLTkuMjYtMi41OS0xNC4xNS05LjAxLTE0Ljc1DQoJCWMtOC40NS0wLjc5LTExLjQyLDUuMS0xMi40MiwxMS45Yy0xLjk4LDEzLjQ3LTMuNiwyNy4wMS00Ljk4LDQwLjU1QzYwMi4zNCwxMjIuMzEsNjA0LjIsMTI4LjMyLDYxMS45NCwxMjkuMjd6Ii8+DQoJDQoJCTxsaW5lYXJHcmFkaWVudCBpZD0iU1ZHSURfMDAwMDAxMTExODgxNTYwMDg4MjQxMDY5NzAwMDAwMDM5MjA0ODgxMTk1OTg4MTI2MDVfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjY4OS40MzUyIiB5MT0iMTcwLjM2MDEiIHgyPSI2ODkuNDM1MiIgeTI9IjE5Ni4zNjI5Ij4NCgkJPHN0b3AgIG9mZnNldD0iNC41Mjg2MjFlLTA3IiBzdHlsZT0ic3RvcC1jb2xvcjojRjM3NTI0Ii8+DQoJCTxzdG9wICBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNFMjRBMzUiLz4NCgk8L2xpbmVhckdyYWRpZW50Pg0KCTxwYXRoIHN0eWxlPSJmaWxsOnVybCgjU1ZHSURfMDAwMDAxMTExODgxNTYwMDg4MjQxMDY5NzAwMDAwMDM5MjA0ODgxMTk1OTg4MTI2MDVfKTsiIGQ9Ik03MTEuNTQsMTc0LjY4DQoJCWMtMTIuNDQtMS43MS0yNC45My0zLjAyLTM1LjY2LTQuMjljLTMuOTIsMC02LjA4LTAuMDgtOC4yMywwLjAyYy01LjM4LDAuMjQtMTAuNDcsMS42Ny0xMS4yNCw3LjgNCgkJYy0wLjc3LDYuMTEsMi44NCwxMC4yMyw4LjUyLDEyLjE3YzMuMDMsMS4wNCw2LjI2LDEuNjUsOS40NCwyLjAyYzExLjA1LDEuMjksMjIuMTUsMi4xOCwzMy4xNywzLjY0YzcuMjMsMC45NiwxMy4zOCwwLjIsMTQuOC04LjINCgkJQzcyMy42OSwxNzkuODMsNzE4Ljk0LDE3NS42OSw3MTEuNTQsMTc0LjY4eiIvPg0KCQ0KCQk8bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzAwMDAwMTA2ODU0NzU1ODA0Mjk2MDA3NjEwMDAwMDA1NjYwOTA2OTc4MDM0Nzg4NTE3XyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSI2NjkuOTI1NyIgeTE9Ijk5LjE4OTUiIHgyPSI2NjkuOTI1NyIgeTI9IjE0OS41MTA5Ij4NCgkJPHN0b3AgIG9mZnNldD0iNC41Mjg2MjFlLTA3IiBzdHlsZT0ic3RvcC1jb2xvcjojRjM3NTI0Ii8+DQoJCTxzdG9wICBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNFMjRBMzUiLz4NCgk8L2xpbmVhckdyYWRpZW50Pg0KCTxwYXRoIHN0eWxlPSJmaWxsOnVybCgjU1ZHSURfMDAwMDAxMDY4NTQ3NTU4MDQyOTYwMDc2MTAwMDAwMDU2NjA5MDY5NzgwMzQ3ODg1MTdfKTsiIGQ9Ik02NTMuMiwxNDkuNTENCgkJYzAuOTgtMC4zMSwyLjg4LTAuNTEsNC4zNi0xLjQyYzE0LjYxLTguOTEsMjYuMDQtMjEuNSwzNy45OS0zMy40MmMzLjQ3LTMuNDYsMi43MS04LjAzLTAuODItMTEuNjYNCgkJYy0zLjY4LTMuNzgtOC4yOS01LjE3LTEyLjc0LTIuMjZjLTEzLjkzLDkuMTEtMjUuMTksMjEuNDItMzcuNDksMzIuNDdjLTMuMTQsMi44Mi0zLjA2LDcuMjItMC45NiwxMS4wOQ0KCQlDNjQ1LjQzLDE0Ny43Niw2NDguNDcsMTQ5LjQ0LDY1My4yLDE0OS41MXoiLz4NCgkNCgkJPGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8wMDAwMDAwODg2NDc5NDgwMjgwOTY0Mzg4MDAwMDAxNjI4MzIzMDA4MTA4MTM1OTc2Ml8iIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iNTU4LjEyMjMiIHkxPSI4Ni4xNzQ1IiB4Mj0iNTU4LjEyMjMiIHkyPSIxNDAuODk2MSI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzAwMDAwMDA4ODY0Nzk0ODAyODA5NjQzODgwMDAwMDE2MjgzMjMwMDgxMDgxMzU5NzYyXyk7IiBkPSJNNTYzLjM1LDEzNi4yOA0KCQljNC4xNyw0Ljc3LDEwLDYuNTYsMTUuMzQsMS45MWM1LjU2LTQuODQsNS4xMi0xMC43NywwLjU1LTE2LjI5Yy04LjQ4LTEwLjI2LTE3LjA1LTIwLjQ0LTI1LjYyLTMwLjYyDQoJCWMtMi4zOS0yLjg0LTUuMzUtNC44LTkuMTktNS4wOWMtMy45NS0wLjE1LTYuOTksMS41MS05LjEyLDQuNzVjLTIuNzMsNC4xNC0yLjI3LDguNTgsMC41NiwxMi4xNA0KCQlDNTQ0Ljc5LDExNC4zMyw1NTMuODksMTI1LjQ2LDU2My4zNSwxMzYuMjh6Ii8+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8L3N2Zz4NCg==">
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNi4zLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA3OTIgNzkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA3OTIgNzkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDp1cmwoI1NWR0lEXzFfKTt9DQoJLnN0MXtmaWxsOnVybCgjU1ZHSURfMDAwMDAwNjk0MDAzNjQ5MjI4NTAzMDk4MzAwMDAwMDI1MDMzMzYxNTE2MzY5NjA2NzZfKTt9DQoJLnN0MntmaWxsOnVybCgjU1ZHSURfMDAwMDAxNjczNzM3MzI2NzQzMjY3OTY1MTAwMDAwMTQwNjgyOTMzNTcwOTQ3MDM1MjZfKTt9DQoJLnN0M3tmaWxsOnVybCgjU1ZHSURfMDAwMDAxMTA0NTMxOTgyMDk5MzY2MzMyNDAwMDAwMDgyNzM1MjA0NTkxMTgxODMwNDlfKTt9DQoJLnN0NHtmaWxsOnVybCgjU1ZHSURfMDAwMDAwOTAyNzA4NTQ3MjY0MzQ3NzgzMTAwMDAwMTc4NjI4MzcxODAzODMwMjIyNDRfKTt9DQoJLnN0NXtmaWxsOnVybCgjU1ZHSURfMDAwMDAxNDkzNTc0MTQ5MjYwNzY2NjA0MjAwMDAwMTI4MDA1MjUwMDY4MTEzMDAyODBfKTt9DQo8L3N0eWxlPg0KPGc+DQoJPGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8xXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIzNjguOTM2NCIgeTE9IjEyNy42NzcyIiB4Mj0iMzY4LjkzNjQiIHkyPSI3MTAuMjQ3MyI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjM1LjM0LDI2NC4zOWMtMS44MS0xOS4zMi05LjcyLTI4LjM5LTI4LjM1LTMzLjQyYy03LjIyLTEuOTUtMTAuNTMtMS4yMS03LjgzLDcuMzgNCgkJYzIuNDksNy45MSwzLjksMTYuMDgsMy45LDI0LjVjLTAuMDUsMTE3LjY5LDAuMDUsMjM1LjM5LTAuMDgsMzUzLjA4YzAsMC4yLTAuMDEsMC4zOS0wLjAxLDAuNTljLTYuNzQtMi43LTE1LjA0LTUuNzYtMjMuNDQtOC42NQ0KCQljLTQuNi0zLjYzLTkuMTgtNy4yOS0xMy42NS0xMS4wN2MtMTYuMzctMTMuODMtMzMuMy0xNS42My01Mi41OS02LjZjLTI0LjI0LDExLjM0LTQ3LjQ4LDI0LjU4LTcxLjQ3LDM2LjM2DQoJCWMtMTAuNDQsNS4xMy0yMC44LDEwLjUtMzEuODIsMTQuNDJjLTAuODMtMC40Ni0xLjY3LTAuOTItMi41MS0xLjM4Yy0xLTAuNTUtMi4wMS0xLTMuMDMtMS4zOWMwLjAyLTMwLjc3LTAuMDEtNjEuNTQtMC4xMS05Mi4zMg0KCQljLTAuMDEtMy4yMywxLjI4LTQuNTgsNC40OC00LjU0YzIuNzcsMC4wNCw1LjU2LTAuMTIsOC4zMy0wLjMxYzM3LjM2LTIuNTYsNjUuODUtMzIuNzcsNjUuOTItNzAuMDENCgkJYzAuMDgtMzkuODksMC4wNC03OS43OCwwLjAyLTExOS42N2MwLTMuMjYsMC4xOS02LjUxLTAuODUtOS43NWMtMy43Ny0xMS42OS0xNC42LTE4LjY4LTI2LjMtMTYuNzkNCgkJYy0xMS41LDEuODUtMTkuNjYsMTEuNjgtMTkuNjgsMjQuMjFjLTAuMDYsMzkuODksMC4wNiw3OS43OCwwLjAxLDExOS42N2MtMC4wMiwxNS0xNy4zNywyMy4yOC0zMi4xNywyOC4yNg0KCQljMC4zNS0xLjc2LDAuMzUtMy42NSwwLjM0LTUuNThjLTAuMDItNzUuMjQsMC4wMy0xNTAuNDctMC4wMi0yMjUuNzFjLTAuMDEtMTguNTMtMTIuOTEtMzIuMTMtMzAuMTItMzIuMTcNCgkJYy0xNy43NS0wLjA1LTMxLjEsMTMuNTgtMzEuMiwzMi4wNGMtMC4wOSwxNi40MSwwLjAxLDMyLjgyLDAuMDEsNDkuMjNjLTAuMDEsNTQuNTMtMC4xMiwxMDkuMDcsMC4wOCwxNjMuNg0KCQljMC4wMiw2LjA5LTEuOCw3LjMyLTcuNDMsNi4wNmMtMTUuOTYtMy41NS0yNS4xNy0xNC42LTI1LjItMzEuMmMtMC4wNi0zNC44NCwwLjA4LTY5LjY4LTAuMDMtMTA0LjUyDQoJCWMtMC4wNS0xNC4zOC05LjM4LTI0LjA1LTIyLjY3LTI0Yy0xMy44NiwwLjA0LTIzLjUyLDkuNzYtMjMuNTYsMjQuMDZjLTAuMSwzNS44NS0wLjA1LDcxLjctMC4xMSwxMDcuNTUNCgkJYy0wLjAyLDEzLjc5LDMuOTMsMjYuNDMsMTEuNiwzNy43NmMxNC42MSwyMS41OSwzNS44OSwzMS44NCw2MS4yLDM0LjUyYzQuMzEsMC40Niw2LjE5LDEuNCw2LjE1LDYuMTUNCgkJYy0wLjIsMjcuMjYtMC4xNiw1NC41My0wLjA2LDgxLjhjMC4wMSwxLjU3LTAuMTQsMi43MS0wLjUsMy41MWMtNi44OS00LjkyLTE0LjEzLTYuNjItMjEuODQtNS4yOWMtMi4zMi0wLjU5LTQuNjktMS4wMy03LjE2LTEuMTUNCgkJYy0xNC41Ni0wLjc0LTI3LjIyLDQuODQtMzkuNDQsMTEuNTFjLTcuNzcsNC4yNC0xNS40Nyw4LjU5LTIzLjIxLDEyLjg4bC00Ni43LTYuNTVjLTExLjg3LTIuODktMjEuOTUsMS44LTMxLjg5LDcuMTUNCgkJYy02LjA0LDMuMjUtMTEuOTQsNi43My0xNy44NywxMC4xOGMtNS45MywzLjQ1LTkuODEsMi0xMy4wMi00LjE4Yy00LjgzLTkuMjktNi4yLTE5LjAyLTYuMTktMjkuMzENCgkJYzAuMDgtMTIwLjIyLDAuMDItMjQwLjQ0LDAuMDctMzYwLjY2YzAuMDItNDEuNzUsMjQuMDgtNjUuNyw2Ni4xNy02NS43M2M4OC4wOS0wLjA3LDE3Ni4xOCwwLjAxLDI2NC4yNywwLjA2DQoJCWMxNi45LDAuMDEsMTYuOTksMC4xMywxMy4xMywxNi4xNWMtMS4xNCw0LjcyLTIuMTMsOS4zOCwyLjQ1LDEyLjg1YzQuMTIsMy4xMiw4LjI5LDEuNiwxMi4xNS0wLjY2DQoJCWMxOS4zMS0xMS4zLDM4Ljc0LTIyLjQyLDU3Ljc5LTM0LjE0YzkuMjQtNS42OSw5LjIzLTEyLjg0LDAuMTgtMTguNDhjLTE4Ljk4LTExLjgzLTM4LjI2LTIzLjE5LTU3LjQ0LTM0LjcNCgkJYy0zLjkzLTIuMzYtOC4wOS0zLjQyLTEyLjE5LTAuNTJjLTQuNTUsMy4yMy00LjQxLDcuNzMtMy4yNywxMi42NGMzLjU0LDE1LjM5LDMuNDcsMTUuNDktMTIuNjQsMTUuNQ0KCQljLTg5Ljg5LDAuMDQtMTc5Ljc5LTAuMDMtMjY5LjY4LDAuMDhjLTU0LjE2LDAuMDYtOTMuNTcsMzkuNTMtOTMuNTksOTMuNjVjLTAuMDQsMTIwLjU4LDAuODYsMjQxLjE3LTAuMzcsMzYxLjc0DQoJCWMtMC41MSw0OS42NywzOC4wOSw5Ny4xNCw5NC44Myw5Ny4xMmMxMTQuOC0wLjA0LDIyOS42MSwwLjMzLDM0NC40MS0wLjI1YzM4Ljc1LTAuMTksNjcuMzgtMTguNDksODQuNjgtNTMuNzMNCgkJYzcuNzEtMTUuNzEsOS4zMy0zMi41NSw5LjM1LTQ5LjU2YzAuMTUtMTEwLjgzLDAuMDgtMjIxLjY3LDAuMDgtMzMyLjVDNjM1LjYsMjcwLjg4LDYzNS42NCwyNjcuNjIsNjM1LjM0LDI2NC4zOXogTTMyNy41Nyw2NjAuMzQNCgkJYy0zLjMzLTAuNjYtNy4zMy0wLjA2LTEwLjEyLTQuOTZjMTMuMzEtNC41MiwxMy45Ny0xMC45OSwyLjc2LTE5LjE3Yy0zLjAyLTIuMjEtMC43My00LjgxLDEuMTYtNi45DQoJCWM1LjU1LDEuODQsMTIuNTIsNS4wMywyMi40OSw5LjU2YzYuOCwzLjA5LDEzLjY2LDYsMjAuNTYsOC43NGM0Ljg5LDMuNDEsMTAuMDgsNS45NywxNS42OCw1LjgxYzEzLjI3LDQuNjEsMjYuNzgsOC40Nyw0MC42MiwxMS40NA0KCQljLTAuMTIsMC4yNS0wLjIzLDAuNDktMC4zNSwwLjc0bC0zNC43Niw2LjE0QzM2Ni4yNyw2NjcuOTgsMzQ2LjkxLDY2NC4xOCwzMjcuNTcsNjYwLjM0eiBNMTcxLjIxLDY1NC45NQ0KCQljMTcuMzEtMTQuNDcsMzQuODQtMTIuNDgsNTMuNTYtMy4yNGMtOC43OSw0LjI2LTE3Ljc2LDguMTYtMjcuMDksMTEuMzdjLTguNDUsMi45MS0xNi42Myw2LjQ5LTI0LjY2LDEwLjQxDQoJCWMtMC4xMS0wLjA1LTAuMjMtMC4wOC0wLjM0LTAuMTNjLTUuMDctMi4zOS0xMi43My0zLjU2LTEzLjMyLTkuNTlDMTU4LjcxLDY1Ny4xNiwxNjcuMzQsNjU4LjE4LDE3MS4yMSw2NTQuOTV6IE0xODEsNjc0Ljg4DQoJCWMtMC45MiwwLjEtMS45LDAuMDUtMi44OC0wLjA1YzEyLjE3LTQuMTIsMjQuNjItNy4yNSwzNy4zNi05LjU0YzkuMDQtMS42MiwxNy44OC0zLjc4LDI2LjUzLTYuNWM2LjYyLDIuMjMsMTMuNjQsNC4zLDIxLjA4LDYuOTMNCgkJQzIzNC4yNSw2NjguOTgsMjA3LjY0LDY3Mi4wNSwxODEsNjc0Ljg4eiIvPg0KCQ0KCQk8bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzAwMDAwMTY1MjIwMTU0ODE0MjEwOTU3MDYwMDAwMDA4NjA5MTg4ODI3OTYyODIxNzgwXyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSI2NjkuOTA3NyIgeTE9IjIwOS4zNjk0IiB4Mj0iNjY5LjkwNzciIHkyPSIyNjIuMTQ1NCI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzAwMDAwMTY1MjIwMTU0ODE0MjEwOTU3MDYwMDAwMDA4NjA5MTg4ODI3OTYyODIxNzgwXyk7IiBkPSJNNjkxLjgyLDI0MS41Nw0KCQljLTQuODItNC4zMi05LjY4LTguNi0xNC40Mi0xMy4wMWMtNS43OS01LjM5LTExLjIxLTExLjIyLTE3LjI5LTE2LjI3Yy00LjYyLTMuODQtMTAuMTEtNC4xLTE0LjY3LDAuNDENCgkJYy00LjIzLDQuMTktNC4zMSw5LjQ5LTAuNDIsMTMuNjJjMTEuMDksMTEuNzksMjIuMTgsMjMuNjMsMzUsMzMuNjJjMy43NSwyLjkyLDguMDksMi44MiwxMi4xNywwLjM3YzMuMjUtMS45NSw1LjM0LTQuNzcsNS40NS05LjIzDQoJCUM2OTcuMjMsMjQ3LjMzLDY5NC44NCwyNDQuMjgsNjkxLjgyLDI0MS41N3oiLz4NCgkNCgkJPGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8wMDAwMDAyMjUyNDMzODQ0NTMxNTYwMTY2MDAwMDAxNTIxNDUwNzE2MTE2NDExNzQzM18iIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iNjE2LjE2MjUiIHkxPSI2My4xNTk1IiB4Mj0iNjE2LjE2MjUiIHkyPSIxMjkuMzc5OSI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzAwMDAwMDIyNTI0MzM4NDQ1MzE1NjAxNjYwMDAwMDE1MjE0NTA3MTYxMTY0MTE3NDMzXyk7IiBkPSJNNjExLjk0LDEyOS4yNw0KCQljNy41NCwwLjkyLDExLjM0LTQuMTIsMTIuMzQtMTAuNzVjMi4wNC0xMy40NiwzLjQ3LTI3LjAyLDUuMTUtNDAuNTRjMC4yLTkuMjYtMi41OS0xNC4xNS05LjAxLTE0Ljc1DQoJCWMtOC40NS0wLjc5LTExLjQyLDUuMS0xMi40MiwxMS45Yy0xLjk4LDEzLjQ3LTMuNiwyNy4wMS00Ljk4LDQwLjU1QzYwMi4zNCwxMjIuMzEsNjA0LjIsMTI4LjMyLDYxMS45NCwxMjkuMjd6Ii8+DQoJDQoJCTxsaW5lYXJHcmFkaWVudCBpZD0iU1ZHSURfMDAwMDAxMTExODgxNTYwMDg4MjQxMDY5NzAwMDAwMDM5MjA0ODgxMTk1OTg4MTI2MDVfIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjY4OS40MzUyIiB5MT0iMTcwLjM2MDEiIHgyPSI2ODkuNDM1MiIgeTI9IjE5Ni4zNjI5Ij4NCgkJPHN0b3AgIG9mZnNldD0iNC41Mjg2MjFlLTA3IiBzdHlsZT0ic3RvcC1jb2xvcjojRjM3NTI0Ii8+DQoJCTxzdG9wICBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNFMjRBMzUiLz4NCgk8L2xpbmVhckdyYWRpZW50Pg0KCTxwYXRoIHN0eWxlPSJmaWxsOnVybCgjU1ZHSURfMDAwMDAxMTExODgxNTYwMDg4MjQxMDY5NzAwMDAwMDM5MjA0ODgxMTk1OTg4MTI2MDVfKTsiIGQ9Ik03MTEuNTQsMTc0LjY4DQoJCWMtMTIuNDQtMS43MS0yNC45My0zLjAyLTM1LjY2LTQuMjljLTMuOTIsMC02LjA4LTAuMDgtOC4yMywwLjAyYy01LjM4LDAuMjQtMTAuNDcsMS42Ny0xMS4yNCw3LjgNCgkJYy0wLjc3LDYuMTEsMi44NCwxMC4yMyw4LjUyLDEyLjE3YzMuMDMsMS4wNCw2LjI2LDEuNjUsOS40NCwyLjAyYzExLjA1LDEuMjksMjIuMTUsMi4xOCwzMy4xNywzLjY0YzcuMjMsMC45NiwxMy4zOCwwLjIsMTQuOC04LjINCgkJQzcyMy42OSwxNzkuODMsNzE4Ljk0LDE3NS42OSw3MTEuNTQsMTc0LjY4eiIvPg0KCQ0KCQk8bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzAwMDAwMTA2ODU0NzU1ODA0Mjk2MDA3NjEwMDAwMDA1NjYwOTA2OTc4MDM0Nzg4NTE3XyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSI2NjkuOTI1NyIgeTE9Ijk5LjE4OTUiIHgyPSI2NjkuOTI1NyIgeTI9IjE0OS41MTA5Ij4NCgkJPHN0b3AgIG9mZnNldD0iNC41Mjg2MjFlLTA3IiBzdHlsZT0ic3RvcC1jb2xvcjojRjM3NTI0Ii8+DQoJCTxzdG9wICBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNFMjRBMzUiLz4NCgk8L2xpbmVhckdyYWRpZW50Pg0KCTxwYXRoIHN0eWxlPSJmaWxsOnVybCgjU1ZHSURfMDAwMDAxMDY4NTQ3NTU4MDQyOTYwMDc2MTAwMDAwMDU2NjA5MDY5NzgwMzQ3ODg1MTdfKTsiIGQ9Ik02NTMuMiwxNDkuNTENCgkJYzAuOTgtMC4zMSwyLjg4LTAuNTEsNC4zNi0xLjQyYzE0LjYxLTguOTEsMjYuMDQtMjEuNSwzNy45OS0zMy40MmMzLjQ3LTMuNDYsMi43MS04LjAzLTAuODItMTEuNjYNCgkJYy0zLjY4LTMuNzgtOC4yOS01LjE3LTEyLjc0LTIuMjZjLTEzLjkzLDkuMTEtMjUuMTksMjEuNDItMzcuNDksMzIuNDdjLTMuMTQsMi44Mi0zLjA2LDcuMjItMC45NiwxMS4wOQ0KCQlDNjQ1LjQzLDE0Ny43Niw2NDguNDcsMTQ5LjQ0LDY1My4yLDE0OS41MXoiLz4NCgkNCgkJPGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8wMDAwMDAwODg2NDc5NDgwMjgwOTY0Mzg4MDAwMDAxNjI4MzIzMDA4MTA4MTM1OTc2Ml8iIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iNTU4LjEyMjMiIHkxPSI4Ni4xNzQ1IiB4Mj0iNTU4LjEyMjMiIHkyPSIxNDAuODk2MSI+DQoJCTxzdG9wICBvZmZzZXQ9IjQuNTI4NjIxZS0wNyIgc3R5bGU9InN0b3AtY29sb3I6I0YzNzUyNCIvPg0KCQk8c3RvcCAgb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojRTI0QTM1Ii8+DQoJPC9saW5lYXJHcmFkaWVudD4NCgk8cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzAwMDAwMDA4ODY0Nzk0ODAyODA5NjQzODgwMDAwMDE2MjgzMjMwMDgxMDgxMzU5NzYyXyk7IiBkPSJNNTYzLjM1LDEzNi4yOA0KCQljNC4xNyw0Ljc3LDEwLDYuNTYsMTUuMzQsMS45MWM1LjU2LTQuODQsNS4xMi0xMC43NywwLjU1LTE2LjI5Yy04LjQ4LTEwLjI2LTE3LjA1LTIwLjQ0LTI1LjYyLTMwLjYyDQoJCWMtMi4zOS0yLjg0LTUuMzUtNC44LTkuMTktNS4wOWMtMy45NS0wLjE1LTYuOTksMS41MS05LjEyLDQuNzVjLTIuNzMsNC4xNC0yLjI3LDguNTgsMC41NiwxMi4xNA0KCQlDNTQ0Ljc5LDExNC4zMyw1NTMuODksMTI1LjQ2LDU2My4zNSwxMzYuMjh6Ii8+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8L3N2Zz4NCg==">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClickSon – Tu Web en Corto | Ciudad Obregón, Sonora</title>
+<meta name="description" content="Páginas web profesionales para negocios locales en Ciudad Obregón, Sonora. Entrega en 48 horas. Desde $2,700 MXN. Menú digital, catálogos y landing pages.">
+<meta name="keywords" content="páginas web Ciudad Obregón, diseño web Sonora, web para negocios locales, página web 48 horas, diseño web Cajeme, ClickSon">
+<meta name="author" content="ClickSon">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://clickson.mx/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://clickson.mx/">
+<meta property="og:title" content="ClickSon – Tu Web en Corto | Ciudad Obregón">
+<meta property="og:description" content="Páginas web profesionales para negocios locales en menos de 48 horas. Desde $2,700 MXN.">
+<meta property="og:image" content="https://clickson.mx/og-image.jpg">
+<meta property="og:locale" content="es_MX">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ClickSon – Tu Web en Corto">
+<meta name="twitter:description" content="Tu negocio en línea en 48 horas. Ciudad Obregón, Sonora.">
+
+<!-- Schema.org Local Business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "ClickSon",
+  "description": "Páginas web profesionales para negocios locales en Ciudad Obregón, Sonora. Entrega en 48 horas.",
+  "url": "https://clickson.mx",
+  "telephone": "+52-644 155 0412",
+  "email": "hola@clickson.mx",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ciudad Obregón",
+    "addressRegion": "Sonora",
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "27.4827",
+    "longitude": "-109.9308"
+  },
+  "openingHours": "Mo-Sa 09:00-20:00",
+  "priceRange": "$$",
+  "areaServed": "Ciudad Obregón, Sonora, México",
+  "serviceType": ["Diseño web", "Páginas web", "Landing pages", "Menú digital", "Catálogo digital"],
+  "sameAs": []
+}
+
+// ══ FAQ TOGGLE ══
+function toggleFaq(qEl) {
+  var item = qEl.parentElement;
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+
+<!-- Google Analytics placeholder -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF5C00;
+    --red: #FF3D00;
+    --orange-light: #FF8C00;
+    --bg: #000000;
+    --bg2: #0a0a0a;
+    --bg3: #111111;
+    --text: #f0e8dc;
+    --text-muted: #9a8a78;
+    --glow: 0 0 40px rgba(255,92,0,0.4);
+    --glow-sm: 0 0 20px rgba(255,92,0,0.3);
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,92,0,0.15);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 14px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.92), transparent);
+    backdrop-filter: blur(4px);
+    transition: background 0.3s, border-bottom 0.3s;
+  }
+  .nav-logo svg { height: 40px; width: auto; display: block; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    color: #fff; border: none; padding: 10px 24px; border-radius: 6px;
+    font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; text-decoration: none; transition: all 0.3s ease; box-shadow: var(--glow-sm);
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--glow); }
+
+  /* HERO */
+  #hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden; padding: 100px 5% 60px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 120%, rgba(255,92,0,0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(255,61,0,0.08) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,92,0,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,92,0,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+    mask-image: linear-gradient(to top, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
+  @keyframes gridShift { 0% { transform: translateY(0); } 100% { transform: translateY(60px); } }
+  .hero-desert {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 45%; opacity: 0.35; pointer-events: none;
+  }
+  .particles { position: absolute; inset: 0; pointer-events: none; }
+  .particle {
+    position: absolute; width: 2px; height: 2px; background: var(--orange);
+    border-radius: 50%; animation: float linear infinite; opacity: 0;
+  }
+  @keyframes float {
+    0% { opacity: 0; transform: translateY(0) scale(1); }
+    10% { opacity: 1; } 90% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateY(-120vh) scale(0); }
+  }
+
+  /* Hero Logo */
+  .hero-logo-wrap {
+    position: relative; z-index: 2;
+    margin-bottom: 36px;
+    animation: fadeSlideDown 0.8s ease forwards;
+    background: transparent;
+  }
+  .hero-logo-wrap svg {
+    width: min(540px, 82vw);
+    height: auto;
+    display: block;
+    background: transparent;
+    filter: drop-shadow(0 0 36px rgba(255,92,0,0.5));
+    animation: logoPulse 4s ease-in-out infinite;
+  }
+  @keyframes logoPulse {
+    0%, 100% { filter: drop-shadow(0 0 28px rgba(255,92,0,0.45)); }
+    50% { filter: drop-shadow(0 0 56px rgba(255,92,0,0.75)); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2; text-align: center; max-width: 900px;
+  }
+  .hero-badge {
+    display: inline-block; background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 50px; padding: 7px 20px; font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--orange-light);
+    margin-bottom: 22px; backdrop-filter: blur(10px);
+    animation: fadeSlideDown 0.8s 0.1s ease both;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.94; letter-spacing: 2px; margin-bottom: 22px;
+    animation: fadeSlideDown 0.8s 0.2s ease both;
+  }
+  .hero-title .grad {
+    background: linear-gradient(90deg, var(--orange), var(--red));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 25px rgba(255,92,0,0.5));
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem); color: var(--text-muted);
+    max-width: 540px; margin: 0 auto 36px; line-height: 1.65;
+    animation: fadeSlideDown 0.8s 0.3s ease both;
+  }
+  .hero-sub strong { color: var(--text); }
+  .hero-ctas {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeSlideDown 0.8s 0.4s ease both;
+  }
+  .hero-stats {
+    display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
+    margin-top: 64px; animation: fadeSlideDown 0.8s 0.55s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem;
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+
+  @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-22px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SHARED */
+  section { padding: 100px 5%; }
+  .section-label {
+    display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 16px;
+    position: relative; padding-left: 20px;
+  }
+  .section-label::before {
+    content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 10px; height: 2px; background: var(--orange);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 0.95; letter-spacing: 1px; margin-bottom: 20px;
+  }
+  .section-title span { background: linear-gradient(90deg, var(--orange), var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 560px; line-height: 1.7; }
+  .divider { width: 80px; height: 3px; background: linear-gradient(90deg, var(--orange), var(--red)); border-radius: 2px; margin: 16px 0 0; }
+  .divider.center { margin: 16px auto 0; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--orange), var(--red)); color: #fff; border: none;
+    padding: 16px 40px; border-radius: 8px; font-family: 'Barlow', sans-serif;
+    font-weight: 800; font-size: 1rem; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(255,92,0,0.45);
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(255,255,255,0.15),transparent); opacity:0; transition:opacity 0.3s; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 50px rgba(255,92,0,0.65); }
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-secondary {
+    background: transparent; color: var(--text); border: 1px solid rgba(255,92,0,0.3);
+    padding: 16px 40px; border-radius: 8px; font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 1rem; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: all 0.3s ease;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); background: rgba(255,92,0,0.05); }
+
+  /* PROBLEMA */
+  #problema { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); text-align: center; }
+  #problema .section-title { max-width: 700px; margin: 0 auto 20px; }
+  #problema .section-sub { margin: 0 auto 60px; }
+  .problema-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; }
+  .problema-card {
+    background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px;
+    padding: 36px 28px; backdrop-filter: blur(10px); transition: all 0.4s ease; position: relative; overflow: hidden;
+  }
+  .problema-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--orange),transparent); opacity:0; transition:opacity 0.4s; }
+  .problema-card:hover { border-color: rgba(255,92,0,0.35); transform: translateY(-4px); box-shadow: var(--glow-sm); }
+  .problema-card:hover::before { opacity: 1; }
+  .problema-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+  .problema-card h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.3rem; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
+  .problema-card p { font-size:0.9rem; color:var(--text-muted); line-height:1.65; }
+
+  /* SOLUCIÓN */
+  #solucion { background: var(--bg2); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  @media (max-width:768px) { #solucion { grid-template-columns:1fr; gap:48px; } }
+  .solucion-visual { position: relative; }
+  .phone-mockup { background:linear-gradient(145deg,#1a1a1a,#0d0d0d); border:1px solid rgba(255,255,255,0.1); border-radius:32px; padding:12px; max-width:280px; margin:0 auto; box-shadow:0 30px 80px rgba(0,0,0,0.5),var(--glow); }
+  .phone-screen { background:linear-gradient(135deg,#1a1a1a,#111); border-radius:24px; overflow:hidden; aspect-ratio:9/16; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center; }
+  .phone-bar { height:3px; background:linear-gradient(90deg,var(--orange),var(--red)); border-radius:2px; margin-bottom:16px; }
+  .phone-title-block { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; background:linear-gradient(90deg,var(--orange),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; }
+  .phone-lines { display:flex; flex-direction:column; gap:6px; margin:16px 0; width:100%; }
+  .phone-line { height:6px; background:rgba(255,255,255,0.08); border-radius:3px; }
+  .phone-line.short { width:60%; margin:0 auto; }
+  .phone-btn { background:linear-gradient(135deg,var(--orange),var(--red)); border-radius:6px; padding:8px 20px; font-size:0.7rem; font-weight:700; color:#fff; margin-top:12px; display:inline-block; }
+  .solucion-badge { position:absolute; background:linear-gradient(135deg,var(--orange),var(--red)); color:#fff; padding:10px 18px; border-radius:10px; font-weight:800; font-size:0.85rem; box-shadow:var(--glow); animation:bobble 3s ease-in-out infinite; }
+  .badge-time { top:10%; right:-5%; }
+  .badge-price { bottom:15%; left:-5%; }
+  @keyframes bobble { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+  .solucion-features { list-style:none; margin-top:32px; }
+  .solucion-features li { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.95rem; color:var(--text-muted); line-height:1.5; }
+  .solucion-features li .icon { width:28px; height:28px; background:linear-gradient(135deg,var(--orange),var(--red)); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; margin-top:1px; }
+  .solucion-features li strong { color:var(--text); }
+
+  /* BENEFICIOS */
+  #beneficios { background:var(--bg); text-align:center; }
+  #beneficios .section-title { max-width:600px; margin:0 auto 16px; }
+  #beneficios .section-sub { margin:0 auto 64px; }
+
+  /* DEMOS */
+  #demos { background:var(--bg2); }
+  #demos .header-wrap { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; margin-bottom:56px; }
+  .demos-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px; }
+  .demo-card { border-radius:20px; overflow:hidden; border:1px solid var(--glass-border); background:var(--bg3); transition:all 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .demo-card:hover { transform:translateY(-6px); box-shadow:0 24px 60px rgba(255,92,0,0.15); border-color:rgba(255,92,0,0.35); }
+  .demo-preview { aspect-ratio:16/10; position:relative; overflow:hidden; }
+  .demo-preview-inner { width:100%; height:100%; display:flex; flex-direction:column; }
+  .demo-nav-bar { height:28px; display:flex; align-items:center; gap:6px; padding:0 12px; background:rgba(255,255,255,0.04); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .dot { width:6px; height:6px; border-radius:50%; }
+  .dot.r{background:#ff5f57;} .dot.y{background:#ffbd2e;} .dot.g{background:#28c941;}
+  .demo-site-hero { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20px; position:relative; }
+  .demo-restaurant .demo-site-hero { background:linear-gradient(135deg,#1a0a00,#2d1000); }
+  .demo-restaurant .demo-site-hero::before { content:'🌮'; font-size:3.5rem; position:absolute; top:12px; right:16px; opacity:0.3; }
+  .demo-estetica .demo-site-hero { background:linear-gradient(135deg,#0a0015,#1a0a2e); }
+  .demo-estetica .demo-site-hero::before { content:'✂️'; font-size:3.5rem; position:absolute; top:12px; right:16px; opacity:0.3; }
+  .demo-doctor .demo-site-hero { background:linear-gradient(135deg,#00100a,#001e15); }
+  .demo-doctor .demo-site-hero::before { content:'🩺'; font-size:3.5rem; position:absolute; top:12px; right:16px; opacity:0.3; }
+  .demo-site-brand { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:2px; margin-bottom:6px; }
+  .demo-site-sub { font-size:0.65rem; opacity:0.6; letter-spacing:1px; margin-bottom:14px; }
+  .demo-site-cta { font-size:0.65rem; font-weight:700; padding:5px 14px; border-radius:4px; background:linear-gradient(135deg,var(--orange),var(--red)); color:#fff; }
+  .demo-info { padding:24px; }
+  .demo-tag { display:inline-block; background:linear-gradient(135deg,var(--orange),var(--red)); color:#fff; font-size:0.7rem; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; padding:4px 12px; border-radius:4px; margin-bottom:10px; }
+  .demo-info h3 { font-family:'Barlow Condensed',sans-serif; font-size:1.4rem; font-weight:900; text-transform:uppercase; margin-bottom:8px; }
+  .demo-info p { font-size:0.85rem; color:var(--text-muted); margin-bottom:20px; line-height:1.5; }
+  .demo-btns { display:flex; gap:10px; flex-wrap:wrap; }
+  .btn-demo { flex:1; min-width:100px; background:transparent; border:1px solid rgba(255,92,0,0.3); color:var(--text); padding:10px 14px; border-radius:7px; font-family:'Barlow',sans-serif; font-weight:600; font-size:0.82rem; cursor:pointer; text-align:center; transition:all 0.3s; text-decoration:none; }
+  .btn-demo:hover { border-color:var(--orange); color:var(--orange); background:rgba(255,92,0,0.05); }
+  .btn-demo.primary { background:linear-gradient(135deg,var(--orange),var(--red)); border-color:transparent; color:#fff; box-shadow:0 4px 20px rgba(255,92,0,0.3); }
+  .btn-demo.primary:hover { box-shadow:0 6px 30px rgba(255,92,0,0.5); transform:translateY(-1px); }
+
+  /* PAQUETES */
+  #paquetes { background:var(--bg); text-align:center; }
+  #paquetes .section-title { max-width:600px; margin:0 auto 16px; }
+  #paquetes .section-sub { margin:0 auto 64px; }
+  .paquetes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; max-width:960px; margin:0 auto; }
+  .paquete-card { background:var(--glass); border:1px solid var(--glass-border); border-radius:20px; padding:40px 32px; backdrop-filter:blur(10px); transition:all 0.4s ease; position:relative; text-align:left; }
+  .paquete-card.featured { background:linear-gradient(145deg,rgba(255,92,0,0.1),rgba(255,61,0,0.05)); border-color:rgba(255,92,0,0.5); box-shadow:0 0 60px rgba(255,92,0,0.1); }
+  .paquete-card:hover { transform:translateY(-6px); }
+  .paquete-card.featured:hover { box-shadow:0 20px 60px rgba(255,92,0,0.25); }
+  .paquete-badge { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--orange),var(--red)); color:#fff; padding:5px 18px; border-radius:20px; font-size:0.72rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; white-space:nowrap; }
+  .paquete-name { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:2px; margin-bottom:4px; }
+  .paquete-desc { font-size:0.82rem; color:var(--text-muted); margin-bottom:24px; }
+  .paquete-price { margin-bottom:28px; border-bottom:1px solid rgba(255,255,255,0.07); padding-bottom:28px; }
+  .price-desde { font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; }
+  .price-num { font-family:'Bebas Neue',sans-serif; font-size:3.5rem; line-height:1; background:linear-gradient(135deg,var(--orange),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .price-currency { font-size:1.4rem; vertical-align:super; margin-right:2px; }
+  .price-period { font-size:0.78rem; color:var(--text-muted); }
+  .paquete-features { list-style:none; margin-bottom:32px; }
+  .paquete-features li { padding:9px 0; font-size:0.88rem; color:var(--text-muted); display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .paquete-features li::before { content:'✓'; color:var(--orange); font-weight:800; font-size:0.9rem; flex-shrink:0; }
+  .paquete-features li strong { color:var(--text); }
+
+  /* PROCESO */
+  #proceso { background:var(--bg2); text-align:center; }
+  #proceso .section-title { max-width:500px; margin:0 auto 16px; }
+  #proceso .section-sub { margin:0 auto 72px; }
+  @media (max-width:768px) { }
+
+  /* TESTIMONIOS */
+  #testimonios { background:var(--bg); }
+  #testimonios .header-wrap { text-align:center; margin-bottom:56px; }
+  .testimonios-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; max-width:960px; margin:0 auto; }
+  .testimonio-card { background:var(--glass); border:1px solid var(--glass-border); border-radius:20px; padding:32px; backdrop-filter:blur(10px); transition:all 0.4s ease; }
+  .testimonio-card:hover { border-color:rgba(255,92,0,0.35); transform:translateY(-4px); }
+  .stars { color:var(--orange); font-size:1rem; letter-spacing:2px; margin-bottom:16px; }
+  .testimonio-text { font-size:0.92rem; color:var(--text-muted); line-height:1.7; margin-bottom:24px; font-style:italic; }
+  .testimonio-author { display:flex; align-items:center; gap:14px; }
+  .author-avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--orange),var(--red)); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1rem; color:#fff; flex-shrink:0; }
+  .author-name { font-weight:700; font-size:0.9rem; color:var(--text); }
+  .author-biz { font-size:0.78rem; color:var(--text-muted); }
+
+  /* ── FORMULARIO ── */
+  #formulario { background: var(--bg2); }
+  #formulario .section-title { max-width:700px; }
+  .form-wrap {
+    max-width: 760px; margin: 56px auto 0;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 24px; padding: 48px 40px; backdrop-filter: blur(12px);
+    box-shadow: 0 0 60px rgba(255,92,0,0.07);
+  }
+  @media(max-width:600px){ .form-wrap{ padding:32px 20px; } }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){ .form-row{ grid-template-columns:1fr; } }
+  .form-group { margin-bottom:20px; }
+  .form-group label {
+    display:block; font-size:0.78rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:1.5px; color:var(--orange-light); margin-bottom:8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width:100%; background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,92,0,0.2); border-radius:10px;
+    padding:13px 16px; color:var(--text); font-family:'Barlow',sans-serif;
+    font-size:0.95rem; transition:all 0.3s ease; outline:none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color:var(--orange); background:rgba(255,92,0,0.06);
+    box-shadow:0 0 0 3px rgba(255,92,0,0.12);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color:rgba(240,232,220,0.3); }
+  .form-group select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FF5C00' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; cursor:pointer; }
+  .form-group select option { background:#111; color:var(--text); }
+  .form-group textarea { resize:vertical; min-height:90px; }
+  .file-upload-area {
+    width:100%; border:2px dashed rgba(255,92,0,0.3); border-radius:12px;
+    padding:28px 20px; text-align:center; cursor:pointer;
+    transition:all 0.3s ease; background:rgba(255,92,0,0.03);
+    position:relative;
+  }
+  .file-upload-area:hover,
+  .file-upload-area.drag-over { border-color:var(--orange); background:rgba(255,92,0,0.08); }
+  .file-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+  .file-upload-icon { font-size:2rem; margin-bottom:8px; }
+  .file-upload-text { font-size:0.88rem; color:var(--text-muted); }
+  .file-upload-text strong { color:var(--orange); }
+  .file-names { margin-top:10px; font-size:0.8rem; color:var(--orange-light); min-height:18px; }
+  .tipo-btns { display:flex; gap:10px; flex-wrap:wrap; }
+  .tipo-btn {
+    flex:1; min-width:120px; padding:12px 10px; border-radius:9px; text-align:center;
+    border:1px solid rgba(255,92,0,0.25); cursor:pointer; font-family:'Barlow',sans-serif;
+    font-weight:600; font-size:0.88rem; color:var(--text-muted);
+    background:transparent; transition:all 0.3s;
+  }
+  .tipo-btn.active,
+  .tipo-btn:hover { border-color:var(--orange); color:var(--orange); background:rgba(255,92,0,0.08); }
+  .tipo-btn.active { box-shadow:0 0 15px rgba(255,92,0,0.2); }
+  .tipo-btn input { display:none; }
+  .form-submit { width:100%; margin-top:8px; font-size:1.05rem; padding:18px; }
+  .form-note { text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:16px; }
+  .form-success {
+    display:none; text-align:center; padding:32px;
+  }
+  .form-success .check { font-size:3rem; margin-bottom:16px; }
+  .form-success h3 { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; background:linear-gradient(90deg,var(--orange),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px; }
+  .form-success p { color:var(--text-muted); font-size:0.95rem; }
+
+  /* CTA FINAL */
+  #cta-final { background:var(--bg2); text-align:center; position:relative; overflow:hidden; padding:120px 5%; }
+  .cta-glow { position:absolute; width:600px; height:600px; background:radial-gradient(circle,rgba(255,92,0,0.12) 0%,transparent 70%); left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; animation:pulse 4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.7;} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1;} }
+  #cta-final .section-title { max-width:700px; margin:0 auto 20px; font-size:clamp(3rem,7vw,6rem); }
+  #cta-final .section-sub { margin:0 auto 16px; }
+  .cta-urgency { display:inline-flex; align-items:center; gap:8px; background:rgba(255,92,0,0.1); border:1px solid rgba(255,92,0,0.3); border-radius:50px; padding:10px 24px; font-size:0.85rem; font-weight:600; color:var(--orange-light); margin-bottom:40px; }
+  .dot-live { width:8px; height:8px; background:var(--orange); border-radius:50%; animation:blink 1.5s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1;box-shadow:0 0 8px var(--orange);} 50%{opacity:0.3;box-shadow:none;} }
+  .cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .cta-note { margin-top:20px; font-size:0.8rem; color:var(--text-muted); }
+
+  /* FOOTER */
+  footer { background:var(--bg); border-top:1px solid rgba(255,255,255,0.06); padding:48px 5%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .footer-logo img { height:36px; width:auto; }
+  .footer-logo small { display:block; font-family:'Barlow',sans-serif; font-size:0.72rem; color:var(--text-muted); font-weight:400; letter-spacing:1px; margin-top:4px; }
+  .footer-copy { font-size:0.8rem; color:var(--text-muted); }
+  .footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+  .footer-links a { font-size:0.82rem; color:var(--text-muted); text-decoration:none; transition:color 0.3s; }
+  .footer-links a:hover { color:var(--orange); }
+
+  /* WA FLOAT */
+  .wa-float { position:fixed; bottom:28px; right:28px; z-index:200; background:linear-gradient(135deg,var(--orange),var(--red)); width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; text-decoration:none; box-shadow:0 4px 30px rgba(255,92,0,0.5); animation:wa-pulse 3s ease-in-out infinite; transition:transform 0.3s ease; }
+  .wa-float:hover { transform:scale(1.1); }
+  @keyframes wa-pulse { 0%,100%{box-shadow:0 4px 30px rgba(255,92,0,0.5),0 0 0 0 rgba(255,92,0,0.4);} 50%{box-shadow:0 4px 30px rgba(255,92,0,0.5),0 0 0 16px rgba(255,92,0,0);} }
+
+  /* REVEAL */
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-left { opacity:0; transform:translateX(-30px); transition:all 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-left.visible { opacity:1; transform:translateX(0); }
+  .reveal-right { opacity:0; transform:translateX(30px); transition:all 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal-right.visible { opacity:1; transform:translateX(0); }
+  .delay-1{transition-delay:0.1s;} .delay-2{transition-delay:0.2s;} .delay-3{transition-delay:0.3s;} .delay-4{transition-delay:0.4s;}
+
+  @media(max-width:600px){ section{padding:70px 6%;} .hero-stats{gap:28px;} .stat-num{font-size:2.2rem;} nav{padding:12px 6%;} }
+
+  /* ADD-ONS */
+  .addons-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+  .addon-card {
+    display:flex; align-items:center; gap:14px;
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:14px; padding:18px 20px; backdrop-filter:blur(10px);
+    transition:all 0.3s ease;
+  }
+  .addon-card:hover { border-color:rgba(255,92,0,0.4); transform:translateY(-3px); box-shadow:var(--glow-sm); }
+  .addon-icon { font-size:1.8rem; flex-shrink:0; }
+  .addon-info { flex:1; }
+  .addon-name { font-weight:700; font-size:0.88rem; color:var(--text); margin-bottom:2px; }
+  .addon-desc { font-size:0.75rem; color:var(--text-muted); }
+  .addon-price { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; background:linear-gradient(135deg,var(--orange),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; white-space:nowrap; flex-shrink:0; }
+
+
+  
+  /* FAQ ACCORDION */
+  .faq-grid { display:flex; flex-direction:column; gap:12px; }
+  .faq-item { background:var(--glass); border:1px solid var(--glass-border); border-radius:14px; overflow:hidden; transition:border-color 0.3s; }
+  .faq-item.open { border-color:rgba(255,92,0,0.4); }
+  .faq-q { display:flex; justify-content:space-between; align-items:center; padding:20px 24px; cursor:pointer; gap:16px; font-weight:600; font-size:0.98rem; color:var(--text); user-select:none; }
+  .faq-q:hover { color:var(--orange-light); }
+  .faq-arrow { font-size:1.5rem; color:var(--orange); flex-shrink:0; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1); line-height:1; }
+  .faq-item.open .faq-arrow { transform:rotate(90deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s ease; font-size:0.92rem; color:var(--text-muted); line-height:1.75; padding:0 24px; }
+  .faq-item.open .faq-a { max-height:300px; padding:0 24px 20px; }
+
+
+  @media(min-width:768px){ .nav-phone{ display:flex !important; align-items:center; gap:6px; } }
+
+  .demo-preview-label {
+    position:absolute; bottom:0; left:0; right:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    color:#fff; font-size:0.75rem; font-weight:700;
+    padding:20px 14px 10px;
+    opacity:0; transition:opacity 0.3s;
+    text-align:center; letter-spacing:1px; text-transform:uppercase;
+  }
+  .demo-preview:hover .demo-preview-label { opacity:1; }
+
+  @keyframes introSlide { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="tel:+526441550412" style="color:var(--orange-light);font-size:0.82rem;font-weight:700;text-decoration:none;display:none" class="nav-phone">📞 644 155 0412</a>
+  <div class="nav-logo">
+    <svg id="nav-logo-svg" style="height:40px;width:auto;display:block" aria-label="ClickSon – Tu Web en Corto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 485.73 182.46"><defs><linearGradient id="linear-gradient" x1="158.02" y1="168.03" x2="386.97" y2="168.03" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f78d1e"/><stop offset="1" stop-color="#e24937"/></linearGradient><linearGradient id="linear-gradient-2" x1="417.67" y1="48.96" x2="417.67" y2="141.21" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f47820"/><stop offset=".7" stop-color="#e24937"/></linearGradient><linearGradient id="linear-gradient-3" x1="47.1" y1="43.82" x2="430.04" y2="43.82" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-4" x1="320.72" y1="48.95" x2="320.72" y2="141.24" xlink:href="#linear-gradient-2"/><linearGradient id="linear-gradient-5" x1="393.92" y1="114.43" x2="467.69" y2="114.43" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-6" x1="364.34" y1="124.18" x2="364.34" y2="126.35" xlink:href="#linear-gradient-2"/><linearGradient id="linear-gradient-7" x1="368.87" y1="48.95" x2="368.87" y2="141.22" xlink:href="#linear-gradient-2"/></defs><path d="M270.81,182.45c-34.6,0-69.21,0-103.81,0-5.58,0-9.9-4.72-8.8-9.62,.67-2.98,1.36-5.96,2.04-8.93,.15-.64,.3-1.28,.43-1.92,1.09-5.18,5.04-8.38,10.4-8.38,20.09,0,40.19,0,60.28,0,48.73,0,97.46,.01,146.19,.02,6.58,0,10.52,4.87,9.13,11.31-.63,2.94-1.25,5.88-1.87,8.82-1.18,5.58-4.97,8.68-10.69,8.68-34.44,0-68.88,0-103.32,0v.03Zm-50.21-13.57c-.51-1.63-.54-3.11-.79-4.55-.13-.77,.19-1.84-.99-2.09-1.33-.29-2.24,.17-2.77,1.53-.54,1.36-1.27,2.65-1.96,3.95-.16,.3-.53,.68-.79,.68-.54,0-.34-.58-.4-.91-.24-1.45-.43-2.9-.66-4.35-.26-1.65-1.55-.73-2.37-.86-1.02-.17-.75,.6-.66,1.19,.47,3.07,.91,6.16,1.42,9.22,.11,.65-.3,1.69,.96,1.73,1.09,.04,2.11,.18,2.68-1.22,.67-1.67,1.6-3.23,2.45-4.82,.15-.29,.17-.81,.79-.67,.25,1.77,.48,3.56,.76,5.34,.08,.53-.19,1.4,.73,1.39,.86,0,1.97,.51,2.53-.58,1.93-3.78,3.81-7.59,5.73-11.42-2.81-.51-2.8-.5-3.96,1.64-.84,1.55-1.72,3.07-2.7,4.82Zm60.98-1.71c1.46,2.4,2.76,4.4,3.91,6.49,.63,1.15,1.57,.73,2.44,.77,.97,.05,.9-.74,1.03-1.37,.64-3.16,1.3-6.31,1.91-9.48,.09-.46,.71-1.39-.41-1.31-.83,.06-2.03-.87-2.51,.76-.58,1.96-.63,4.05-1.52,6.08-1.26-2.04-2.59-3.95-3.64-6-.65-1.27-1.62-.82-2.51-.88-1.02-.07-.84,.8-.96,1.39-.64,3.1-1.3,6.2-1.87,9.31-.08,.45-.87,1.45,.41,1.44,.87-.01,2.18,.72,2.49-.97,.35-1.92,.76-3.84,1.25-6.23Zm-35.34,7.25c1.54-.06,3.25,.21,4.86-.58,2.4-1.19,3.11-3.4,1.61-5.46-.39-.54-.19-.7,.14-1.03,.99-.97,1.4-2.14,.84-3.43-.57-1.3-1.83-1.66-3.12-1.71-1.75-.06-3.5-.02-5.25-.02-.59,0-.85,.12-1.05,.84-.73,2.7-1.17,5.44-1.57,8.19-.15,1.01-.99,2.39-.12,3.02,.72,.53,2.11,.15,3.2,.18,.11,0,.22,0,.47,0Zm91.61-12.24c-.82,0-1.64,.06-2.46-.02-.91-.08-1.25,.33-1.41,1.16-.63,3.37-1.3,6.74-1.94,10.11-.07,.35-.26,.73,.23,.99,1.06,.56,2.65-.13,2.9-1.29,.1-.48,.22-.96,.3-1.44,.09-.59,.27-1.04,1.01-1.02,.61,.02,1.19-.05,1.49,.68,.31,.75,.72,1.47,1.07,2.21,.45,.96,2.07,1.61,3.1,1.05,1.24-.68,.08-1.49-.21-2-.83-1.48-1.05-2.48,.62-3.69,1.42-1.02,1.9-2.84,1.17-4.59-.7-1.68-2.22-2.13-3.9-2.15-.66,0-1.31,0-1.97,0Zm-16.28,12.42c4.05-.03,7.73-3.57,7.7-7.42-.02-3.01-2.47-5.19-5.79-5.15-4.1,.05-7.72,3.54-7.68,7.41,.03,3.04,2.43,5.18,5.77,5.16Zm44.49,.01c4.19-.03,7.64-3.4,7.63-7.44-.01-3.08-2.25-5.19-5.53-5.19-4.21-.01-7.93,3.5-7.88,7.44,.04,3.04,2.47,5.23,5.79,5.2Zm-97.7-.15v-.04c1.31,0,2.62,.01,3.93,0,1.28-.01,1.03-1.09,1.15-1.81,.16-.98-.67-.63-1.12-.66-1.15-.05-2.3,.05-3.44-.07-.53-.06-1.6,.6-1.54-.7,.05-1.02,.26-1.93,1.72-1.73,1.07,.14,2.18,.01,3.27,.01,1.21,0,.94-.99,1.08-1.66,.2-.97-.59-.69-1.06-.73-.93-.07-1.86-.03-2.78-.12-.49-.05-1.39,.42-1.32-.61,.06-.79,0-1.79,1.41-1.68,1.46,.12,2.95,.03,4.42,.01,1.31-.02,.97-1.17,1.1-1.84,.19-.94-.7-.6-1.13-.61-2.29-.05-4.59,0-6.88-.05-.88-.02-1.24,.29-1.4,1.17-.56,3.11-1.11,6.24-1.85,9.31-.4,1.68,.2,1.97,1.65,1.83,.92-.09,1.86-.02,2.78-.02Zm-77.57,.13c3.4-.01,5.89-2.04,6.61-5.43,.38-1.81,.75-3.63,1.02-5.46,.07-.46,.76-1.42-.49-1.46-.98-.03-2.31-.42-2.57,.96-.12,.65-.3,1.33-.4,2-.25,1.66-.55,3.33-1.01,4.94-.4,1.39-2.07,2.07-3.63,1.67-1.48-.37-1.57-1.5-1.37-2.7,.29-1.82,.69-3.62,.96-5.44,.07-.51,.6-1.47-.61-1.42-.95,.04-2.3-.58-2.55,1.13-.26,1.78-.49,3.56-.81,5.33-.68,3.81,1.03,5.89,4.87,5.88Zm44.88-12.39v-.02c-1.26,0-2.51,.03-3.77-.01-.73-.02-1.07,.23-1.2,.98-.6,3.44-1.24,6.87-1.89,10.3-.14,.71,.03,1.01,.79,1,2.57-.02,5.14,0,7.7-.02,1.28,0,1.02-1.14,1.16-1.82,.18-.93-.69-.6-1.13-.62-1.25-.06-2.52-.14-3.77-.03-1.56,.14-1.45-.69-1.2-1.71,.16-.65,.61-.8,1.23-.78,1.09,.03,2.2-.13,3.27,.03,1.66,.24,1.47-1.04,1.51-1.85,.06-1.11-.96-.46-1.46-.55-.74-.13-1.53,.03-2.28-.08-.52-.07-1.5,.45-1.47-.62,.02-.93,.14-1.95,1.65-1.76,1.29,.16,2.62-.02,3.93,.05,1.48,.08,1.33-1.14,1.41-1.9,.09-.95-.86-.53-1.35-.56-1.03-.07-2.07-.02-3.11-.02Zm70.89,12.4c1.71,0,3.21-.56,4.55-1.6,1.09-.85,.95-1.8-.32-2.39-.7-.32-.99,.29-1.42,.54-2.31,1.36-4.74,.78-5.31-1.3-.43-1.57,.32-3.37,1.83-4.4,1.41-.96,3.23-1.09,4.42,.01,1.37,1.28,2.24,.11,2.85-.59,.77-.89-.47-1.38-1.02-1.76-3.56-2.45-9.19-.67-10.94,4.11-1.46,3.99,1.08,7.39,5.37,7.38Zm-128.41-12.41h0c-1.42,0-2.84,.05-4.26-.03-1.51-.08-1.32,1.09-1.4,1.9-.1,1.01,.81,.55,1.31,.64,.32,.06,.66,.05,.98,0,1.15-.15,1.38,.3,1.14,1.38-.52,2.34-.96,4.7-1.35,7.06-.08,.48-.82,1.42,.45,1.46,.92,.03,2.14,.51,2.4-1.08,.3-1.81,.67-3.61,1.01-5.42q.58-3.12,3.67-3.45c.22-.02,.48,.03,.64-.08,.69-.45,.67-1.26,.67-1.91,0-.69-.73-.47-1.18-.48-1.36-.03-2.73,0-4.09,0Zm175.14-.01h0c-1.37-.01-2.74,.08-4.1-.04-1.55-.13-1.54,.98-1.59,1.9-.07,1.13,.92,.56,1.45,.68,.31,.07,.66,.04,.98,0,.98-.12,1.23,.23,1.01,1.2-.52,2.29-.96,4.6-1.36,6.92-.09,.55-.8,1.56,.53,1.57,.9,.01,2.16,.59,2.42-1.11,.29-1.94,.73-3.86,1.12-5.78,.54-2.62,.54-2.62,3.13-2.82,.22-.02,.44,0,.65-.05,1.07-.24,.74-1.23,.89-1.88,.18-.81-.62-.56-1.02-.58-1.37-.04-2.73-.02-4.1-.02Z" style="fill:url(#linear-gradient);"/><path d="M411.62,100.21c-2.04,9.95-4.05,19.78-6.06,29.62-.63,3.06-1.3,6.1-1.86,9.17-.29,1.6-1.15,2.21-2.73,2.19-3.56-.05-7.12,0-10.68-.03-1.93-.01-2.32-.49-1.93-2.44,2.08-10.49,4.17-20.98,6.28-31.47,3.75-18.69,7.52-37.37,11.24-56.06,.32-1.6,1.13-2.25,2.69-2.23,3.62,.02,7.23,.03,10.85-.02,1.55-.02,2.12,.66,2.18,2.17,.34,8.94,.86,17.87,1.06,26.81,.09,4.11,.57,8.19,.84,12.34,.33-1.65,.65-3.3,.98-4.95,2.28-11.39,4.58-22.78,6.82-34.19,.32-1.64,1.16-2.18,2.72-2.16,3.62,.04,7.23,0,10.85,0,1.99,0,2.49,.57,2.11,2.49-1.41,7.25-2.69,14.53-4.33,21.74-1.25,5.5-2.1,11.08-3.29,16.59-1.69,7.82-3.05,15.71-4.83,23.51-1.02,4.49-1.6,9.07-2.78,13.51-1.07,4.01-1.45,8.12-2.38,12.14-.36,1.57-1.21,2.24-2.75,2.23-3.73,0-7.46-.05-11.19,.02-1.64,.03-2.16-.61-2.2-2.24-.35-12.55-.78-25.1-1.2-37.65-.01-.32,.1-.69-.43-1.1Z" style="fill:url(#linear-gradient-2);"/><path d="M.02,170.08c3.07-1.68,6.19-3.28,9.49-4.42,5.89-2.03,11.15-5.28,16.57-8.23,2.65-1.44,5.39-2.65,8.55-2.49,1.86,.09,3.47,.95,5.16,1.53,1.01,.35,1.24,.08,1.24-.89-.02-5.91-.03-11.82,.01-17.73,0-1.03-.4-1.23-1.33-1.33-5.49-.58-10.1-2.8-13.26-7.48-1.66-2.45-2.52-5.19-2.51-8.18,.01-7.77,0-15.54,.02-23.31,0-3.1,2.1-5.2,5.11-5.21,2.88,0,4.9,2.08,4.91,5.2,.02,7.55,0,15.1,0,22.65,0,3.6,2,5.99,5.46,6.76,1.22,.27,1.62,0,1.61-1.31-.04-11.82-.02-23.64-.02-35.45,0-3.56-.02-7.11,0-10.67,.02-4,2.91-6.95,6.76-6.94,3.73,0,6.52,2.96,6.53,6.97,.01,16.3,0,32.61,0,48.91,0,.95,.03,1.86-.91,2.47-.2,.13-.33,.44-.4,.7-.91,3.25-1.16,6.58-1.16,9.96-1.7-3.14-2.45-5.53-1.75-8.95,.16-.78,2.62-2.48,3.44-2.74,3.33-1.05,7.68-2.86,7.69-6.36,0-8.64-.02-17.29,0-25.93,0-2.72,1.77-4.85,4.27-5.25,2.54-.41,4.88,1.11,5.7,3.64,.23,.7,.18,1.41,.18,2.11,0,8.64,.01,17.29,0,25.93-.02,8.07-6.19,14.62-14.29,15.17-.6,.04-1.2,.08-1.81,.07-.69,0-.97,.28-.97,.98,.02,6.67,.03,13.35,.02,20.03,0,.73,.14,.95,.94,.68,2.49-.86,4.81-2.07,7.16-3.22,5.2-2.55,10.24-5.42,15.49-7.88,4.18-1.96,7.85-1.57,11.4,1.43,3.13,2.65,6.46,5.06,9.66,7.63,.87,.7,1.71,.84,2.73,.51,1.77-.57,3.56-1.09,5.32-1.67,2.36-.78,4.65-.65,6.8,.61,6.84,4.02,13.69,7.99,21.18,10.72-3.84-.36-15.66-3.72-19.04-5.34-1.34-.65-2.54-1.52-3.68-2.45-1.09-.89-2.25-1.03-3.53-.56-1.44,.52-2.87,1.06-4.31,1.57-1.26,.45-5.55-.87-6.17-1.89-.44-.72,.89-.21,.46-1.01-3.75-.18-6.02-3.28-8.96-5.24-1.9-1.27-3.67-2.81-6.13-2.89-.56-.02-1.1-.06-1.55,.34-1.5,1.36-3,2.72-4.5,4.07-.42,.38-.3,.67,.15,.86,.55,.24,1.13,.63,1.68,.59,1.88-.11,2.61,1.38,3.6,2.46,.82,.9,.57,1.69-.6,2.11-2.16,.78-4.32,1.55-6.48,2.32-.45,.16-.91,.32-1.37,.64,14.72,2.87,29.39,5.87,44.15,8.52H18.12c16.12-2.28,32.28-4.18,48.61-5.06-2.73-.66-5.45-1.4-8.2-1.96-6.02-1.23-11.74-3.24-17.33-5.78-7.73-3.51-7.15-3.31-13.87,.68-4.35,2.58-9.02,4.16-13.95,5.04-4.06,.73-7.98,1.84-11.77,3.46-.5,.21-1.04,.31-1.57,.47H.02Z" style="fill:#f78d1e;"/><path d="M413.21,32.84c-1.24,0-2.26,0-3.29,0-110.94,0-221.88,.01-332.82,.02-9.4,0-16.93,6.05-18.76,14.97-.96,4.66-1.98,9.31-2.97,13.96-.34,1.6-.72,3.2-1.01,4.82-.17,.97-.42,1.36-1.44,.71-1.46-.93-3.13-1.26-4.86-1.24-.58,0-1.12,.03-.91-.86,1.63-7.14,2.61-14.45,4.75-21.45,3.25-10.67,13.71-18.06,25.01-18.07,35.65,0,71.29,.02,106.94,.02,74.74,0,149.49,0,224.23,0,3.05,0,3.06-.02,2.01-2.73-.34-.88-.48-1.73,.22-2.45,.77-.79,1.68-.6,2.58-.18,5.15,2.4,10.29,4.82,15.47,7.18,1.11,.51,1.59,1.36,1.67,2.42,.08,1.15-.41,2.2-1.45,2.76-4.85,2.65-9.7,5.27-14.59,7.83-1.58,.83-2.97,0-3.21-1.78-.2-1.48,.09-2.81,1.08-3.98,.45-.53,1.04-.96,1.35-1.97Z" style="fill:url(#linear-gradient-3);"/><path d="M271.07,84.61c3.24-7.11,6.48-14.22,9.74-21.33,1.91-4.16,3.89-8.28,5.77-12.45,.6-1.33,1.45-1.9,2.91-1.88,3.96,.06,7.92,0,11.88,.02,2.12,0,2.58,.7,1.7,2.65-5.74,12.68-11.85,25.19-17.88,37.73-.62,1.29-.89,2.54-.84,3.95,.47,15.02,.91,30.04,1.33,45.06,.07,2.36-.44,2.85-2.75,2.86-3.79,.02-7.58,.02-11.37,.02-2.11,0-2.38-.3-2.41-2.37-.12-10.84-.25-21.68-.37-32.52,0-.15-.04-.3-.12-.81-1.37,2.38-2.9,4.22-3.39,6.81-1.68,8.95-3.61,17.85-5.39,26.78-.31,1.53-1.13,2.11-2.62,2.1-3.85-.03-7.69,0-11.54,0-2.35,0-2.79-.5-2.33-2.74,1.94-9.54,3.94-19.08,5.84-28.63,3.68-18.54,7.31-37.08,10.97-55.63,.19-.95,.52-1.9,.59-2.86,.14-1.81,1.06-2.46,2.82-2.43,3.9,.07,7.81,.01,11.71,.03,1.79,0,2.21,.54,1.86,2.33-2.07,10.61-4.14,21.22-6.21,31.84-.09,.44-.12,.9-.18,1.34l.29,.13Z" style="fill:#fff;"/><path d="M311.89,141.23c-3.04,0-6.08,.01-9.13,0-6.23-.03-10.33-4.81-9.21-10.93,1.17-6.39,2.54-12.75,3.79-19.13,.28-1.43,1.07-2.03,2.51-2.02,3.96,.03,7.92,0,11.88,.03,1.7,.01,2.1,.52,1.75,2.27-.73,3.71-1.49,7.42-2.24,11.12-.61,3.01,0,3.78,3.03,3.77,3.43,0,3.92-.47,4.58-3.91,.88-4.61,1.83-9.21,2.77-13.81,.42-2.06-.02-3.05-1.8-4.14-3.96-2.43-7.93-4.84-11.82-7.37-5.1-3.32-6.55-6.85-5.33-12.76,1.72-8.35,3.56-16.68,5.12-25.07,1.15-6.19,6.3-10.31,12.6-10.33,6.14-.02,12.28-.02,18.43,0,6.13,.01,10.17,4.84,9.04,10.88-1.12,5.97-2.37,11.92-3.5,17.89-.3,1.58-1.11,2.25-2.7,2.23-3.85-.04-7.69-.01-11.54-.03-1.89-.01-2.38-.57-2.03-2.43,.69-3.66,1.46-7.31,2.19-10.96,.42-2.1-.2-2.89-2.32-2.96-.63-.02-1.26-.06-1.89-.04-1.79,.04-2.88,.93-3.24,2.69-.99,4.82-1.95,9.65-2.94,14.47-.31,1.51,.26,2.53,1.54,3.3,4.05,2.4,7.97,5.01,12.05,7.36,5.14,2.96,6.64,6.82,5.44,12.63-1.83,8.86-3.58,17.74-5.35,26.62-1.28,6.44-6.34,10.61-12.93,10.62-2.93,0-5.85,0-8.78,0h0Z" style="fill:url(#linear-gradient-4);"/><path d="M99.38,141.25c-2.87,0-5.75-.18-8.61,.04-5.76,.45-12-3.65-10.26-12.36,3.04-15.21,6.16-30.41,9.25-45.62,1.57-7.74,3.12-15.48,4.73-23.21,1.48-7.1,6.51-11.13,13.8-11.14,5.91,0,11.82,0,17.74,0,6.73,0,10.92,4.93,9.68,11.56-1.07,5.74-2.33,11.44-3.47,17.17-.33,1.63-1.26,2.3-2.89,2.28-3.85-.04-7.69,0-11.54-.01-1.8,0-2.31-.53-1.98-2.3,.69-3.66,1.45-7.31,2.23-10.95,.46-2.14-.17-3.05-2.33-3.13-.92-.04-1.84-.06-2.75,0-1.78,.11-2.97,1.18-3.32,2.92-3.77,18.67-7.53,37.33-11.3,56-.6,2.98,.12,3.84,3.22,3.85,.52,0,1.03,.01,1.55,0,1.96-.04,3.08-.97,3.46-2.88,.79-3.99,1.63-7.97,2.35-11.97,.3-1.64,1.09-2.37,2.77-2.35,3.96,.06,7.92,.01,11.88,.03,1.69,0,2.12,.58,1.78,2.25-1.31,6.4-2.59,12.81-3.93,19.2-1.39,6.61-6.36,10.61-13.11,10.61-2.98,0-5.97,0-8.95,0Z" style="fill:#fff;"/><path d="M214.87,141.25c-2.98,0-5.97-.01-8.95,0-7.1,.03-11.32-5.01-9.91-11.97,3.51-17.4,7.08-34.79,10.6-52.19,1.11-5.5,2.2-11.01,3.24-16.53,1.32-6.95,6.86-11.59,13.95-11.6,5.85-.01,11.71,0,17.56-.02,6.66-.02,10.96,4.94,9.79,11.54-1.04,5.86-2.36,11.68-3.52,17.52-.27,1.35-1.06,1.96-2.39,1.96-4.02,0-8.03,.03-12.05,0-1.6-.01-2.18-.83-1.85-2.53,.71-3.59,1.45-7.17,2.2-10.76,.42-2.04-.34-3.03-2.45-3.1-.92-.03-1.84-.04-2.75,.03-1.69,.14-2.86,1.22-3.18,2.87-3.55,18.73-7.43,37.39-11.28,56.06-.61,2.96,.08,3.8,3.07,3.8,.69,0,1.38,.03,2.07-.01,1.77-.1,2.99-1.14,3.35-2.88,.81-3.98,1.62-7.96,2.38-11.95,.3-1.61,1.13-2.36,2.81-2.34,3.84,.05,7.69,0,11.53,.03,1.72,0,2.21,.52,1.88,2.19-1.3,6.68-2.48,13.39-4.06,20-1.46,6.1-6.64,9.85-12.88,9.86-3.04,0-6.08,0-9.12,0h0Z" style="fill:#fff;"/><path d="M144.56,141.22c-4.94,0-9.87,.02-14.81,0-1.97,0-2.43-.64-2.04-2.57,5.14-25.47,10.27-50.95,15.41-76.42,.77-3.82,1.6-7.62,2.34-11.44,.24-1.25,.94-1.8,2.1-1.81,4.19-.03,8.38-.05,12.57,0,1.55,.01,2.04,.83,1.68,2.61-2.15,10.6-4.31,21.21-6.46,31.81-2.7,13.34-5.4,26.69-8.09,40.03-.46,2.3,.07,2.93,2.4,2.93,4.08,0,8.15,0,12.23,0,1.94,0,2.38,.52,2.02,2.38-.66,3.43-1.4,6.85-2.02,10.29-.29,1.59-1.11,2.24-2.7,2.22-4.88-.04-9.76-.01-14.64-.01h0Z" style="fill:#fff;"/><path d="M195.49,48.97c2.07,0,4.13-.03,6.2,0,1.6,.03,2.13,.7,1.82,2.3-3.3,16.61-6.59,33.23-9.92,49.83-2.54,12.67-5.16,25.33-7.68,38.01-.31,1.55-1.09,2.12-2.57,2.12-3.96-.02-7.92,.02-11.88,0-1.94,0-2.45-.67-2.06-2.58,3.58-17.61,7.21-35.21,10.74-52.84,2.3-11.45,4.47-22.92,6.69-34.39,.4-2.06,.85-2.45,3-2.46,1.89,0,3.79,0,5.68,0Z" style="fill:#fff;"/><path d="M467,58.69c.56,.64,.95,3.86,.47,6.76-3.18,15.35-6.35,30.69-9.52,46.04-1.49,7.24-2.99,14.47-4.48,21.71-1.24,6.02-2.44,12.04-3.7,18.05-2.24,10.66-12.23,18.83-23.11,18.86-10.46,.03-20.92-.02-31.37,.04-1.33,0-1.57-.34-1.23-1.54,.48-1.73,.32-4.03,1.41-5.09,1.12-1.09,3.43-.32,5.22-.33,7.88-.03,15.77-.01,23.65-.01,10.36,0,16.78-5.17,18.86-15.25,2.07-10.06,4.08-20.14,6.14-30.2,2.15-10.54,4.33-21.07,6.49-31.61,1.42-6.95,2.78-13.92,4.26-20.86,.5-2.32-.07-4.44-.75-6.58" style="fill:url(#linear-gradient-5);"/><path d="M451.37,16.28c.56-4.4,1.14-9.23,1.8-14.05,.22-1.6,1.64-2.47,3.28-2.19,1.49,.26,2.3,1.4,2.09,2.99-.6,4.66-1.19,9.32-1.81,13.98-.22,1.67-1.36,2.57-2.94,2.41-1.6-.16-2.54-1.21-2.43-3.14Z" style="fill:#e56c2b;"/><path d="M463.28,23.07c0-.82,.34-1.47,.96-2,3.16-2.71,6.3-5.44,9.47-8.13,1.64-1.39,3.17-1.33,4.29,.07,1.02,1.28,.66,2.75-.9,4.09-3.11,2.67-6.22,5.36-9.3,8.07-.98,.87-2.04,1.05-3.17,.48-1.03-.52-1.44-1.45-1.34-2.6Z" style="fill:#e56c2b;"/><path d="M470.34,33.12c4.17,.54,8.6,1.1,13.04,1.71,1.63,.22,2.5,1.41,2.33,2.98-.17,1.56-1.29,2.42-3.04,2.2-4.38-.53-8.77-1.08-13.14-1.68-1.71-.23-2.48-1.4-2.26-3.17,.18-1.41,1.22-2.18,3.08-2.04Z" style="fill:#e56c2b;"/><path d="M433.75,6.96c.97,.03,1.63,.45,2.18,1.13,2.58,3.26,5.18,6.5,7.75,9.77,1.2,1.52,1.17,2.9,0,3.9-1.24,1.05-2.98,.79-4.17-.69-2.61-3.24-5.18-6.51-7.78-9.75-.74-.92-.82-1.91-.32-2.91,.48-.96,1.39-1.34,2.34-1.45Z" style="fill:#e56c2b;"/><path d="M132.75,163.17c3.31,0,6.5,0,9.69,0,2.79,0,5.57,.07,8.36-.02,1.39-.05,1.57,.42,1.16,1.6-.32,.92-.45,1.91-.72,2.85-.24,.85,.03,2.15-.9,2.44-1.15,.36-2.56,.45-3.7-.06-4.57-2.05-9.09-4.23-13.63-6.37-.07-.03-.1-.16-.26-.44Z" style="fill:#f78d1e;"/><polygon points=".04 170.08 0 170.13 .02 170.08 .04 170.08" style="fill:#e56c2b;"/><path d="M220.6,168.88c.98-1.75,1.87-3.27,2.7-4.82,1.16-2.14,1.14-2.15,3.96-1.64-1.92,3.84-3.8,7.64-5.73,11.42-.56,1.09-1.66,.58-2.53,.58-.91,0-.64-.86-.73-1.39-.28-1.78-.51-3.57-.76-5.34-.62-.14-.63,.38-.79,.67-.84,1.59-1.78,3.16-2.45,4.82-.56,1.4-1.59,1.26-2.68,1.22-1.26-.04-.85-1.08-.96-1.73-.51-3.07-.95-6.15-1.42-9.22-.09-.59-.36-1.36,.66-1.19,.81,.14,2.1-.79,2.37,.86,.23,1.45,.42,2.9,.66,4.35,.05,.34-.14,.91,.4,.91,.27,0,.63-.38,.79-.68,.69-1.3,1.42-2.59,1.96-3.95,.53-1.36,1.44-1.82,2.77-1.53,1.17,.26,.85,1.32,.99,2.09,.25,1.44,.28,2.92,.79,4.55Z" style="fill:#030303;"/><path d="M281.58,167.17c-.48,2.4-.9,4.31-1.25,6.23-.31,1.69-1.62,.96-2.49,.97-1.28,.02-.49-.99-.41-1.44,.57-3.11,1.23-6.21,1.87-9.31,.12-.59-.05-1.46,.96-1.39,.9,.06,1.86-.39,2.51,.88,1.05,2.05,2.39,3.96,3.64,6,.89-2.03,.94-4.12,1.52-6.08,.48-1.63,1.69-.7,2.51-.76,1.12-.08,.5,.85,.41,1.31-.6,3.17-1.27,6.32-1.91,9.48-.13,.63-.06,1.42-1.03,1.37-.86-.04-1.8,.38-2.44-.77-1.15-2.09-2.45-4.09-3.91-6.49Z" style="fill:#030303;"/><path d="M246.24,174.42c-.25,0-.36,0-.47,0-1.09-.02-2.48,.35-3.2-.18-.86-.63-.02-2.01,.12-3.02,.4-2.75,.84-5.49,1.57-8.19,.2-.72,.46-.85,1.05-.84,1.75,0,3.5-.04,5.25,.02,1.3,.05,2.55,.41,3.12,1.71,.57,1.29,.15,2.46-.84,3.43-.33,.32-.54,.48-.14,1.03,1.5,2.05,.79,4.27-1.61,5.46-1.6,.79-3.32,.52-4.86,.58Zm1.91-5.08h0c-.44,0-.88-.03-1.31,.01-1.03,.11-.7,1.07-.96,1.65-.14,.33-.22,.87,.31,.91,1.23,.09,2.51,.33,3.66-.38,.51-.32,.7-.83,.55-1.42-.14-.56-.6-.74-1.12-.77-.38-.02-.76,0-1.14,0Zm.19-4.81c-.98-.36-1.36,.48-1.55,1.68-.15,.93,.43,.89,.97,.82,1.11-.16,2.7,.42,2.95-1.28,.19-1.32-1.09-1.03-2.37-1.21Z" style="fill:#030303;"/><path d="M337.84,162.18c.66,0,1.31,0,1.97,0,1.69,.02,3.2,.47,3.9,2.15,.73,1.76,.25,3.57-1.17,4.59-1.67,1.21-1.46,2.21-.62,3.69,.29,.51,1.45,1.32,.21,2-1.03,.56-2.65-.09-3.1-1.05-.35-.74-.76-1.45-1.07-2.21-.3-.74-.89-.66-1.49-.68-.74-.02-.91,.43-1.01,1.02-.07,.48-.19,.96-.3,1.44-.25,1.15-1.83,1.85-2.9,1.29-.49-.26-.3-.65-.23-.99,.64-3.37,1.31-6.73,1.94-10.11,.15-.82,.5-1.24,1.41-1.16,.81,.07,1.64,.02,2.46,.02Zm.83,2.54c-1.81-.02-2.4,.73-2.37,2.71,.01,1.05,.81,.65,1.29,.67,2.08,.07,3.22-.6,3.23-1.9,.02-1.7-1.28-1.42-2.15-1.47Z" style="fill:#030303;"/><path d="M321.57,174.6c-3.34,.02-5.73-2.12-5.77-5.16-.04-3.87,3.58-7.37,7.68-7.41,3.32-.04,5.78,2.14,5.79,5.15,.02,3.85-3.65,7.39-7.7,7.42Zm-2.62-5.67c0,1.8,1.2,3.02,2.96,3,2.24-.03,4.11-1.94,4.16-4.25,.04-1.82-1.13-3-2.95-2.97-2.25,.03-4.17,1.97-4.17,4.22Z" style="fill:#030303;"/><path d="M366.06,174.62c-3.31,.03-5.74-2.16-5.79-5.2-.05-3.93,3.67-7.45,7.88-7.44,3.28,0,5.52,2.11,5.53,5.19,.02,4.04-3.43,7.41-7.63,7.44Zm-2.62-5.71c.01,1.8,1.21,3.02,2.96,3.01,2.2,0,4.16-1.99,4.18-4.25,.02-1.7-1.31-3.03-3-3.01-2.22,.03-4.16,2.01-4.15,4.24Z" style="fill:#030303;"/><path d="M268.36,174.47c-.93,0-1.86-.07-2.78,.02-1.45,.14-2.05-.16-1.65-1.83,.74-3.07,1.29-6.2,1.85-9.31,.16-.88,.52-1.19,1.4-1.17,2.29,.05,4.59,0,6.88,.05,.44,0,1.32-.34,1.13,.61-.13,.68,.21,1.83-1.1,1.84-1.47,.02-2.96,.11-4.42-.01-1.41-.12-1.35,.89-1.41,1.68-.07,1.04,.83,.57,1.32,.61,.92,.09,1.86,.05,2.78,.12,.47,.03,1.26-.25,1.06,.73-.14,.67,.13,1.66-1.08,1.66-1.09,0-2.2,.13-3.27-.01-1.46-.19-1.67,.71-1.72,1.73-.06,1.31,1,.65,1.54,.7,1.14,.12,2.29,.02,3.44,.07,.45,.02,1.29-.32,1.12,.66-.12,.72,.13,1.79-1.15,1.81-1.31,.01-2.62,0-3.93,0v.04Z" style="fill:#030303;"/><path d="M190.79,174.59c-3.84,.01-5.55-2.08-4.87-5.88,.32-1.77,.54-3.55,.81-5.33,.25-1.71,1.6-1.09,2.55-1.13,1.2-.06,.68,.91,.61,1.42-.27,1.82-.67,3.62-.96,5.44-.19,1.2-.11,2.33,1.37,2.7,1.57,.39,3.24-.29,3.63-1.67,.46-1.61,.76-3.28,1.01-4.94,.1-.67,.28-1.35,.4-2,.26-1.39,1.59-.99,2.57-.96,1.26,.04,.56,1,.49,1.46-.26,1.83-.64,3.65-1.02,5.46-.72,3.39-3.21,5.42-6.61,5.43Z" style="fill:#030303;"/><path d="M235.68,162.21c1.04,0,2.08-.05,3.11,.02,.49,.04,1.44-.39,1.35,.56-.07,.76,.07,1.98-1.41,1.9-1.31-.07-2.64,.11-3.93-.05-1.51-.19-1.63,.84-1.65,1.76-.03,1.06,.95,.54,1.47,.62,.75,.11,1.54-.06,2.28,.08,.51,.09,1.52-.56,1.46,.55-.04,.81,.15,2.09-1.51,1.85-1.07-.16-2.18,0-3.27-.03-.62-.02-1.07,.13-1.23,.78-.25,1.02-.36,1.86,1.2,1.71,1.24-.12,2.51-.03,3.77,.03,.45,.02,1.32-.31,1.13,.62-.13,.68,.13,1.82-1.16,1.82-2.57,.01-5.14,0-7.7,.02-.76,0-.92-.3-.79-1,.66-3.43,1.29-6.86,1.89-10.3,.13-.75,.47-1,1.2-.98,1.26,.04,2.51,.01,3.77,.01v.02Z" style="fill:#030303;"/><path d="M306.57,174.61c-4.29,.01-6.83-3.39-5.37-7.38,1.75-4.78,7.37-6.56,10.94-4.11,.55,.38,1.79,.86,1.02,1.76-.6,.7-1.48,1.86-2.85,.59-1.18-1.11-3.01-.97-4.42-.01-1.51,1.03-2.26,2.83-1.83,4.4,.57,2.08,3,2.66,5.31,1.3,.43-.25,.72-.86,1.42-.54,1.27,.59,1.41,1.54,.32,2.39-1.34,1.05-2.85,1.6-4.55,1.6Z" style="fill:#030303;"/><path d="M178.16,162.2c1.36,0,2.73-.02,4.09,0,.45,0,1.18-.21,1.18,.48,0,.65,.01,1.46-.67,1.91-.16,.11-.42,.06-.64,.08q-3.09,.33-3.67,3.45c-.34,1.81-.71,3.61-1.01,5.42-.27,1.6-1.49,1.11-2.4,1.08-1.26-.04-.53-.99-.45-1.46,.39-2.37,.82-4.73,1.35-7.06,.24-1.09,.01-1.53-1.14-1.38-.32,.04-.66,.06-.98,0-.5-.09-1.41,.37-1.31-.64,.08-.81-.11-1.98,1.4-1.9,1.41,.08,2.84,.02,4.26,.02h0Z" style="fill:#030303;"/><path d="M353.3,162.19c1.37,0,2.74-.02,4.1,.02,.41,.01,1.21-.23,1.02,.58-.15,.65,.18,1.64-.89,1.88-.21,.05-.44,.04-.65,.05-2.59,.19-2.6,.19-3.13,2.82-.39,1.92-.83,3.84-1.12,5.78-.26,1.7-1.51,1.12-2.42,1.11-1.33-.02-.63-1.02-.53-1.57,.4-2.31,.84-4.62,1.36-6.92,.22-.98-.03-1.32-1.01-1.2-.32,.04-.67,.07-.98,0-.53-.12-1.52,.45-1.45-.68,.05-.92,.05-2.03,1.59-1.9,1.36,.12,2.73,.02,4.1,.02h0Z" style="fill:#030303;"/><g><path d="M362.89,126.35c-.4,0-.8,.01-1.21,0,.4,.01,.8,0,1.21,0,2.53,0,3.58-.47,4.12-2.17-.54,1.69-1.59,2.17-4.12,2.16Z" style="fill:url(#linear-gradient-6);"/><path d="M387.21,48.95c-3.16-.02-6.31,0-9.47,0-2.93,0-5.86,0-8.78,0-6.74,0-11.87,4.13-13.29,10.71-.46,2.13-.88,4.26-1.32,6.39-2.09,10.32-4.18,20.65-6.24,30.98-2.14,10.72-4.35,21.43-6.49,32.15-1.55,7.76,3.63,12.1,9.52,12.04,6.03-.07,12.05,0,18.08-.02,5.05-.01,8.72-2.37,11.29-6.64,1.49-2.48,1.78-5.31,2.34-8.04,3.77-18.42,7.52-36.84,11.21-55.28,.84-4.21,2.05-8.37,2.31-12.67,.33-5.43-3.71-9.58-9.16-9.61Zm-8.93,19.15c-2.87,13.1-5.2,26.31-8.03,39.42-1.09,5.06-2.15,10.16-2.94,15.29-.08,.53-.18,.98-.3,1.37-.54,1.69-1.59,2.17-4.12,2.17-.4,0-.8,0-1.21,0-1.95-.07-2.72-.93-2.35-2.87,1.25-6.52,2.55-13.04,3.86-19.55,2.5-12.47,5-24.93,7.51-37.39,.43-2.15,1.49-2.99,3.7-3.02,4.4-.06,4.81,.33,3.88,4.58Z" style="fill:url(#linear-gradient-7);"/></g><path d="M248.14,169.34c.38,0,.76-.02,1.14,0,.52,.03,.98,.21,1.12,.77,.15,.59-.04,1.1-.55,1.42-1.15,.71-2.43,.47-3.66,.38-.54-.04-.46-.58-.31-.91,.26-.58-.07-1.54,.96-1.65,.43-.05,.87,0,1.31,0h0Z" style="fill:#e56c2b;"/><path d="M248.34,164.53c1.29,.18,2.56-.11,2.37,1.21-.24,1.7-1.84,1.13-2.95,1.28-.55,.08-1.12,.11-.97-.82,.19-1.2,.56-2.05,1.55-1.68Z" style="fill:#e56c2b;"/><path d="M338.67,164.72c.87,.05,2.18-.23,2.15,1.47-.02,1.31-1.16,1.98-3.23,1.9-.48-.02-1.28,.39-1.29-.67-.03-1.98,.56-2.73,2.37-2.71Z" style="fill:#e56c2b;"/><path d="M318.95,168.94c0-2.25,1.92-4.18,4.17-4.22,1.81-.03,2.98,1.15,2.95,2.97-.05,2.31-1.92,4.21-4.16,4.25-1.75,.03-2.96-1.2-2.96-3Z" style="fill:#e56c2b;"/><path d="M363.44,168.91c-.01-2.23,1.92-4.21,4.15-4.24,1.69-.02,3.02,1.31,3,3.01-.03,2.26-1.98,4.24-4.18,4.25-1.75,0-2.95-1.22-2.96-3.01Z" style="fill:#e56c2b;"/></svg>
+  </div>
+  <a href="#formulario" class="nav-cta">Quiero mi página →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <svg class="hero-desert" viewBox="0 0 1440 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF5C00"/><stop offset="100%" stop-color="#FF3D00"/></linearGradient></defs>
+    <polygon points="0,300 200,120 380,200 550,80 720,180 900,60 1100,160 1300,90 1440,140 1440,300" fill="url(#dg)" opacity="0.12"/>
+    <polygon points="0,300 180,160 320,220 480,130 640,200 800,110 980,190 1200,130 1440,160 1440,300" fill="url(#dg)" opacity="0.07"/>
+    <g fill="url(#dg)" opacity="0.5">
+      <rect x="85" y="160" width="14" height="100"/><rect x="60" y="180" width="25" height="12" rx="6"/><rect x="57" y="168" width="12" height="26" rx="6"/><rect x="99" y="200" width="25" height="12" rx="6"/><rect x="111" y="188" width="12" height="26" rx="6"/>
+    </g>
+    <g fill="url(#dg)" opacity="0.35">
+      <rect x="1330" y="180" width="10" height="80"/><rect x="1312" y="195" width="18" height="9" rx="4"/><rect x="1309" y="185" width="9" height="20" rx="4"/><rect x="1340" y="210" width="18" height="9" rx="4"/><rect x="1349" y="200" width="9" height="20" rx="4"/>
+    </g>
+  </svg>
+  <div class="particles" id="particles"></div>
+
+  <!-- LOGO GRANDE EN HERO -->
+  <div class="hero-logo-wrap">
+    <svg id="hero-logo-svg" style="width:min(560px,84vw);height:auto;display:block;margin:0 auto;background:transparent" aria-label="ClickSon – Tu Web en Corto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 485.73 182.46"><defs><linearGradient id="linear-gradient" x1="158.02" y1="168.03" x2="386.97" y2="168.03" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f78d1e"/><stop offset="1" stop-color="#e24937"/></linearGradient><linearGradient id="linear-gradient-2" x1="417.67" y1="48.96" x2="417.67" y2="141.21" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f47820"/><stop offset=".7" stop-color="#e24937"/></linearGradient><linearGradient id="linear-gradient-3" x1="47.1" y1="43.82" x2="430.04" y2="43.82" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-4" x1="320.72" y1="48.95" x2="320.72" y2="141.24" xlink:href="#linear-gradient-2"/><linearGradient id="linear-gradient-5" x1="393.92" y1="114.43" x2="467.69" y2="114.43" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-6" x1="364.34" y1="124.18" x2="364.34" y2="126.35" xlink:href="#linear-gradient-2"/><linearGradient id="linear-gradient-7" x1="368.87" y1="48.95" x2="368.87" y2="141.22" xlink:href="#linear-gradient-2"/></defs><path d="M270.81,182.45c-34.6,0-69.21,0-103.81,0-5.58,0-9.9-4.72-8.8-9.62,.67-2.98,1.36-5.96,2.04-8.93,.15-.64,.3-1.28,.43-1.92,1.09-5.18,5.04-8.38,10.4-8.38,20.09,0,40.19,0,60.28,0,48.73,0,97.46,.01,146.19,.02,6.58,0,10.52,4.87,9.13,11.31-.63,2.94-1.25,5.88-1.87,8.82-1.18,5.58-4.97,8.68-10.69,8.68-34.44,0-68.88,0-103.32,0v.03Zm-50.21-13.57c-.51-1.63-.54-3.11-.79-4.55-.13-.77,.19-1.84-.99-2.09-1.33-.29-2.24,.17-2.77,1.53-.54,1.36-1.27,2.65-1.96,3.95-.16,.3-.53,.68-.79,.68-.54,0-.34-.58-.4-.91-.24-1.45-.43-2.9-.66-4.35-.26-1.65-1.55-.73-2.37-.86-1.02-.17-.75,.6-.66,1.19,.47,3.07,.91,6.16,1.42,9.22,.11,.65-.3,1.69,.96,1.73,1.09,.04,2.11,.18,2.68-1.22,.67-1.67,1.6-3.23,2.45-4.82,.15-.29,.17-.81,.79-.67,.25,1.77,.48,3.56,.76,5.34,.08,.53-.19,1.4,.73,1.39,.86,0,1.97,.51,2.53-.58,1.93-3.78,3.81-7.59,5.73-11.42-2.81-.51-2.8-.5-3.96,1.64-.84,1.55-1.72,3.07-2.7,4.82Zm60.98-1.71c1.46,2.4,2.76,4.4,3.91,6.49,.63,1.15,1.57,.73,2.44,.77,.97,.05,.9-.74,1.03-1.37,.64-3.16,1.3-6.31,1.91-9.48,.09-.46,.71-1.39-.41-1.31-.83,.06-2.03-.87-2.51,.76-.58,1.96-.63,4.05-1.52,6.08-1.26-2.04-2.59-3.95-3.64-6-.65-1.27-1.62-.82-2.51-.88-1.02-.07-.84,.8-.96,1.39-.64,3.1-1.3,6.2-1.87,9.31-.08,.45-.87,1.45,.41,1.44,.87-.01,2.18,.72,2.49-.97,.35-1.92,.76-3.84,1.25-6.23Zm-35.34,7.25c1.54-.06,3.25,.21,4.86-.58,2.4-1.19,3.11-3.4,1.61-5.46-.39-.54-.19-.7,.14-1.03,.99-.97,1.4-2.14,.84-3.43-.57-1.3-1.83-1.66-3.12-1.71-1.75-.06-3.5-.02-5.25-.02-.59,0-.85,.12-1.05,.84-.73,2.7-1.17,5.44-1.57,8.19-.15,1.01-.99,2.39-.12,3.02,.72,.53,2.11,.15,3.2,.18,.11,0,.22,0,.47,0Zm91.61-12.24c-.82,0-1.64,.06-2.46-.02-.91-.08-1.25,.33-1.41,1.16-.63,3.37-1.3,6.74-1.94,10.11-.07,.35-.26,.73,.23,.99,1.06,.56,2.65-.13,2.9-1.29,.1-.48,.22-.96,.3-1.44,.09-.59,.27-1.04,1.01-1.02,.61,.02,1.19-.05,1.49,.68,.31,.75,.72,1.47,1.07,2.21,.45,.96,2.07,1.61,3.1,1.05,1.24-.68,.08-1.49-.21-2-.83-1.48-1.05-2.48,.62-3.69,1.42-1.02,1.9-2.84,1.17-4.59-.7-1.68-2.22-2.13-3.9-2.15-.66,0-1.31,0-1.97,0Zm-16.28,12.42c4.05-.03,7.73-3.57,7.7-7.42-.02-3.01-2.47-5.19-5.79-5.15-4.1,.05-7.72,3.54-7.68,7.41,.03,3.04,2.43,5.18,5.77,5.16Zm44.49,.01c4.19-.03,7.64-3.4,7.63-7.44-.01-3.08-2.25-5.19-5.53-5.19-4.21-.01-7.93,3.5-7.88,7.44,.04,3.04,2.47,5.23,5.79,5.2Zm-97.7-.15v-.04c1.31,0,2.62,.01,3.93,0,1.28-.01,1.03-1.09,1.15-1.81,.16-.98-.67-.63-1.12-.66-1.15-.05-2.3,.05-3.44-.07-.53-.06-1.6,.6-1.54-.7,.05-1.02,.26-1.93,1.72-1.73,1.07,.14,2.18,.01,3.27,.01,1.21,0,.94-.99,1.08-1.66,.2-.97-.59-.69-1.06-.73-.93-.07-1.86-.03-2.78-.12-.49-.05-1.39,.42-1.32-.61,.06-.79,0-1.79,1.41-1.68,1.46,.12,2.95,.03,4.42,.01,1.31-.02,.97-1.17,1.1-1.84,.19-.94-.7-.6-1.13-.61-2.29-.05-4.59,0-6.88-.05-.88-.02-1.24,.29-1.4,1.17-.56,3.11-1.11,6.24-1.85,9.31-.4,1.68,.2,1.97,1.65,1.83,.92-.09,1.86-.02,2.78-.02Zm-77.57,.13c3.4-.01,5.89-2.04,6.61-5.43,.38-1.81,.75-3.63,1.02-5.46,.07-.46,.76-1.42-.49-1.46-.98-.03-2.31-.42-2.57,.96-.12,.65-.3,1.33-.4,2-.25,1.66-.55,3.33-1.01,4.94-.4,1.39-2.07,2.07-3.63,1.67-1.48-.37-1.57-1.5-1.37-2.7,.29-1.82,.69-3.62,.96-5.44,.07-.51,.6-1.47-.61-1.42-.95,.04-2.3-.58-2.55,1.13-.26,1.78-.49,3.56-.81,5.33-.68,3.81,1.03,5.89,4.87,5.88Zm44.88-12.39v-.02c-1.26,0-2.51,.03-3.77-.01-.73-.02-1.07,.23-1.2,.98-.6,3.44-1.24,6.87-1.89,10.3-.14,.71,.03,1.01,.79,1,2.57-.02,5.14,0,7.7-.02,1.28,0,1.02-1.14,1.16-1.82,.18-.93-.69-.6-1.13-.62-1.25-.06-2.52-.14-3.77-.03-1.56,.14-1.45-.69-1.2-1.71,.16-.65,.61-.8,1.23-.78,1.09,.03,2.2-.13,3.27,.03,1.66,.24,1.47-1.04,1.51-1.85,.06-1.11-.96-.46-1.46-.55-.74-.13-1.53,.03-2.28-.08-.52-.07-1.5,.45-1.47-.62,.02-.93,.14-1.95,1.65-1.76,1.29,.16,2.62-.02,3.93,.05,1.48,.08,1.33-1.14,1.41-1.9,.09-.95-.86-.53-1.35-.56-1.03-.07-2.07-.02-3.11-.02Zm70.89,12.4c1.71,0,3.21-.56,4.55-1.6,1.09-.85,.95-1.8-.32-2.39-.7-.32-.99,.29-1.42,.54-2.31,1.36-4.74,.78-5.31-1.3-.43-1.57,.32-3.37,1.83-4.4,1.41-.96,3.23-1.09,4.42,.01,1.37,1.28,2.24,.11,2.85-.59,.77-.89-.47-1.38-1.02-1.76-3.56-2.45-9.19-.67-10.94,4.11-1.46,3.99,1.08,7.39,5.37,7.38Zm-128.41-12.41h0c-1.42,0-2.84,.05-4.26-.03-1.51-.08-1.32,1.09-1.4,1.9-.1,1.01,.81,.55,1.31,.64,.32,.06,.66,.05,.98,0,1.15-.15,1.38,.3,1.14,1.38-.52,2.34-.96,4.7-1.35,7.06-.08,.48-.82,1.42,.45,1.46,.92,.03,2.14,.51,2.4-1.08,.3-1.81,.67-3.61,1.01-5.42q.58-3.12,3.67-3.45c.22-.02,.48,.03,.64-.08,.69-.45,.67-1.26,.67-1.91,0-.69-.73-.47-1.18-.48-1.36-.03-2.73,0-4.09,0Zm175.14-.01h0c-1.37-.01-2.74,.08-4.1-.04-1.55-.13-1.54,.98-1.59,1.9-.07,1.13,.92,.56,1.45,.68,.31,.07,.66,.04,.98,0,.98-.12,1.23,.23,1.01,1.2-.52,2.29-.96,4.6-1.36,6.92-.09,.55-.8,1.56,.53,1.57,.9,.01,2.16,.59,2.42-1.11,.29-1.94,.73-3.86,1.12-5.78,.54-2.62,.54-2.62,3.13-2.82,.22-.02,.44,0,.65-.05,1.07-.24,.74-1.23,.89-1.88,.18-.81-.62-.56-1.02-.58-1.37-.04-2.73-.02-4.1-.02Z" style="fill:url(#linear-gradient);"/><path d="M411.62,100.21c-2.04,9.95-4.05,19.78-6.06,29.62-.63,3.06-1.3,6.1-1.86,9.17-.29,1.6-1.15,2.21-2.73,2.19-3.56-.05-7.12,0-10.68-.03-1.93-.01-2.32-.49-1.93-2.44,2.08-10.49,4.17-20.98,6.28-31.47,3.75-18.69,7.52-37.37,11.24-56.06,.32-1.6,1.13-2.25,2.69-2.23,3.62,.02,7.23,.03,10.85-.02,1.55-.02,2.12,.66,2.18,2.17,.34,8.94,.86,17.87,1.06,26.81,.09,4.11,.57,8.19,.84,12.34,.33-1.65,.65-3.3,.98-4.95,2.28-11.39,4.58-22.78,6.82-34.19,.32-1.64,1.16-2.18,2.72-2.16,3.62,.04,7.23,0,10.85,0,1.99,0,2.49,.57,2.11,2.49-1.41,7.25-2.69,14.53-4.33,21.74-1.25,5.5-2.1,11.08-3.29,16.59-1.69,7.82-3.05,15.71-4.83,23.51-1.02,4.49-1.6,9.07-2.78,13.51-1.07,4.01-1.45,8.12-2.38,12.14-.36,1.57-1.21,2.24-2.75,2.23-3.73,0-7.46-.05-11.19,.02-1.64,.03-2.16-.61-2.2-2.24-.35-12.55-.78-25.1-1.2-37.65-.01-.32,.1-.69-.43-1.1Z" style="fill:url(#linear-gradient-2);"/><path d="M.02,170.08c3.07-1.68,6.19-3.28,9.49-4.42,5.89-2.03,11.15-5.28,16.57-8.23,2.65-1.44,5.39-2.65,8.55-2.49,1.86,.09,3.47,.95,5.16,1.53,1.01,.35,1.24,.08,1.24-.89-.02-5.91-.03-11.82,.01-17.73,0-1.03-.4-1.23-1.33-1.33-5.49-.58-10.1-2.8-13.26-7.48-1.66-2.45-2.52-5.19-2.51-8.18,.01-7.77,0-15.54,.02-23.31,0-3.1,2.1-5.2,5.11-5.21,2.88,0,4.9,2.08,4.91,5.2,.02,7.55,0,15.1,0,22.65,0,3.6,2,5.99,5.46,6.76,1.22,.27,1.62,0,1.61-1.31-.04-11.82-.02-23.64-.02-35.45,0-3.56-.02-7.11,0-10.67,.02-4,2.91-6.95,6.76-6.94,3.73,0,6.52,2.96,6.53,6.97,.01,16.3,0,32.61,0,48.91,0,.95,.03,1.86-.91,2.47-.2,.13-.33,.44-.4,.7-.91,3.25-1.16,6.58-1.16,9.96-1.7-3.14-2.45-5.53-1.75-8.95,.16-.78,2.62-2.48,3.44-2.74,3.33-1.05,7.68-2.86,7.69-6.36,0-8.64-.02-17.29,0-25.93,0-2.72,1.77-4.85,4.27-5.25,2.54-.41,4.88,1.11,5.7,3.64,.23,.7,.18,1.41,.18,2.11,0,8.64,.01,17.29,0,25.93-.02,8.07-6.19,14.62-14.29,15.17-.6,.04-1.2,.08-1.81,.07-.69,0-.97,.28-.97,.98,.02,6.67,.03,13.35,.02,20.03,0,.73,.14,.95,.94,.68,2.49-.86,4.81-2.07,7.16-3.22,5.2-2.55,10.24-5.42,15.49-7.88,4.18-1.96,7.85-1.57,11.4,1.43,3.13,2.65,6.46,5.06,9.66,7.63,.87,.7,1.71,.84,2.73,.51,1.77-.57,3.56-1.09,5.32-1.67,2.36-.78,4.65-.65,6.8,.61,6.84,4.02,13.69,7.99,21.18,10.72-3.84-.36-15.66-3.72-19.04-5.34-1.34-.65-2.54-1.52-3.68-2.45-1.09-.89-2.25-1.03-3.53-.56-1.44,.52-2.87,1.06-4.31,1.57-1.26,.45-5.55-.87-6.17-1.89-.44-.72,.89-.21,.46-1.01-3.75-.18-6.02-3.28-8.96-5.24-1.9-1.27-3.67-2.81-6.13-2.89-.56-.02-1.1-.06-1.55,.34-1.5,1.36-3,2.72-4.5,4.07-.42,.38-.3,.67,.15,.86,.55,.24,1.13,.63,1.68,.59,1.88-.11,2.61,1.38,3.6,2.46,.82,.9,.57,1.69-.6,2.11-2.16,.78-4.32,1.55-6.48,2.32-.45,.16-.91,.32-1.37,.64,14.72,2.87,29.39,5.87,44.15,8.52H18.12c16.12-2.28,32.28-4.18,48.61-5.06-2.73-.66-5.45-1.4-8.2-1.96-6.02-1.23-11.74-3.24-17.33-5.78-7.73-3.51-7.15-3.31-13.87,.68-4.35,2.58-9.02,4.16-13.95,5.04-4.06,.73-7.98,1.84-11.77,3.46-.5,.21-1.04,.31-1.57,.47H.02Z" style="fill:#f78d1e;"/><path d="M413.21,32.84c-1.24,0-2.26,0-3.29,0-110.94,0-221.88,.01-332.82,.02-9.4,0-16.93,6.05-18.76,14.97-.96,4.66-1.98,9.31-2.97,13.96-.34,1.6-.72,3.2-1.01,4.82-.17,.97-.42,1.36-1.44,.71-1.46-.93-3.13-1.26-4.86-1.24-.58,0-1.12,.03-.91-.86,1.63-7.14,2.61-14.45,4.75-21.45,3.25-10.67,13.71-18.06,25.01-18.07,35.65,0,71.29,.02,106.94,.02,74.74,0,149.49,0,224.23,0,3.05,0,3.06-.02,2.01-2.73-.34-.88-.48-1.73,.22-2.45,.77-.79,1.68-.6,2.58-.18,5.15,2.4,10.29,4.82,15.47,7.18,1.11,.51,1.59,1.36,1.67,2.42,.08,1.15-.41,2.2-1.45,2.76-4.85,2.65-9.7,5.27-14.59,7.83-1.58,.83-2.97,0-3.21-1.78-.2-1.48,.09-2.81,1.08-3.98,.45-.53,1.04-.96,1.35-1.97Z" style="fill:url(#linear-gradient-3);"/><path d="M271.07,84.61c3.24-7.11,6.48-14.22,9.74-21.33,1.91-4.16,3.89-8.28,5.77-12.45,.6-1.33,1.45-1.9,2.91-1.88,3.96,.06,7.92,0,11.88,.02,2.12,0,2.58,.7,1.7,2.65-5.74,12.68-11.85,25.19-17.88,37.73-.62,1.29-.89,2.54-.84,3.95,.47,15.02,.91,30.04,1.33,45.06,.07,2.36-.44,2.85-2.75,2.86-3.79,.02-7.58,.02-11.37,.02-2.11,0-2.38-.3-2.41-2.37-.12-10.84-.25-21.68-.37-32.52,0-.15-.04-.3-.12-.81-1.37,2.38-2.9,4.22-3.39,6.81-1.68,8.95-3.61,17.85-5.39,26.78-.31,1.53-1.13,2.11-2.62,2.1-3.85-.03-7.69,0-11.54,0-2.35,0-2.79-.5-2.33-2.74,1.94-9.54,3.94-19.08,5.84-28.63,3.68-18.54,7.31-37.08,10.97-55.63,.19-.95,.52-1.9,.59-2.86,.14-1.81,1.06-2.46,2.82-2.43,3.9,.07,7.81,.01,11.71,.03,1.79,0,2.21,.54,1.86,2.33-2.07,10.61-4.14,21.22-6.21,31.84-.09,.44-.12,.9-.18,1.34l.29,.13Z" style="fill:#fff;"/><path d="M311.89,141.23c-3.04,0-6.08,.01-9.13,0-6.23-.03-10.33-4.81-9.21-10.93,1.17-6.39,2.54-12.75,3.79-19.13,.28-1.43,1.07-2.03,2.51-2.02,3.96,.03,7.92,0,11.88,.03,1.7,.01,2.1,.52,1.75,2.27-.73,3.71-1.49,7.42-2.24,11.12-.61,3.01,0,3.78,3.03,3.77,3.43,0,3.92-.47,4.58-3.91,.88-4.61,1.83-9.21,2.77-13.81,.42-2.06-.02-3.05-1.8-4.14-3.96-2.43-7.93-4.84-11.82-7.37-5.1-3.32-6.55-6.85-5.33-12.76,1.72-8.35,3.56-16.68,5.12-25.07,1.15-6.19,6.3-10.31,12.6-10.33,6.14-.02,12.28-.02,18.43,0,6.13,.01,10.17,4.84,9.04,10.88-1.12,5.97-2.37,11.92-3.5,17.89-.3,1.58-1.11,2.25-2.7,2.23-3.85-.04-7.69-.01-11.54-.03-1.89-.01-2.38-.57-2.03-2.43,.69-3.66,1.46-7.31,2.19-10.96,.42-2.1-.2-2.89-2.32-2.96-.63-.02-1.26-.06-1.89-.04-1.79,.04-2.88,.93-3.24,2.69-.99,4.82-1.95,9.65-2.94,14.47-.31,1.51,.26,2.53,1.54,3.3,4.05,2.4,7.97,5.01,12.05,7.36,5.14,2.96,6.64,6.82,5.44,12.63-1.83,8.86-3.58,17.74-5.35,26.62-1.28,6.44-6.34,10.61-12.93,10.62-2.93,0-5.85,0-8.78,0h0Z" style="fill:url(#linear-gradient-4);"/><path d="M99.38,141.25c-2.87,0-5.75-.18-8.61,.04-5.76,.45-12-3.65-10.26-12.36,3.04-15.21,6.16-30.41,9.25-45.62,1.57-7.74,3.12-15.48,4.73-23.21,1.48-7.1,6.51-11.13,13.8-11.14,5.91,0,11.82,0,17.74,0,6.73,0,10.92,4.93,9.68,11.56-1.07,5.74-2.33,11.44-3.47,17.17-.33,1.63-1.26,2.3-2.89,2.28-3.85-.04-7.69,0-11.54-.01-1.8,0-2.31-.53-1.98-2.3,.69-3.66,1.45-7.31,2.23-10.95,.46-2.14-.17-3.05-2.33-3.13-.92-.04-1.84-.06-2.75,0-1.78,.11-2.97,1.18-3.32,2.92-3.77,18.67-7.53,37.33-11.3,56-.6,2.98,.12,3.84,3.22,3.85,.52,0,1.03,.01,1.55,0,1.96-.04,3.08-.97,3.46-2.88,.79-3.99,1.63-7.97,2.35-11.97,.3-1.64,1.09-2.37,2.77-2.35,3.96,.06,7.92,.01,11.88,.03,1.69,0,2.12,.58,1.78,2.25-1.31,6.4-2.59,12.81-3.93,19.2-1.39,6.61-6.36,10.61-13.11,10.61-2.98,0-5.97,0-8.95,0Z" style="fill:#fff;"/><path d="M214.87,141.25c-2.98,0-5.97-.01-8.95,0-7.1,.03-11.32-5.01-9.91-11.97,3.51-17.4,7.08-34.79,10.6-52.19,1.11-5.5,2.2-11.01,3.24-16.53,1.32-6.95,6.86-11.59,13.95-11.6,5.85-.01,11.71,0,17.56-.02,6.66-.02,10.96,4.94,9.79,11.54-1.04,5.86-2.36,11.68-3.52,17.52-.27,1.35-1.06,1.96-2.39,1.96-4.02,0-8.03,.03-12.05,0-1.6-.01-2.18-.83-1.85-2.53,.71-3.59,1.45-7.17,2.2-10.76,.42-2.04-.34-3.03-2.45-3.1-.92-.03-1.84-.04-2.75,.03-1.69,.14-2.86,1.22-3.18,2.87-3.55,18.73-7.43,37.39-11.28,56.06-.61,2.96,.08,3.8,3.07,3.8,.69,0,1.38,.03,2.07-.01,1.77-.1,2.99-1.14,3.35-2.88,.81-3.98,1.62-7.96,2.38-11.95,.3-1.61,1.13-2.36,2.81-2.34,3.84,.05,7.69,0,11.53,.03,1.72,0,2.21,.52,1.88,2.19-1.3,6.68-2.48,13.39-4.06,20-1.46,6.1-6.64,9.85-12.88,9.86-3.04,0-6.08,0-9.12,0h0Z" style="fill:#fff;"/><path d="M144.56,141.22c-4.94,0-9.87,.02-14.81,0-1.97,0-2.43-.64-2.04-2.57,5.14-25.47,10.27-50.95,15.41-76.42,.77-3.82,1.6-7.62,2.34-11.44,.24-1.25,.94-1.8,2.1-1.81,4.19-.03,8.38-.05,12.57,0,1.55,.01,2.04,.83,1.68,2.61-2.15,10.6-4.31,21.21-6.46,31.81-2.7,13.34-5.4,26.69-8.09,40.03-.46,2.3,.07,2.93,2.4,2.93,4.08,0,8.15,0,12.23,0,1.94,0,2.38,.52,2.02,2.38-.66,3.43-1.4,6.85-2.02,10.29-.29,1.59-1.11,2.24-2.7,2.22-4.88-.04-9.76-.01-14.64-.01h0Z" style="fill:#fff;"/><path d="M195.49,48.97c2.07,0,4.13-.03,6.2,0,1.6,.03,2.13,.7,1.82,2.3-3.3,16.61-6.59,33.23-9.92,49.83-2.54,12.67-5.16,25.33-7.68,38.01-.31,1.55-1.09,2.12-2.57,2.12-3.96-.02-7.92,.02-11.88,0-1.94,0-2.45-.67-2.06-2.58,3.58-17.61,7.21-35.21,10.74-52.84,2.3-11.45,4.47-22.92,6.69-34.39,.4-2.06,.85-2.45,3-2.46,1.89,0,3.79,0,5.68,0Z" style="fill:#fff;"/><path d="M467,58.69c.56,.64,.95,3.86,.47,6.76-3.18,15.35-6.35,30.69-9.52,46.04-1.49,7.24-2.99,14.47-4.48,21.71-1.24,6.02-2.44,12.04-3.7,18.05-2.24,10.66-12.23,18.83-23.11,18.86-10.46,.03-20.92-.02-31.37,.04-1.33,0-1.57-.34-1.23-1.54,.48-1.73,.32-4.03,1.41-5.09,1.12-1.09,3.43-.32,5.22-.33,7.88-.03,15.77-.01,23.65-.01,10.36,0,16.78-5.17,18.86-15.25,2.07-10.06,4.08-20.14,6.14-30.2,2.15-10.54,4.33-21.07,6.49-31.61,1.42-6.95,2.78-13.92,4.26-20.86,.5-2.32-.07-4.44-.75-6.58" style="fill:url(#linear-gradient-5);"/><path d="M451.37,16.28c.56-4.4,1.14-9.23,1.8-14.05,.22-1.6,1.64-2.47,3.28-2.19,1.49,.26,2.3,1.4,2.09,2.99-.6,4.66-1.19,9.32-1.81,13.98-.22,1.67-1.36,2.57-2.94,2.41-1.6-.16-2.54-1.21-2.43-3.14Z" style="fill:#e56c2b;"/><path d="M463.28,23.07c0-.82,.34-1.47,.96-2,3.16-2.71,6.3-5.44,9.47-8.13,1.64-1.39,3.17-1.33,4.29,.07,1.02,1.28,.66,2.75-.9,4.09-3.11,2.67-6.22,5.36-9.3,8.07-.98,.87-2.04,1.05-3.17,.48-1.03-.52-1.44-1.45-1.34-2.6Z" style="fill:#e56c2b;"/><path d="M470.34,33.12c4.17,.54,8.6,1.1,13.04,1.71,1.63,.22,2.5,1.41,2.33,2.98-.17,1.56-1.29,2.42-3.04,2.2-4.38-.53-8.77-1.08-13.14-1.68-1.71-.23-2.48-1.4-2.26-3.17,.18-1.41,1.22-2.18,3.08-2.04Z" style="fill:#e56c2b;"/><path d="M433.75,6.96c.97,.03,1.63,.45,2.18,1.13,2.58,3.26,5.18,6.5,7.75,9.77,1.2,1.52,1.17,2.9,0,3.9-1.24,1.05-2.98,.79-4.17-.69-2.61-3.24-5.18-6.51-7.78-9.75-.74-.92-.82-1.91-.32-2.91,.48-.96,1.39-1.34,2.34-1.45Z" style="fill:#e56c2b;"/><path d="M132.75,163.17c3.31,0,6.5,0,9.69,0,2.79,0,5.57,.07,8.36-.02,1.39-.05,1.57,.42,1.16,1.6-.32,.92-.45,1.91-.72,2.85-.24,.85,.03,2.15-.9,2.44-1.15,.36-2.56,.45-3.7-.06-4.57-2.05-9.09-4.23-13.63-6.37-.07-.03-.1-.16-.26-.44Z" style="fill:#f78d1e;"/><polygon points=".04 170.08 0 170.13 .02 170.08 .04 170.08" style="fill:#e56c2b;"/><path d="M220.6,168.88c.98-1.75,1.87-3.27,2.7-4.82,1.16-2.14,1.14-2.15,3.96-1.64-1.92,3.84-3.8,7.64-5.73,11.42-.56,1.09-1.66,.58-2.53,.58-.91,0-.64-.86-.73-1.39-.28-1.78-.51-3.57-.76-5.34-.62-.14-.63,.38-.79,.67-.84,1.59-1.78,3.16-2.45,4.82-.56,1.4-1.59,1.26-2.68,1.22-1.26-.04-.85-1.08-.96-1.73-.51-3.07-.95-6.15-1.42-9.22-.09-.59-.36-1.36,.66-1.19,.81,.14,2.1-.79,2.37,.86,.23,1.45,.42,2.9,.66,4.35,.05,.34-.14,.91,.4,.91,.27,0,.63-.38,.79-.68,.69-1.3,1.42-2.59,1.96-3.95,.53-1.36,1.44-1.82,2.77-1.53,1.17,.26,.85,1.32,.99,2.09,.25,1.44,.28,2.92,.79,4.55Z" style="fill:#030303;"/><path d="M281.58,167.17c-.48,2.4-.9,4.31-1.25,6.23-.31,1.69-1.62,.96-2.49,.97-1.28,.02-.49-.99-.41-1.44,.57-3.11,1.23-6.21,1.87-9.31,.12-.59-.05-1.46,.96-1.39,.9,.06,1.86-.39,2.51,.88,1.05,2.05,2.39,3.96,3.64,6,.89-2.03,.94-4.12,1.52-6.08,.48-1.63,1.69-.7,2.51-.76,1.12-.08,.5,.85,.41,1.31-.6,3.17-1.27,6.32-1.91,9.48-.13,.63-.06,1.42-1.03,1.37-.86-.04-1.8,.38-2.44-.77-1.15-2.09-2.45-4.09-3.91-6.49Z" style="fill:#030303;"/><path d="M246.24,174.42c-.25,0-.36,0-.47,0-1.09-.02-2.48,.35-3.2-.18-.86-.63-.02-2.01,.12-3.02,.4-2.75,.84-5.49,1.57-8.19,.2-.72,.46-.85,1.05-.84,1.75,0,3.5-.04,5.25,.02,1.3,.05,2.55,.41,3.12,1.71,.57,1.29,.15,2.46-.84,3.43-.33,.32-.54,.48-.14,1.03,1.5,2.05,.79,4.27-1.61,5.46-1.6,.79-3.32,.52-4.86,.58Zm1.91-5.08h0c-.44,0-.88-.03-1.31,.01-1.03,.11-.7,1.07-.96,1.65-.14,.33-.22,.87,.31,.91,1.23,.09,2.51,.33,3.66-.38,.51-.32,.7-.83,.55-1.42-.14-.56-.6-.74-1.12-.77-.38-.02-.76,0-1.14,0Zm.19-4.81c-.98-.36-1.36,.48-1.55,1.68-.15,.93,.43,.89,.97,.82,1.11-.16,2.7,.42,2.95-1.28,.19-1.32-1.09-1.03-2.37-1.21Z" style="fill:#030303;"/><path d="M337.84,162.18c.66,0,1.31,0,1.97,0,1.69,.02,3.2,.47,3.9,2.15,.73,1.76,.25,3.57-1.17,4.59-1.67,1.21-1.46,2.21-.62,3.69,.29,.51,1.45,1.32,.21,2-1.03,.56-2.65-.09-3.1-1.05-.35-.74-.76-1.45-1.07-2.21-.3-.74-.89-.66-1.49-.68-.74-.02-.91,.43-1.01,1.02-.07,.48-.19,.96-.3,1.44-.25,1.15-1.83,1.85-2.9,1.29-.49-.26-.3-.65-.23-.99,.64-3.37,1.31-6.73,1.94-10.11,.15-.82,.5-1.24,1.41-1.16,.81,.07,1.64,.02,2.46,.02Zm.83,2.54c-1.81-.02-2.4,.73-2.37,2.71,.01,1.05,.81,.65,1.29,.67,2.08,.07,3.22-.6,3.23-1.9,.02-1.7-1.28-1.42-2.15-1.47Z" style="fill:#030303;"/><path d="M321.57,174.6c-3.34,.02-5.73-2.12-5.77-5.16-.04-3.87,3.58-7.37,7.68-7.41,3.32-.04,5.78,2.14,5.79,5.15,.02,3.85-3.65,7.39-7.7,7.42Zm-2.62-5.67c0,1.8,1.2,3.02,2.96,3,2.24-.03,4.11-1.94,4.16-4.25,.04-1.82-1.13-3-2.95-2.97-2.25,.03-4.17,1.97-4.17,4.22Z" style="fill:#030303;"/><path d="M366.06,174.62c-3.31,.03-5.74-2.16-5.79-5.2-.05-3.93,3.67-7.45,7.88-7.44,3.28,0,5.52,2.11,5.53,5.19,.02,4.04-3.43,7.41-7.63,7.44Zm-2.62-5.71c.01,1.8,1.21,3.02,2.96,3.01,2.2,0,4.16-1.99,4.18-4.25,.02-1.7-1.31-3.03-3-3.01-2.22,.03-4.16,2.01-4.15,4.24Z" style="fill:#030303;"/><path d="M268.36,174.47c-.93,0-1.86-.07-2.78,.02-1.45,.14-2.05-.16-1.65-1.83,.74-3.07,1.29-6.2,1.85-9.31,.16-.88,.52-1.19,1.4-1.17,2.29,.05,4.59,0,6.88,.05,.44,0,1.32-.34,1.13,.61-.13,.68,.21,1.83-1.1,1.84-1.47,.02-2.96,.11-4.42-.01-1.41-.12-1.35,.89-1.41,1.68-.07,1.04,.83,.57,1.32,.61,.92,.09,1.86,.05,2.78,.12,.47,.03,1.26-.25,1.06,.73-.14,.67,.13,1.66-1.08,1.66-1.09,0-2.2,.13-3.27-.01-1.46-.19-1.67,.71-1.72,1.73-.06,1.31,1,.65,1.54,.7,1.14,.12,2.29,.02,3.44,.07,.45,.02,1.29-.32,1.12,.66-.12,.72,.13,1.79-1.15,1.81-1.31,.01-2.62,0-3.93,0v.04Z" style="fill:#030303;"/><path d="M190.79,174.59c-3.84,.01-5.55-2.08-4.87-5.88,.32-1.77,.54-3.55,.81-5.33,.25-1.71,1.6-1.09,2.55-1.13,1.2-.06,.68,.91,.61,1.42-.27,1.82-.67,3.62-.96,5.44-.19,1.2-.11,2.33,1.37,2.7,1.57,.39,3.24-.29,3.63-1.67,.46-1.61,.76-3.28,1.01-4.94,.1-.67,.28-1.35,.4-2,.26-1.39,1.59-.99,2.57-.96,1.26,.04,.56,1,.49,1.46-.26,1.83-.64,3.65-1.02,5.46-.72,3.39-3.21,5.42-6.61,5.43Z" style="fill:#030303;"/><path d="M235.68,162.21c1.04,0,2.08-.05,3.11,.02,.49,.04,1.44-.39,1.35,.56-.07,.76,.07,1.98-1.41,1.9-1.31-.07-2.64,.11-3.93-.05-1.51-.19-1.63,.84-1.65,1.76-.03,1.06,.95,.54,1.47,.62,.75,.11,1.54-.06,2.28,.08,.51,.09,1.52-.56,1.46,.55-.04,.81,.15,2.09-1.51,1.85-1.07-.16-2.18,0-3.27-.03-.62-.02-1.07,.13-1.23,.78-.25,1.02-.36,1.86,1.2,1.71,1.24-.12,2.51-.03,3.77,.03,.45,.02,1.32-.31,1.13,.62-.13,.68,.13,1.82-1.16,1.82-2.57,.01-5.14,0-7.7,.02-.76,0-.92-.3-.79-1,.66-3.43,1.29-6.86,1.89-10.3,.13-.75,.47-1,1.2-.98,1.26,.04,2.51,.01,3.77,.01v.02Z" style="fill:#030303;"/><path d="M306.57,174.61c-4.29,.01-6.83-3.39-5.37-7.38,1.75-4.78,7.37-6.56,10.94-4.11,.55,.38,1.79,.86,1.02,1.76-.6,.7-1.48,1.86-2.85,.59-1.18-1.11-3.01-.97-4.42-.01-1.51,1.03-2.26,2.83-1.83,4.4,.57,2.08,3,2.66,5.31,1.3,.43-.25,.72-.86,1.42-.54,1.27,.59,1.41,1.54,.32,2.39-1.34,1.05-2.85,1.6-4.55,1.6Z" style="fill:#030303;"/><path d="M178.16,162.2c1.36,0,2.73-.02,4.09,0,.45,0,1.18-.21,1.18,.48,0,.65,.01,1.46-.67,1.91-.16,.11-.42,.06-.64,.08q-3.09,.33-3.67,3.45c-.34,1.81-.71,3.61-1.01,5.42-.27,1.6-1.49,1.11-2.4,1.08-1.26-.04-.53-.99-.45-1.46,.39-2.37,.82-4.73,1.35-7.06,.24-1.09,.01-1.53-1.14-1.38-.32,.04-.66,.06-.98,0-.5-.09-1.41,.37-1.31-.64,.08-.81-.11-1.98,1.4-1.9,1.41,.08,2.84,.02,4.26,.02h0Z" style="fill:#030303;"/><path d="M353.3,162.19c1.37,0,2.74-.02,4.1,.02,.41,.01,1.21-.23,1.02,.58-.15,.65,.18,1.64-.89,1.88-.21,.05-.44,.04-.65,.05-2.59,.19-2.6,.19-3.13,2.82-.39,1.92-.83,3.84-1.12,5.78-.26,1.7-1.51,1.12-2.42,1.11-1.33-.02-.63-1.02-.53-1.57,.4-2.31,.84-4.62,1.36-6.92,.22-.98-.03-1.32-1.01-1.2-.32,.04-.67,.07-.98,0-.53-.12-1.52,.45-1.45-.68,.05-.92,.05-2.03,1.59-1.9,1.36,.12,2.73,.02,4.1,.02h0Z" style="fill:#030303;"/><g><path d="M362.89,126.35c-.4,0-.8,.01-1.21,0,.4,.01,.8,0,1.21,0,2.53,0,3.58-.47,4.12-2.17-.54,1.69-1.59,2.17-4.12,2.16Z" style="fill:url(#linear-gradient-6);"/><path d="M387.21,48.95c-3.16-.02-6.31,0-9.47,0-2.93,0-5.86,0-8.78,0-6.74,0-11.87,4.13-13.29,10.71-.46,2.13-.88,4.26-1.32,6.39-2.09,10.32-4.18,20.65-6.24,30.98-2.14,10.72-4.35,21.43-6.49,32.15-1.55,7.76,3.63,12.1,9.52,12.04,6.03-.07,12.05,0,18.08-.02,5.05-.01,8.72-2.37,11.29-6.64,1.49-2.48,1.78-5.31,2.34-8.04,3.77-18.42,7.52-36.84,11.21-55.28,.84-4.21,2.05-8.37,2.31-12.67,.33-5.43-3.71-9.58-9.16-9.61Zm-8.93,19.15c-2.87,13.1-5.2,26.31-8.03,39.42-1.09,5.06-2.15,10.16-2.94,15.29-.08,.53-.18,.98-.3,1.37-.54,1.69-1.59,2.17-4.12,2.17-.4,0-.8,0-1.21,0-1.95-.07-2.72-.93-2.35-2.87,1.25-6.52,2.55-13.04,3.86-19.55,2.5-12.47,5-24.93,7.51-37.39,.43-2.15,1.49-2.99,3.7-3.02,4.4-.06,4.81,.33,3.88,4.58Z" style="fill:url(#linear-gradient-7);"/></g><path d="M248.14,169.34c.38,0,.76-.02,1.14,0,.52,.03,.98,.21,1.12,.77,.15,.59-.04,1.1-.55,1.42-1.15,.71-2.43,.47-3.66,.38-.54-.04-.46-.58-.31-.91,.26-.58-.07-1.54,.96-1.65,.43-.05,.87,0,1.31,0h0Z" style="fill:#e56c2b;"/><path d="M248.34,164.53c1.29,.18,2.56-.11,2.37,1.21-.24,1.7-1.84,1.13-2.95,1.28-.55,.08-1.12,.11-.97-.82,.19-1.2,.56-2.05,1.55-1.68Z" style="fill:#e56c2b;"/><path d="M338.67,164.72c.87,.05,2.18-.23,2.15,1.47-.02,1.31-1.16,1.98-3.23,1.9-.48-.02-1.28,.39-1.29-.67-.03-1.98,.56-2.73,2.37-2.71Z" style="fill:#e56c2b;"/><path d="M318.95,168.94c0-2.25,1.92-4.18,4.17-4.22,1.81-.03,2.98,1.15,2.95,2.97-.05,2.31-1.92,4.21-4.16,4.25-1.75,.03-2.96-1.2-2.96-3Z" style="fill:#e56c2b;"/><path d="M363.44,168.91c-.01-2.23,1.92-4.21,4.15-4.24,1.69-.02,3.02,1.31,3,3.01-.03,2.26-1.98,4.24-4.18,4.25-1.75,0-2.95-1.22-2.96-3.01Z" style="fill:#e56c2b;"/></svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">📍 Ciudad Obregón, Sonora · Servicio Local</div>
+    <div class="urgency-ticker reveal">
+      <div class="ticker-dot"></div>
+      <span>Solo quedan <strong id="spots-left">3</strong> lugares esta semana</span>
+      <div class="ticker-sep">·</div>
+      <span>⏱️ <strong id="countdown-timer">--:--:--</strong></span>
+    </div>
+    <h1 class="hero-title">
+      Tu negocio en línea<br><span class="grad">en 48 horas.</span>
+    </h1>
+    <p class="hero-sub">
+      Tu negocio en Google en menos de 48 horas. <strong>Sin tecnicismos, sin esperas.</strong> Desde $2,700 MXN · Pago único de por vida.
+    </p>
+    <div class="hero-ctas">
+      <a href="#formulario" class="btn-primary">🚀 Quiero mi página</a>
+      <a href="#demos" class="btn-secondary">Ver ejemplos</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">48H</div><div class="stat-label">Entrega garantizada</div></div>
+      <div class="stat" style="border-left:1px solid rgba(255,92,0,0.2);border-right:1px solid rgba(255,92,0,0.2);padding:0 48px"><div class="stat-num">+50</div><div class="stat-label">Negocios locales</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Satisfacción</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <span class="section-label reveal">El problema</span>
+  <h2 class="section-title reveal delay-1">Sin web, eres <span>invisible.</span></h2>
+  <p class="section-sub reveal delay-2">Más del 80% de los consumidores buscan negocios en Google antes de comprar. Si no apareces, simplemente no existes para ellos.</p>
+  <div class="divider center reveal delay-2" style="margin-bottom:0"></div>
+  <div class="problema-grid" style="margin-top:56px">
+    <div class="problema-card reveal delay-1"><span class="problema-icon">🔍</span><h3>No te encuentran</h3><p>Alguien busca tu servicio en Google y le aparece tu competencia. Tú quedas invisible.</p></div>
+    <div class="problema-card reveal delay-2"><span class="problema-icon">💸</span><h3>Pierdes ventas</h3><p>Sin web, un negocio local pierde entre el 30% y 50% de sus oportunidades de venta. Cada día cuenta.</p></div>
+    <div class="problema-card reveal delay-3"><span class="problema-icon">😟</span><h3>Sin credibilidad</h3><p>El 75% de los consumidores juzga la credibilidad de un negocio por su página web. Sin ella, no inspiras confianza.</p></div>
+  </div>
+
+  <!-- 3 TIPOS DE WEB -->
+  <div style="margin-top:64px;max-width:1000px;margin-left:auto;margin-right:auto">
+    <p class="reveal" style="text-align:center;font-size:0.82rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:32px">¿Qué tipo de página necesita tu negocio?</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+
+      <!-- MENÚ DIGITAL -->
+      <div class="reveal delay-1" style="background:linear-gradient(145deg,rgba(255,92,0,0.08),rgba(255,61,0,0.03));border:1px solid rgba(255,92,0,0.25);border-radius:20px;padding:32px;transition:all 0.3s" onmouseover="this.style.borderColor='rgba(255,92,0,0.5)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,92,0,0.25)';this.style.transform='translateY(0)'">
+        <div style="font-size:2.5rem;margin-bottom:16px">🍽️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;margin-bottom:4px;color:var(--text)">Menú Digital</div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px">Restaurantes · Cafeterías · Fondas</div>
+        <div style="background:rgba(255,0,0,0.1);border:1px solid rgba(255,80,80,0.3);border-radius:10px;padding:14px;margin-bottom:12px">
+          <div style="font-size:0.75rem;font-weight:700;color:#ff8080;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">❌ Apps de delivery te cobran:</div>
+          <ul style="list-style:none;font-size:0.82rem;color:rgba(240,232,220,0.6);line-height:1.8">
+            <li>• 20–35% de comisión por cada pedido</li>
+            <li>• Tu cliente es de ellos, no tuyo</li>
+            <li>• No puedes contactar a tus compradores</li>
+            <li>• Dependes de que la app no te suspenda</li>
+          </ul>
+        </div>
+        <div style="background:rgba(255,92,0,0.08);border:1px solid rgba(255,92,0,0.25);border-radius:10px;padding:14px">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--orange-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">✅ Tu menú digital en clickson:</div>
+          <ul style="list-style:none;font-size:0.82rem;color:rgba(240,232,220,0.7);line-height:1.8">
+            <li>• 0% de comisión — todo el dinero es tuyo</li>
+            <li>• Pedidos directos por WhatsApp</li>
+            <li>• Tus clientes son tuyos para siempre</li>
+            <li>• Pago único, sin mensualidades</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CATÁLOGO DIGITAL -->
+      <div class="reveal delay-2" style="background:linear-gradient(145deg,rgba(255,92,0,0.08),rgba(255,61,0,0.03));border:1px solid rgba(255,92,0,0.25);border-radius:20px;padding:32px;transition:all 0.3s" onmouseover="this.style.borderColor='rgba(255,92,0,0.5)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,92,0,0.25)';this.style.transform='translateY(0)'">
+        <div style="font-size:2.5rem;margin-bottom:16px">📦</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;margin-bottom:4px;color:var(--text)">Catálogo Digital</div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px">Ferreterías · Tiendas · Distribuidoras</div>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:16px">Tu inventario visible las 24 horas. Tus clientes consultan precios, disponibilidad y hacen pedidos por WhatsApp sin tener que llamarte.</p>
+        <ul style="list-style:none;font-size:0.88rem;color:rgba(240,232,220,0.7);line-height:2">
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Productos con fotos, precios y descripción</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Búsqueda y filtros por categoría</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Cotización directa por WhatsApp</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Siempre actualizado, sin imprimir nada</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Tus vendedores lo comparten desde el cel</li>
+        </ul>
+      </div>
+
+      <!-- LANDING PAGE -->
+      <div class="reveal delay-3" style="background:linear-gradient(145deg,rgba(255,92,0,0.08),rgba(255,61,0,0.03));border:1px solid rgba(255,92,0,0.25);border-radius:20px;padding:32px;transition:all 0.3s" onmouseover="this.style.borderColor='rgba(255,92,0,0.5)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,92,0,0.25)';this.style.transform='translateY(0)'">
+        <div style="font-size:2.5rem;margin-bottom:16px">🚀</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;margin-bottom:4px;color:var(--text)">Landing Page</div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:16px">Servicios · Médicos · Academias · Talleres</div>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:16px">Tu vendedor número 1 trabajando las 24 horas. Cuando alguien te busca en Google, tu página lo convierte en cliente antes de que llame a tu competencia.</p>
+        <ul style="list-style:none;font-size:0.88rem;color:rgba(240,232,220,0.7);line-height:2">
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Apareces en Google cuando te buscan</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Formulario de contacto o citas en línea</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Transmite profesionalismo y confianza</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Integración con Google Maps y reseñas</li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--orange);font-weight:800;flex-shrink:0">✓</span> Funciona en celular, tablet y computadora</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- SOLUCIÓN -->
+<section id="solucion">
+  <div class="solucion-visual reveal-left">
+    <div class="phone-mockup">
+      <div class="phone-screen">
+        <div style="width:100%">
+          <div class="phone-bar"></div>
+          <div class="phone-title-block">Tu Negocio</div>
+          <div style="font-size:0.65rem;opacity:0.5;letter-spacing:1px;margin-bottom:12px">Ciudad Obregón, Sonora</div>
+          <div class="phone-lines"><div class="phone-line"></div><div class="phone-line"></div><div class="phone-line short"></div></div>
+          <div style="font-size:0.62rem;opacity:0.4;margin:10px 0">⭐⭐⭐⭐⭐ · (48 reseñas)</div>
+          <div class="phone-btn">Contactar ahora</div>
+        </div>
+      </div>
+    </div>
+    <div class="solucion-badge badge-time">⚡ Lista en 48h</div>
+    <div class="solucion-badge badge-price">💰 Desde $2,700 MXN</div>
+  </div>
+  <div class="reveal-right">
+    <span class="section-label">La solución</span>
+    <h2 class="section-title">Rápido, <span>fácil</span> y profesional.</h2>
+    <div class="divider"></div>
+    <p class="section-sub" style="margin-top:20px">En ClickSon hacemos todo el trabajo. Tú solo nos das la información de tu negocio y nosotros creamos una página que convierte visitas en clientes reales.</p>
+    <ul class="solucion-features">
+      <li><div class="icon">⚡</div><div><strong>Entrega en 48 horas.</strong> Tu negocio en línea pasado mañana.</div></li>
+      <li><div class="icon">📱</div><div><strong>100% responsiva.</strong> Perfecta en celular, tablet y computadora.</div></li>
+      <li><div class="icon">🔎</div><div><strong>Optimizada para Google.</strong> Búsquedas locales desde el primer día.</div></li>
+      <li><div class="icon">🛠️</div><div><strong>Sin tecnicismos.</strong> Nos encargamos de todo.</div></li>
+      <li><div class="icon">📍</div><div><strong>Equipo local.</strong> Somos de Cd. Obregón.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- DEMOS -->
+<section id="demos">
+  <div class="header-wrap">
+    <div><span class="section-label reveal">Ejemplos reales</span><h2 class="section-title reveal delay-1">Trabajos<br><span>reales</span></h2><div class="divider reveal delay-1"></div></div>
+    <p class="section-sub reveal delay-2" style="max-width:340px">Proyectos reales entregados. Tu negocio puede ser el siguiente.</p>
+  </div>
+  <div class="demos-grid">
+    <div class="demo-card reveal delay-1" style="border-color:rgba(255,92,0,0.3);position:relative">
+      <!-- REAL CLIENT BADGE -->
+      <div style="position:absolute;top:14px;left:14px;z-index:10;background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;font-size:0.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:20px;box-shadow:0 4px 16px rgba(255,92,0,0.4)">✅ Cliente real</div>
+      <div class="demo-preview" style="cursor:pointer" onclick="window.open('https://www.thecapitalsalad.com','_blank')">
+        <div class="demo-preview-label">🔗 Toca para visitar</div>
+        <div class="demo-preview-inner" style="background:linear-gradient(135deg,#0a1a05,#0d2208)">
+          <div class="demo-nav-bar">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:3px;height:10px;margin-left:8px;display:flex;align-items:center;padding:0 8px">
+              <span style="font-size:0.5rem;color:rgba(255,255,255,0.4)">thecapitalsalad.com</span>
+            </div>
+          </div>
+          <div class="demo-site-hero" style="background:linear-gradient(160deg,#071a03,#0f2d08)">
+            <!-- Decorative salad emoji bg -->
+            <div style="position:absolute;top:8px;right:12px;font-size:3rem;opacity:0.2">🥗</div>
+            <div style="position:absolute;bottom:8px;left:10px;font-size:2rem;opacity:0.15">🫒</div>
+            <!-- Logo area -->
+            <div style="background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 20px;margin-bottom:10px">
+              <div style="font-family:serif;font-size:1.1rem;font-weight:700;color:#c8e6a0;letter-spacing:2px;text-transform:uppercase">THE CAPITAL</div>
+              <div style="font-family:serif;font-size:1.6rem;font-weight:900;color:#7dc442;letter-spacing:1px">SALAD</div>
+            </div>
+            <div style="font-size:0.6rem;color:rgba(200,230,160,0.7);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Come fresco, come rico 🥗</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px">
+              <span style="background:rgba(125,196,66,0.15);border:1px solid rgba(125,196,66,0.3);padding:3px 10px;border-radius:20px;font-size:0.58rem;color:#a8d878">🥗 Ensaladas</span>
+              <span style="background:rgba(125,196,66,0.15);border:1px solid rgba(125,196,66,0.3);padding:3px 10px;border-radius:20px;font-size:0.58rem;color:#a8d878">🫙 Bowls</span>
+              <span style="background:rgba(125,196,66,0.15);border:1px solid rgba(125,196,66,0.3);padding:3px 10px;border-radius:20px;font-size:0.58rem;color:#a8d878">🥤 Bebidas</span>
+            </div>
+            <div style="background:linear-gradient(135deg,#4a9a1a,#7dc442);border-radius:6px;padding:6px 18px;font-size:0.65rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1px">Ver Menú Completo</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-info">
+        <span class="demo-tag" style="background:linear-gradient(135deg,#4a9a1a,#7dc442)">✅ Sitio real · Restaurante</span>
+        <h3>The Capital Salad</h3>
+        <p>Landing page profesional con menú digital, galería de platillos, pedidos por WhatsApp y presencia en Google Maps. Entregada en 48 horas.</p>
+        <div class="demo-btns">
+          <a href="https://www.thecapitalsalad.com" target="_blank" class="btn-demo">🔗 Ver página real</a>
+          <a href="#formulario" class="btn-demo primary">Quiero una así</a>
+        </div>
+      </div>
+    </div>
+    <div class="demo-card reveal delay-2" style="border-color:rgba(255,92,0,0.3);position:relative">
+      <!-- REAL CLIENT BADGE -->
+      <div style="position:absolute;top:14px;left:14px;z-index:10;background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;font-size:0.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:20px;box-shadow:0 4px 16px rgba(255,92,0,0.4)">✅ Cliente real</div>
+      <div class="demo-preview" style="cursor:pointer" onclick="window.open('https://www.academiademusicamariko.com','_blank')">
+        <div class="demo-preview-label">🔗 Toca para visitar</div>
+        <div class="demo-preview-inner" style="background:linear-gradient(135deg,#05001a,#0d0028)">
+          <div class="demo-nav-bar">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div style="flex:1;background:rgba(255,255,255,0.06);border-radius:3px;height:10px;margin-left:8px;display:flex;align-items:center;padding:0 8px">
+              <span style="font-size:0.5rem;color:rgba(255,255,255,0.4)">academiademusicamariko.com</span>
+            </div>
+          </div>
+          <div class="demo-site-hero" style="background:linear-gradient(160deg,#06001f,#110038);text-align:center;position:relative;overflow:hidden">
+            <!-- decorative music notes bg -->
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:0.06;letter-spacing:8px;pointer-events:none">🎵🎶🎵</div>
+            <div style="position:absolute;top:8px;right:10px;font-size:1.8rem;opacity:0.18">🎹</div>
+            <div style="position:absolute;bottom:8px;left:8px;font-size:1.5rem;opacity:0.15">🎸</div>
+            <!-- Yamaha badge -->
+            <div style="background:rgba(255,0,0,0.18);border:1px solid rgba(255,60,60,0.35);border-radius:6px;padding:3px 12px;font-size:0.55rem;font-weight:800;letter-spacing:2px;color:#ff8080;text-transform:uppercase;margin-bottom:8px;display:inline-block">YAMAHA MUSIC SCHOOL</div>
+            <!-- Logo area -->
+            <div style="margin-bottom:6px">
+              <div style="font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:1px;text-shadow:0 0 20px rgba(180,100,255,0.6)">MARIKO</div>
+              <div style="font-size:0.6rem;letter-spacing:3px;color:rgba(200,160,255,0.7);text-transform:uppercase">Academia de Música</div>
+            </div>
+            <!-- Classes tags -->
+            <div style="display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:10px 0">
+              <span style="background:rgba(150,80,255,0.15);border:1px solid rgba(150,80,255,0.3);padding:3px 9px;border-radius:20px;font-size:0.56rem;color:#c89cff">🎹 Piano</span>
+              <span style="background:rgba(150,80,255,0.15);border:1px solid rgba(150,80,255,0.3);padding:3px 9px;border-radius:20px;font-size:0.56rem;color:#c89cff">🎸 Guitarra</span>
+              <span style="background:rgba(150,80,255,0.15);border:1px solid rgba(150,80,255,0.3);padding:3px 9px;border-radius:20px;font-size:0.56rem;color:#c89cff">🎤 Canto</span>
+              <span style="background:rgba(150,80,255,0.15);border:1px solid rgba(150,80,255,0.3);padding:3px 9px;border-radius:20px;font-size:0.56rem;color:#c89cff">🥁 Batería</span>
+            </div>
+            <div style="background:linear-gradient(135deg,#7b2fff,#b44fff);border-radius:6px;padding:6px 18px;font-size:0.65rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 16px rgba(120,40,255,0.4)">Inscríbete Ahora</div>
+            <!-- Google + Maps indicators -->
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+              <span style="font-size:0.55rem;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:10px">📍 Google Maps</span>
+              <span style="font-size:0.55rem;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:10px">🔍 En Google</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-info">
+        <span class="demo-tag" style="background:linear-gradient(135deg,#7b2fff,#b44fff)">✅ Sitio real · Academia</span>
+        <h3>Mariko Yamaha</h3>
+        <p>Landing page con clases, inscripciones en línea, perfil en Google Maps y aparece en búsquedas locales de Cd. Obregón. Entregada en 48 horas.</p>
+        <div class="demo-btns">
+          <a href="https://www.academiademusicamariko.com" target="_blank" class="btn-demo">🔗 Ver página real</a>
+          <a href="#formulario" class="btn-demo primary">Quiero una así</a>
+        </div>
+      </div>
+    </div>
+    <div class="demo-card reveal delay-3">
+      <div class="demo-preview"><div class="demo-preview-inner demo-doctor"><div class="demo-nav-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div style="flex:1;height:10px;background:rgba(255,255,255,0.06);border-radius:4px;margin-left:8px"></div></div><div class="demo-site-hero"><div class="demo-site-brand" style="color:#00e5b0">Dr. Ramírez</div><div class="demo-site-sub">MEDICINA GENERAL · CONSULTA</div><div style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;flex-wrap:wrap"><span style="font-size:0.6rem;color:rgba(255,255,255,0.5);background:rgba(0,229,176,0.1);border:1px solid rgba(0,229,176,0.2);padding:3px 8px;border-radius:20px">🕐 Lun–Sáb</span><span style="font-size:0.6rem;color:rgba(255,255,255,0.5);background:rgba(0,229,176,0.1);border:1px solid rgba(0,229,176,0.2);padding:3px 8px;border-radius:20px">📍 Cd. Obregón</span></div><div style="background:linear-gradient(135deg,#00c49a,#00e5b0);border-radius:6px;padding:6px 18px;font-size:0.65rem;font-weight:700;color:#001a13">Pedir Cita</div></div></div></div>
+      <div class="demo-info"><span class="demo-tag">🔮 Demo · Médico</span><h3>Salud & Consultas</h3><p>Perfil profesional, servicios, horarios, ubicación y contacto directo. Genera confianza desde el primer clic.</p><div class="demo-btns"><a href="#" class="btn-demo">Ver demo</a><a href="#formulario" class="btn-demo primary">Quiero uno así</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section id="paquetes">
+  <span class="section-label reveal">Precios claros</span>
+  <h2 class="section-title reveal delay-1">Elige tu <span>paquete</span></h2>
+  <p class="section-sub reveal delay-2">Sin letras pequeñas, sin sorpresas. Lo que ves es lo que pagas.</p>
+  <div class="reveal delay-2" style="margin-top:16px;display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 20px;font-size:0.85rem;color:var(--text-muted)">
+    <span>💡</span>
+    <span>Una agencia tradicional cobra entre <strong style="color:var(--text)">$15,000 y $50,000 MXN</strong> por lo mismo y tarda meses. Nosotros lo hacemos en <strong style="color:var(--orange-light)">48 horas desde $2,700.</strong></span>
+  </div>
+  <div class="divider center reveal delay-2" style="margin-bottom:0"></div>
+  <div class="reveal delay-3" style="margin-top:28px;display:inline-flex;align-items:center;gap:10px;background:rgba(255,92,0,0.08);border:1px solid rgba(255,92,0,0.25);border-radius:50px;padding:10px 24px;font-size:0.88rem;font-weight:600;color:var(--orange-light)">
+    🎉 El pago de tu sitio se hace <strong style="color:var(--text)">una sola vez en la vida</strong> — sin mensualidades ocultas ni renovaciones forzadas
+  </div>
+  <div class="paquetes-grid" style="margin-top:56px">
+
+    <!-- BÁSICO -->
+    <div class="paquete-card reveal delay-1">
+      <div class="paquete-name">Básico</div>
+      <div class="paquete-desc">Todo lo esencial para estar en línea</div>
+      <div class="paquete-price">
+        <div class="price-num"><span class="price-currency">$</span>2,700</div>
+        <div class="price-period">MXN · <span style="color:var(--orange-light);font-weight:700">pago único de por vida</span></div>
+      </div>
+      <ul class="paquete-features">
+        <li><strong>1 página</strong> landing profesional</li>
+        <li>Dominio <strong>.com 1 año</strong> incluido</li>
+        <li>Hasta <strong>5 fotos</strong> del negocio</li>
+        <li>Botón directo a <strong>WhatsApp</strong></li>
+        <li>Google Maps <strong>integrado</strong></li>
+        <li>Enlace a <strong>redes sociales</strong></li>
+        <li>Formulario de <strong>contacto</strong></li>
+        <li>Optimizado para <strong>móvil y Google</strong></li>
+        <li>Entrega en <strong>48 horas</strong></li>
+      </ul>
+      <a href="#formulario" class="btn-primary" style="width:100%;text-align:center;display:block">Comenzar</a>
+    </div>
+
+    <!-- NEGOCIO -->
+    <div class="paquete-card featured reveal delay-2">
+      <div class="paquete-badge">⭐ Más vendido</div>
+      <div class="paquete-name" style="background:linear-gradient(90deg,var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Negocio</div>
+      <div class="paquete-desc">Para negocios que quieren crecer en serio</div>
+      <div class="paquete-price">
+        <div class="price-num"><span class="price-currency">$</span>4,500</div>
+        <div class="price-period">MXN · <span style="color:var(--orange-light);font-weight:700">pago único de por vida</span></div>
+      </div>
+      <ul class="paquete-features">
+        <li>Todo lo del plan <strong>Básico</strong></li>
+        <li>Hasta <strong>15 fotos</strong> del negocio</li>
+        <li>Hasta <strong>3 secciones</strong> personalizadas</li>
+        <li>Menú o <strong>catálogo digital</strong></li>
+        <li>Galería de <strong>productos o servicios</strong></li>
+        <li><strong>QR descargable</strong> para imprimir</li>
+        <li>Sección de <strong>testimonios</strong></li>
+        <li><strong>Agenda de citas</strong> en línea</li>
+        <li>Entrega en <strong>48 horas</strong></li>
+      </ul>
+      <a href="#formulario" class="btn-primary" style="width:100%;text-align:center;display:block">Lo quiero</a>
+    </div>
+
+    <!-- PRO -->
+    <div class="paquete-card reveal delay-3">
+      <div class="paquete-name">Pro</div>
+      <div class="paquete-desc">El sistema completo para dominar tu mercado</div>
+      <div class="paquete-price">
+        <div class="price-num"><span class="price-currency">$</span>7,500</div>
+        <div class="price-period">MXN · <span style="color:var(--orange-light);font-weight:700">pago único de por vida</span></div>
+      </div>
+      <ul class="paquete-features">
+        <li>Todo lo del plan <strong>Negocio</strong></li>
+        <li>Hasta <strong>30 fotos</strong> del negocio</li>
+        <li><strong>Panel de administración</strong> — editas tu página tú mismo</li>
+        <li>SEO avanzado + <strong>Google Business</strong></li>
+        <li>Blog o sección de <strong>noticias y ofertas</strong></li>
+        <li>Sistema de <strong>clientes fieles</strong> con puntos</li>
+        <li>Cupones de descuento <strong>automáticos</strong></li>
+        <li>Dominio <strong>.com personalizado</strong> incluido</li>
+        <li>Entrega en <strong>48 horas</strong></li>
+      </ul>
+      <a href="#formulario" class="btn-primary" style="width:100%;text-align:center;display:block">Comenzar</a>
+    </div>
+
+  </div><!-- /paquetes-grid -->
+
+  <!-- PAGO ÚNICO BANNER -->
+  <div class="reveal delay-3" style="margin-top:28px;text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,92,0,0.08);border:1px solid rgba(255,92,0,0.25);border-radius:50px;padding:10px 24px;font-size:0.88rem;font-weight:600;color:var(--orange-light)">
+      🎉 El pago de tu sitio se hace <strong style="color:var(--text);margin:0 4px">una sola vez en la vida</strong> — sin mensualidades ocultas ni renovaciones forzadas
+    </div>
+  </div>
+
+  <!-- PLAN ACTIVO MENSUAL -->
+  <div style="max-width:960px;margin:48px auto 0">
+    <div style="background:linear-gradient(135deg,rgba(255,92,0,0.1),rgba(255,61,0,0.05));border:1px solid rgba(255,92,0,0.35);border-radius:20px;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center" class="reveal">
+      <div>
+        <div style="display:inline-block;background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;font-size:0.72rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px">Servicio mensual opcional</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:1px;margin-bottom:8px;line-height:1">Plan Activo <span style="background:linear-gradient(90deg,var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent">$700/mes</span></h3>
+        <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.65">Tu página siempre al día sin que tú toques nada. Nos mandas WhatsApp con el cambio y en el día está listo.</p>
+      </div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--text-muted)"><span style="color:var(--orange);font-weight:800">✓</span> Hasta <strong style="color:var(--text)">2 cambios al mes</strong> — precios, fotos, textos, horarios</li>
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--text-muted)"><span style="color:var(--orange);font-weight:800">✓</span> Soporte por <strong style="color:var(--text)">WhatsApp</strong> con respuesta el mismo día</li>
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--text-muted)"><span style="color:var(--orange);font-weight:800">✓</span> Renovación de <strong style="color:var(--text)">dominio incluida</strong> cada año</li>
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--text-muted)"><span style="color:var(--orange);font-weight:800">✓</span> Reporte mensual de <strong style="color:var(--text)">visitas a tu página</strong></li>
+        <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--text-muted)"><span style="color:var(--orange);font-weight:800">✓</span> Tu negocio <strong style="color:var(--text)">siempre actualizado</strong> sin que tú toques nada</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ADD-ONS -->
+  <div style="margin-top:48px;max-width:960px;margin-left:auto;margin-right:auto">
+    <div style="text-align:center;margin-bottom:28px">
+      <span class="section-label" style="padding-left:0">Add-ons disponibles</span>
+      <p style="font-size:0.88rem;color:var(--text-muted);margin-top:6px">Agrégalos a cualquier paquete · à la carte</p>
+    </div>
+    <div class="addons-grid">
+      <div class="addon-card reveal delay-1"><div class="addon-icon">🖨️</div><div class="addon-info"><div class="addon-name">QR físico impreso (vinil)</div><div class="addon-desc">Sticker profesional para tu local</div></div><div class="addon-price">+$500</div></div>
+      <div class="addon-card reveal delay-2"><div class="addon-icon">📍</div><div class="addon-info"><div class="addon-name">Perfil Google Business</div><div class="addon-desc">Aparece en Maps y búsquedas locales</div></div><div class="addon-price">+$800</div></div>
+      <div class="addon-card reveal delay-3"><div class="addon-icon">🎬</div><div class="addon-info"><div class="addon-name">Video 30s para Instagram</div><div class="addon-desc">Reels profesional de tu negocio</div></div><div class="addon-price">+$1,200</div></div>
+      <div class="addon-card reveal delay-4"><div class="addon-icon">📦</div><div class="addon-info"><div class="addon-name">Catálogo con 20+ productos</div><div class="addon-desc">Ideal para tiendas y restaurantes</div></div><div class="addon-price">+$1,000</div></div>
+    </div>
+  </div>
+
+  <!-- PLAN ACTIVO RESPONSIVE -->
+  <style>
+    @media(max-width:768px){
+      .plan-activo-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+    }
+  
+  /* FAQ ACCORDION */
+  .faq-grid { display:flex; flex-direction:column; gap:12px; }
+  .faq-item { background:var(--glass); border:1px solid var(--glass-border); border-radius:14px; overflow:hidden; transition:border-color 0.3s; }
+  .faq-item.open { border-color:rgba(255,92,0,0.4); }
+  .faq-q { display:flex; justify-content:space-between; align-items:center; padding:20px 24px; cursor:pointer; gap:16px; font-weight:600; font-size:0.98rem; color:var(--text); user-select:none; }
+  .faq-q:hover { color:var(--orange-light); }
+  .faq-arrow { font-size:1.5rem; color:var(--orange); flex-shrink:0; transition:transform 0.35s cubic-bezier(0.16,1,0.3,1); line-height:1; }
+  .faq-item.open .faq-arrow { transform:rotate(90deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s ease; font-size:0.92rem; color:var(--text-muted); line-height:1.75; padding:0 24px; }
+  .faq-item.open .faq-a { max-height:300px; padding:0 24px 20px; }
+
+
+  @media(min-width:768px){ .nav-phone{ display:flex !important; align-items:center; gap:6px; } }
+
+  .demo-preview-label {
+    position:absolute; bottom:0; left:0; right:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    color:#fff; font-size:0.75rem; font-weight:700;
+    padding:20px 14px 10px;
+    opacity:0; transition:opacity 0.3s;
+    text-align:center; letter-spacing:1px; text-transform:uppercase;
+  }
+  .demo-preview:hover .demo-preview-label { opacity:1; }
+
+  @keyframes introSlide { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+</style>
+
+
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="header-wrap"><span class="section-label reveal">Testimonios</span><h2 class="section-title reveal delay-1">Lo que dicen<br><span>nuestros clientes</span></h2><div class="divider reveal delay-1"></div></div>
+  <div class="testimonios-grid">
+    <div class="testimonio-card reveal delay-1"><div class="stars">★★★★★</div><p class="testimonio-text">"En menos de 48 horas ya tenía mi página lista. La primera semana me llegaron 3 clientes nuevos que me encontraron en Google. Definitivamente vale la pena."</p><div class="testimonio-author"><div class="author-avatar">MC</div><div><div class="author-name">María Contreras</div><div class="author-biz">Estética Glam · Cd. Obregón</div></div></div></div>
+    <div class="testimonio-card reveal delay-2"><div class="stars">★★★★★</div><p class="testimonio-text">"ClickSon me la hizo en tiempo récord y quedó increíble. Mis clientes ya me buscan en Google."</p><div class="testimonio-author"><div class="author-avatar">JR</div><div><div class="author-name">Jesús Rodríguez</div><div class="author-biz">Taquería El Bronco · Cajeme</div></div></div></div>
+    <div class="testimonio-card reveal delay-3"><div class="stars">★★★★★</div><p class="testimonio-text">"El resultado superó mis expectativas. Precio justo y entrega rapidísima. 100% recomendable."</p><div class="testimonio-author"><div class="author-avatar">DL</div><div><div class="author-name">Dra. Lorena Félix</div><div class="author-biz">Consultorio Médico · Cd. Obregón</div></div></div></div>
+  </div>
+</section>
+
+
+<!-- FORMULARIO -->
+<section id="formulario">
+  <span class="section-label reveal">Empieza hoy</span>
+  <h2 class="section-title reveal delay-1">Cuéntanos sobre<br><span>tu negocio</span></h2>
+  <p class="section-sub reveal delay-2">Llena el formulario y en menos de 1 hora te contactamos para arrancar tu página.</p>
+  <div class="divider reveal delay-2" style="margin-bottom:0"></div>
+
+  <div class="form-wrap reveal delay-2">
+    <div id="form-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>🏢 Nombre de la empresa</label>
+          <input type="text" id="f-empresa" placeholder="Ej: Taquería El Norteño" required>
+        </div>
+        <div class="form-group">
+          <label>👤 Representante</label>
+          <input type="text" id="f-rep" placeholder="Tu nombre completo" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>📱 Número / WhatsApp</label>
+          <input type="tel" id="f-tel" placeholder="644 123 4567" required>
+        </div>
+        <div class="form-group">
+          <label>📍 Dirección</label>
+          <input type="text" id="f-dir" placeholder="Calle, colonia, ciudad" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>🌐 Tu web es…</label>
+        <div class="tipo-btns" id="tipo-btns">
+          <label class="tipo-btn" onclick="selectTipo(this)">
+            <input type="radio" name="tipo" value="menu"> 🍽️ Menú Digital
+          </label>
+          <label class="tipo-btn" onclick="selectTipo(this)">
+            <input type="radio" name="tipo" value="catalogo"> 📦 Catálogo
+          </label>
+          <label class="tipo-btn" onclick="selectTipo(this)">
+            <input type="radio" name="tipo" value="landing"> 🚀 Landing Page
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>🕐 Horario de atención</label>
+          <input type="text" id="f-horario" placeholder="Ej: Lun–Sáb 9am–8pm">
+        </div>
+        <div class="form-group">
+          <label>🎉 Promociones actuales</label>
+          <input type="text" id="f-promo" placeholder="Ej: 2x1 en martes, envío gratis…">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>📸 Fotos del negocio</label>
+        <textarea id="f-fotos" placeholder="Descríbenos qué fotos tienes: logo, local, productos, menú, equipo... Al enviar el formulario te pediremos que las mandes por WhatsApp. También puedes indicar si tienes Instagram o Facebook donde tengamos acceso a tus imágenes." style="min-height:90px"></textarea>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:6px">📱 Al enviar, te abrimos WhatsApp para que nos mandes las fotos directo ahí.</p>
+      </div>
+
+      <button class="btn-primary form-submit" onclick="submitForm()">
+        ✅ Enviar información — ¡Empecemos!
+      </button>
+      <p class="form-note">🔒 Tu información es privada y solo la usamos para crear tu página. Recibirás confirmación en tu WhatsApp.</p>
+    </div>
+
+    <div class="form-success" id="form-success">
+      <div class="check">🎉</div>
+      <h3>¡Listo, recibimos tu info!</h3>
+      <p>En menos de <strong>1 hora</strong> te contactaremos por WhatsApp para arrancar tu página.<br><br>Mientras tanto, si tienes dudas escríbenos directo:</p>
+      <a href="https://wa.me/526441550412?text=Hola,%20acabo%20de%20llenar%20el%20formulario%20de%20ClickSon" class="btn-primary" style="display:inline-block;margin-top:24px">💬 Escribir por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg)">
+  <span class="section-label reveal">Preguntas frecuentes</span>
+  <h2 class="section-title reveal delay-1">Todo lo que<br><span>necesitas saber</span></h2>
+  <div class="divider reveal delay-1" style="margin-bottom:0"></div>
+
+  <div class="faq-grid" style="margin-top:48px;max-width:800px;margin-left:auto;margin-right:auto">
+
+    <div class="faq-item reveal delay-1">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Necesito saber de tecnología o computación?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">Para nada. Tú solo nos das el nombre de tu negocio, descripción, fotos y contacto. Nosotros hacemos todo el trabajo técnico. Es literalmente como contratar a alguien que lo haga por ti.</div>
+    </div>
+
+    <div class="faq-item reveal delay-2">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Qué pasa si quiero hacer cambios después?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">Con el <strong>Plan Activo ($700/mes)</strong> tienes hasta 2 cambios al mes incluidos — solo nos mandas WhatsApp y en el día está listo. Si no tienes el plan, los cambios tienen un costo accesible por cambio.</div>
+    </div>
+
+    <div class="faq-item reveal delay-3">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿El dominio está incluido en todos los paquetes?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">Sí. Todos nuestros paquetes incluyen dominio .com por 1 año sin costo extra. Tu negocio tendrá su propia dirección web como <strong>tunegocio.com</strong> desde el primer día.</div>
+    </div>
+
+    <div class="faq-item reveal delay-1">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿En serio mi página estará lista en 48 horas?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">Sí, garantizado. Una vez que nos envías toda tu información (nombre, fotos, descripción, servicios), tu página estará publicada en menos de 48 horas. Recibirás el link para revisarla antes de publicar.</div>
+    </div>
+
+    <div class="faq-item reveal delay-2">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Funciona para cualquier tipo de negocio?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">Sí. Hemos creado páginas para restaurantes, estéticas, consultorios médicos, talleres mecánicos, tiendas de ropa, abogados, dentistas, gimnasios y más. Si tienes un negocio, nosotros hacemos tu página.</div>
+    </div>
+
+    <div class="faq-item reveal delay-3">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Mi página aparecerá en Google?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">Todas nuestras páginas incluyen SEO básico para búsquedas locales. El plan Pro incluye optimización avanzada y configuración de Google Business para que aparezcas en Maps. Los resultados en Google toman entre 2 y 8 semanas en aparecer.</div>
+    </div>
+
+    <div class="faq-item reveal delay-1">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>¿Cuánto cuesta el mantenimiento mensual?</span>
+        <div class="faq-arrow">›</div>
+      </div>
+      <div class="faq-a">El <strong>Plan Activo</strong> cuesta <strong>$700/mes</strong> e incluye hasta 2 cambios al mes, soporte por WhatsApp con respuesta el mismo día, renovación de dominio anual y reporte mensual de visitas. Es totalmente opcional.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="cta-glow"></div>
+  <div style="position:relative;z-index:2">
+    <span class="section-label reveal" style="display:block;text-align:center">No lo dejes para después</span>
+    <h2 class="section-title reveal delay-1">Tu competencia<br>ya <span>está en línea.</span></h2>
+    <p class="section-sub reveal delay-2">Cada día que pasa sin web es un cliente menos. No dejes que tu competencia te lleve la delantera. Arranca hoy.</p>
+    <div class="cta-urgency reveal delay-3"><div class="dot-live"></div>Lugares limitados esta semana — ¡Aparta el tuyo!</div>
+    <div class="cta-btns reveal delay-4">
+      <a href="https://wa.me/526441550412?text=Hola,%20quiero%20una%20página%20web%20para%20mi%20negocio" class="btn-primary" style="font-size:1.1rem;padding:18px 48px">💬 Escribir por WhatsApp</a>
+      <a href="#formulario" class="btn-secondary" style="font-size:1.05rem;padding:18px 40px">Llenar formulario</a>
+    </div>
+    <p class="cta-note reveal">📍 Ciudad Obregón, Sonora · Respuesta en menos de 1 hora</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg id="footer-logo-svg" style="height:30px;width:auto;display:block" aria-label="ClickSon – Tu Web en Corto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 485.73 182.46"><defs><linearGradient id="linear-gradient" x1="158.02" y1="168.03" x2="386.97" y2="168.03" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f78d1e"/><stop offset="1" stop-color="#e24937"/></linearGradient><linearGradient id="linear-gradient-2" x1="417.67" y1="48.96" x2="417.67" y2="141.21" gradientTransform="matrix(1, 0, 0, 1, 0, 0)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f47820"/><stop offset=".7" stop-color="#e24937"/></linearGradient><linearGradient id="linear-gradient-3" x1="47.1" y1="43.82" x2="430.04" y2="43.82" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-4" x1="320.72" y1="48.95" x2="320.72" y2="141.24" xlink:href="#linear-gradient-2"/><linearGradient id="linear-gradient-5" x1="393.92" y1="114.43" x2="467.69" y2="114.43" xlink:href="#linear-gradient"/><linearGradient id="linear-gradient-6" x1="364.34" y1="124.18" x2="364.34" y2="126.35" xlink:href="#linear-gradient-2"/><linearGradient id="linear-gradient-7" x1="368.87" y1="48.95" x2="368.87" y2="141.22" xlink:href="#linear-gradient-2"/></defs><path d="M270.81,182.45c-34.6,0-69.21,0-103.81,0-5.58,0-9.9-4.72-8.8-9.62,.67-2.98,1.36-5.96,2.04-8.93,.15-.64,.3-1.28,.43-1.92,1.09-5.18,5.04-8.38,10.4-8.38,20.09,0,40.19,0,60.28,0,48.73,0,97.46,.01,146.19,.02,6.58,0,10.52,4.87,9.13,11.31-.63,2.94-1.25,5.88-1.87,8.82-1.18,5.58-4.97,8.68-10.69,8.68-34.44,0-68.88,0-103.32,0v.03Zm-50.21-13.57c-.51-1.63-.54-3.11-.79-4.55-.13-.77,.19-1.84-.99-2.09-1.33-.29-2.24,.17-2.77,1.53-.54,1.36-1.27,2.65-1.96,3.95-.16,.3-.53,.68-.79,.68-.54,0-.34-.58-.4-.91-.24-1.45-.43-2.9-.66-4.35-.26-1.65-1.55-.73-2.37-.86-1.02-.17-.75,.6-.66,1.19,.47,3.07,.91,6.16,1.42,9.22,.11,.65-.3,1.69,.96,1.73,1.09,.04,2.11,.18,2.68-1.22,.67-1.67,1.6-3.23,2.45-4.82,.15-.29,.17-.81,.79-.67,.25,1.77,.48,3.56,.76,5.34,.08,.53-.19,1.4,.73,1.39,.86,0,1.97,.51,2.53-.58,1.93-3.78,3.81-7.59,5.73-11.42-2.81-.51-2.8-.5-3.96,1.64-.84,1.55-1.72,3.07-2.7,4.82Zm60.98-1.71c1.46,2.4,2.76,4.4,3.91,6.49,.63,1.15,1.57,.73,2.44,.77,.97,.05,.9-.74,1.03-1.37,.64-3.16,1.3-6.31,1.91-9.48,.09-.46,.71-1.39-.41-1.31-.83,.06-2.03-.87-2.51,.76-.58,1.96-.63,4.05-1.52,6.08-1.26-2.04-2.59-3.95-3.64-6-.65-1.27-1.62-.82-2.51-.88-1.02-.07-.84,.8-.96,1.39-.64,3.1-1.3,6.2-1.87,9.31-.08,.45-.87,1.45,.41,1.44,.87-.01,2.18,.72,2.49-.97,.35-1.92,.76-3.84,1.25-6.23Zm-35.34,7.25c1.54-.06,3.25,.21,4.86-.58,2.4-1.19,3.11-3.4,1.61-5.46-.39-.54-.19-.7,.14-1.03,.99-.97,1.4-2.14,.84-3.43-.57-1.3-1.83-1.66-3.12-1.71-1.75-.06-3.5-.02-5.25-.02-.59,0-.85,.12-1.05,.84-.73,2.7-1.17,5.44-1.57,8.19-.15,1.01-.99,2.39-.12,3.02,.72,.53,2.11,.15,3.2,.18,.11,0,.22,0,.47,0Zm91.61-12.24c-.82,0-1.64,.06-2.46-.02-.91-.08-1.25,.33-1.41,1.16-.63,3.37-1.3,6.74-1.94,10.11-.07,.35-.26,.73,.23,.99,1.06,.56,2.65-.13,2.9-1.29,.1-.48,.22-.96,.3-1.44,.09-.59,.27-1.04,1.01-1.02,.61,.02,1.19-.05,1.49,.68,.31,.75,.72,1.47,1.07,2.21,.45,.96,2.07,1.61,3.1,1.05,1.24-.68,.08-1.49-.21-2-.83-1.48-1.05-2.48,.62-3.69,1.42-1.02,1.9-2.84,1.17-4.59-.7-1.68-2.22-2.13-3.9-2.15-.66,0-1.31,0-1.97,0Zm-16.28,12.42c4.05-.03,7.73-3.57,7.7-7.42-.02-3.01-2.47-5.19-5.79-5.15-4.1,.05-7.72,3.54-7.68,7.41,.03,3.04,2.43,5.18,5.77,5.16Zm44.49,.01c4.19-.03,7.64-3.4,7.63-7.44-.01-3.08-2.25-5.19-5.53-5.19-4.21-.01-7.93,3.5-7.88,7.44,.04,3.04,2.47,5.23,5.79,5.2Zm-97.7-.15v-.04c1.31,0,2.62,.01,3.93,0,1.28-.01,1.03-1.09,1.15-1.81,.16-.98-.67-.63-1.12-.66-1.15-.05-2.3,.05-3.44-.07-.53-.06-1.6,.6-1.54-.7,.05-1.02,.26-1.93,1.72-1.73,1.07,.14,2.18,.01,3.27,.01,1.21,0,.94-.99,1.08-1.66,.2-.97-.59-.69-1.06-.73-.93-.07-1.86-.03-2.78-.12-.49-.05-1.39,.42-1.32-.61,.06-.79,0-1.79,1.41-1.68,1.46,.12,2.95,.03,4.42,.01,1.31-.02,.97-1.17,1.1-1.84,.19-.94-.7-.6-1.13-.61-2.29-.05-4.59,0-6.88-.05-.88-.02-1.24,.29-1.4,1.17-.56,3.11-1.11,6.24-1.85,9.31-.4,1.68,.2,1.97,1.65,1.83,.92-.09,1.86-.02,2.78-.02Zm-77.57,.13c3.4-.01,5.89-2.04,6.61-5.43,.38-1.81,.75-3.63,1.02-5.46,.07-.46,.76-1.42-.49-1.46-.98-.03-2.31-.42-2.57,.96-.12,.65-.3,1.33-.4,2-.25,1.66-.55,3.33-1.01,4.94-.4,1.39-2.07,2.07-3.63,1.67-1.48-.37-1.57-1.5-1.37-2.7,.29-1.82,.69-3.62,.96-5.44,.07-.51,.6-1.47-.61-1.42-.95,.04-2.3-.58-2.55,1.13-.26,1.78-.49,3.56-.81,5.33-.68,3.81,1.03,5.89,4.87,5.88Zm44.88-12.39v-.02c-1.26,0-2.51,.03-3.77-.01-.73-.02-1.07,.23-1.2,.98-.6,3.44-1.24,6.87-1.89,10.3-.14,.71,.03,1.01,.79,1,2.57-.02,5.14,0,7.7-.02,1.28,0,1.02-1.14,1.16-1.82,.18-.93-.69-.6-1.13-.62-1.25-.06-2.52-.14-3.77-.03-1.56,.14-1.45-.69-1.2-1.71,.16-.65,.61-.8,1.23-.78,1.09,.03,2.2-.13,3.27,.03,1.66,.24,1.47-1.04,1.51-1.85,.06-1.11-.96-.46-1.46-.55-.74-.13-1.53,.03-2.28-.08-.52-.07-1.5,.45-1.47-.62,.02-.93,.14-1.95,1.65-1.76,1.29,.16,2.62-.02,3.93,.05,1.48,.08,1.33-1.14,1.41-1.9,.09-.95-.86-.53-1.35-.56-1.03-.07-2.07-.02-3.11-.02Zm70.89,12.4c1.71,0,3.21-.56,4.55-1.6,1.09-.85,.95-1.8-.32-2.39-.7-.32-.99,.29-1.42,.54-2.31,1.36-4.74,.78-5.31-1.3-.43-1.57,.32-3.37,1.83-4.4,1.41-.96,3.23-1.09,4.42,.01,1.37,1.28,2.24,.11,2.85-.59,.77-.89-.47-1.38-1.02-1.76-3.56-2.45-9.19-.67-10.94,4.11-1.46,3.99,1.08,7.39,5.37,7.38Zm-128.41-12.41h0c-1.42,0-2.84,.05-4.26-.03-1.51-.08-1.32,1.09-1.4,1.9-.1,1.01,.81,.55,1.31,.64,.32,.06,.66,.05,.98,0,1.15-.15,1.38,.3,1.14,1.38-.52,2.34-.96,4.7-1.35,7.06-.08,.48-.82,1.42,.45,1.46,.92,.03,2.14,.51,2.4-1.08,.3-1.81,.67-3.61,1.01-5.42q.58-3.12,3.67-3.45c.22-.02,.48,.03,.64-.08,.69-.45,.67-1.26,.67-1.91,0-.69-.73-.47-1.18-.48-1.36-.03-2.73,0-4.09,0Zm175.14-.01h0c-1.37-.01-2.74,.08-4.1-.04-1.55-.13-1.54,.98-1.59,1.9-.07,1.13,.92,.56,1.45,.68,.31,.07,.66,.04,.98,0,.98-.12,1.23,.23,1.01,1.2-.52,2.29-.96,4.6-1.36,6.92-.09,.55-.8,1.56,.53,1.57,.9,.01,2.16,.59,2.42-1.11,.29-1.94,.73-3.86,1.12-5.78,.54-2.62,.54-2.62,3.13-2.82,.22-.02,.44,0,.65-.05,1.07-.24,.74-1.23,.89-1.88,.18-.81-.62-.56-1.02-.58-1.37-.04-2.73-.02-4.1-.02Z" style="fill:url(#linear-gradient);"/><path d="M411.62,100.21c-2.04,9.95-4.05,19.78-6.06,29.62-.63,3.06-1.3,6.1-1.86,9.17-.29,1.6-1.15,2.21-2.73,2.19-3.56-.05-7.12,0-10.68-.03-1.93-.01-2.32-.49-1.93-2.44,2.08-10.49,4.17-20.98,6.28-31.47,3.75-18.69,7.52-37.37,11.24-56.06,.32-1.6,1.13-2.25,2.69-2.23,3.62,.02,7.23,.03,10.85-.02,1.55-.02,2.12,.66,2.18,2.17,.34,8.94,.86,17.87,1.06,26.81,.09,4.11,.57,8.19,.84,12.34,.33-1.65,.65-3.3,.98-4.95,2.28-11.39,4.58-22.78,6.82-34.19,.32-1.64,1.16-2.18,2.72-2.16,3.62,.04,7.23,0,10.85,0,1.99,0,2.49,.57,2.11,2.49-1.41,7.25-2.69,14.53-4.33,21.74-1.25,5.5-2.1,11.08-3.29,16.59-1.69,7.82-3.05,15.71-4.83,23.51-1.02,4.49-1.6,9.07-2.78,13.51-1.07,4.01-1.45,8.12-2.38,12.14-.36,1.57-1.21,2.24-2.75,2.23-3.73,0-7.46-.05-11.19,.02-1.64,.03-2.16-.61-2.2-2.24-.35-12.55-.78-25.1-1.2-37.65-.01-.32,.1-.69-.43-1.1Z" style="fill:url(#linear-gradient-2);"/><path d="M.02,170.08c3.07-1.68,6.19-3.28,9.49-4.42,5.89-2.03,11.15-5.28,16.57-8.23,2.65-1.44,5.39-2.65,8.55-2.49,1.86,.09,3.47,.95,5.16,1.53,1.01,.35,1.24,.08,1.24-.89-.02-5.91-.03-11.82,.01-17.73,0-1.03-.4-1.23-1.33-1.33-5.49-.58-10.1-2.8-13.26-7.48-1.66-2.45-2.52-5.19-2.51-8.18,.01-7.77,0-15.54,.02-23.31,0-3.1,2.1-5.2,5.11-5.21,2.88,0,4.9,2.08,4.91,5.2,.02,7.55,0,15.1,0,22.65,0,3.6,2,5.99,5.46,6.76,1.22,.27,1.62,0,1.61-1.31-.04-11.82-.02-23.64-.02-35.45,0-3.56-.02-7.11,0-10.67,.02-4,2.91-6.95,6.76-6.94,3.73,0,6.52,2.96,6.53,6.97,.01,16.3,0,32.61,0,48.91,0,.95,.03,1.86-.91,2.47-.2,.13-.33,.44-.4,.7-.91,3.25-1.16,6.58-1.16,9.96-1.7-3.14-2.45-5.53-1.75-8.95,.16-.78,2.62-2.48,3.44-2.74,3.33-1.05,7.68-2.86,7.69-6.36,0-8.64-.02-17.29,0-25.93,0-2.72,1.77-4.85,4.27-5.25,2.54-.41,4.88,1.11,5.7,3.64,.23,.7,.18,1.41,.18,2.11,0,8.64,.01,17.29,0,25.93-.02,8.07-6.19,14.62-14.29,15.17-.6,.04-1.2,.08-1.81,.07-.69,0-.97,.28-.97,.98,.02,6.67,.03,13.35,.02,20.03,0,.73,.14,.95,.94,.68,2.49-.86,4.81-2.07,7.16-3.22,5.2-2.55,10.24-5.42,15.49-7.88,4.18-1.96,7.85-1.57,11.4,1.43,3.13,2.65,6.46,5.06,9.66,7.63,.87,.7,1.71,.84,2.73,.51,1.77-.57,3.56-1.09,5.32-1.67,2.36-.78,4.65-.65,6.8,.61,6.84,4.02,13.69,7.99,21.18,10.72-3.84-.36-15.66-3.72-19.04-5.34-1.34-.65-2.54-1.52-3.68-2.45-1.09-.89-2.25-1.03-3.53-.56-1.44,.52-2.87,1.06-4.31,1.57-1.26,.45-5.55-.87-6.17-1.89-.44-.72,.89-.21,.46-1.01-3.75-.18-6.02-3.28-8.96-5.24-1.9-1.27-3.67-2.81-6.13-2.89-.56-.02-1.1-.06-1.55,.34-1.5,1.36-3,2.72-4.5,4.07-.42,.38-.3,.67,.15,.86,.55,.24,1.13,.63,1.68,.59,1.88-.11,2.61,1.38,3.6,2.46,.82,.9,.57,1.69-.6,2.11-2.16,.78-4.32,1.55-6.48,2.32-.45,.16-.91,.32-1.37,.64,14.72,2.87,29.39,5.87,44.15,8.52H18.12c16.12-2.28,32.28-4.18,48.61-5.06-2.73-.66-5.45-1.4-8.2-1.96-6.02-1.23-11.74-3.24-17.33-5.78-7.73-3.51-7.15-3.31-13.87,.68-4.35,2.58-9.02,4.16-13.95,5.04-4.06,.73-7.98,1.84-11.77,3.46-.5,.21-1.04,.31-1.57,.47H.02Z" style="fill:#f78d1e;"/><path d="M413.21,32.84c-1.24,0-2.26,0-3.29,0-110.94,0-221.88,.01-332.82,.02-9.4,0-16.93,6.05-18.76,14.97-.96,4.66-1.98,9.31-2.97,13.96-.34,1.6-.72,3.2-1.01,4.82-.17,.97-.42,1.36-1.44,.71-1.46-.93-3.13-1.26-4.86-1.24-.58,0-1.12,.03-.91-.86,1.63-7.14,2.61-14.45,4.75-21.45,3.25-10.67,13.71-18.06,25.01-18.07,35.65,0,71.29,.02,106.94,.02,74.74,0,149.49,0,224.23,0,3.05,0,3.06-.02,2.01-2.73-.34-.88-.48-1.73,.22-2.45,.77-.79,1.68-.6,2.58-.18,5.15,2.4,10.29,4.82,15.47,7.18,1.11,.51,1.59,1.36,1.67,2.42,.08,1.15-.41,2.2-1.45,2.76-4.85,2.65-9.7,5.27-14.59,7.83-1.58,.83-2.97,0-3.21-1.78-.2-1.48,.09-2.81,1.08-3.98,.45-.53,1.04-.96,1.35-1.97Z" style="fill:url(#linear-gradient-3);"/><path d="M271.07,84.61c3.24-7.11,6.48-14.22,9.74-21.33,1.91-4.16,3.89-8.28,5.77-12.45,.6-1.33,1.45-1.9,2.91-1.88,3.96,.06,7.92,0,11.88,.02,2.12,0,2.58,.7,1.7,2.65-5.74,12.68-11.85,25.19-17.88,37.73-.62,1.29-.89,2.54-.84,3.95,.47,15.02,.91,30.04,1.33,45.06,.07,2.36-.44,2.85-2.75,2.86-3.79,.02-7.58,.02-11.37,.02-2.11,0-2.38-.3-2.41-2.37-.12-10.84-.25-21.68-.37-32.52,0-.15-.04-.3-.12-.81-1.37,2.38-2.9,4.22-3.39,6.81-1.68,8.95-3.61,17.85-5.39,26.78-.31,1.53-1.13,2.11-2.62,2.1-3.85-.03-7.69,0-11.54,0-2.35,0-2.79-.5-2.33-2.74,1.94-9.54,3.94-19.08,5.84-28.63,3.68-18.54,7.31-37.08,10.97-55.63,.19-.95,.52-1.9,.59-2.86,.14-1.81,1.06-2.46,2.82-2.43,3.9,.07,7.81,.01,11.71,.03,1.79,0,2.21,.54,1.86,2.33-2.07,10.61-4.14,21.22-6.21,31.84-.09,.44-.12,.9-.18,1.34l.29,.13Z" style="fill:#fff;"/><path d="M311.89,141.23c-3.04,0-6.08,.01-9.13,0-6.23-.03-10.33-4.81-9.21-10.93,1.17-6.39,2.54-12.75,3.79-19.13,.28-1.43,1.07-2.03,2.51-2.02,3.96,.03,7.92,0,11.88,.03,1.7,.01,2.1,.52,1.75,2.27-.73,3.71-1.49,7.42-2.24,11.12-.61,3.01,0,3.78,3.03,3.77,3.43,0,3.92-.47,4.58-3.91,.88-4.61,1.83-9.21,2.77-13.81,.42-2.06-.02-3.05-1.8-4.14-3.96-2.43-7.93-4.84-11.82-7.37-5.1-3.32-6.55-6.85-5.33-12.76,1.72-8.35,3.56-16.68,5.12-25.07,1.15-6.19,6.3-10.31,12.6-10.33,6.14-.02,12.28-.02,18.43,0,6.13,.01,10.17,4.84,9.04,10.88-1.12,5.97-2.37,11.92-3.5,17.89-.3,1.58-1.11,2.25-2.7,2.23-3.85-.04-7.69-.01-11.54-.03-1.89-.01-2.38-.57-2.03-2.43,.69-3.66,1.46-7.31,2.19-10.96,.42-2.1-.2-2.89-2.32-2.96-.63-.02-1.26-.06-1.89-.04-1.79,.04-2.88,.93-3.24,2.69-.99,4.82-1.95,9.65-2.94,14.47-.31,1.51,.26,2.53,1.54,3.3,4.05,2.4,7.97,5.01,12.05,7.36,5.14,2.96,6.64,6.82,5.44,12.63-1.83,8.86-3.58,17.74-5.35,26.62-1.28,6.44-6.34,10.61-12.93,10.62-2.93,0-5.85,0-8.78,0h0Z" style="fill:url(#linear-gradient-4);"/><path d="M99.38,141.25c-2.87,0-5.75-.18-8.61,.04-5.76,.45-12-3.65-10.26-12.36,3.04-15.21,6.16-30.41,9.25-45.62,1.57-7.74,3.12-15.48,4.73-23.21,1.48-7.1,6.51-11.13,13.8-11.14,5.91,0,11.82,0,17.74,0,6.73,0,10.92,4.93,9.68,11.56-1.07,5.74-2.33,11.44-3.47,17.17-.33,1.63-1.26,2.3-2.89,2.28-3.85-.04-7.69,0-11.54-.01-1.8,0-2.31-.53-1.98-2.3,.69-3.66,1.45-7.31,2.23-10.95,.46-2.14-.17-3.05-2.33-3.13-.92-.04-1.84-.06-2.75,0-1.78,.11-2.97,1.18-3.32,2.92-3.77,18.67-7.53,37.33-11.3,56-.6,2.98,.12,3.84,3.22,3.85,.52,0,1.03,.01,1.55,0,1.96-.04,3.08-.97,3.46-2.88,.79-3.99,1.63-7.97,2.35-11.97,.3-1.64,1.09-2.37,2.77-2.35,3.96,.06,7.92,.01,11.88,.03,1.69,0,2.12,.58,1.78,2.25-1.31,6.4-2.59,12.81-3.93,19.2-1.39,6.61-6.36,10.61-13.11,10.61-2.98,0-5.97,0-8.95,0Z" style="fill:#fff;"/><path d="M214.87,141.25c-2.98,0-5.97-.01-8.95,0-7.1,.03-11.32-5.01-9.91-11.97,3.51-17.4,7.08-34.79,10.6-52.19,1.11-5.5,2.2-11.01,3.24-16.53,1.32-6.95,6.86-11.59,13.95-11.6,5.85-.01,11.71,0,17.56-.02,6.66-.02,10.96,4.94,9.79,11.54-1.04,5.86-2.36,11.68-3.52,17.52-.27,1.35-1.06,1.96-2.39,1.96-4.02,0-8.03,.03-12.05,0-1.6-.01-2.18-.83-1.85-2.53,.71-3.59,1.45-7.17,2.2-10.76,.42-2.04-.34-3.03-2.45-3.1-.92-.03-1.84-.04-2.75,.03-1.69,.14-2.86,1.22-3.18,2.87-3.55,18.73-7.43,37.39-11.28,56.06-.61,2.96,.08,3.8,3.07,3.8,.69,0,1.38,.03,2.07-.01,1.77-.1,2.99-1.14,3.35-2.88,.81-3.98,1.62-7.96,2.38-11.95,.3-1.61,1.13-2.36,2.81-2.34,3.84,.05,7.69,0,11.53,.03,1.72,0,2.21,.52,1.88,2.19-1.3,6.68-2.48,13.39-4.06,20-1.46,6.1-6.64,9.85-12.88,9.86-3.04,0-6.08,0-9.12,0h0Z" style="fill:#fff;"/><path d="M144.56,141.22c-4.94,0-9.87,.02-14.81,0-1.97,0-2.43-.64-2.04-2.57,5.14-25.47,10.27-50.95,15.41-76.42,.77-3.82,1.6-7.62,2.34-11.44,.24-1.25,.94-1.8,2.1-1.81,4.19-.03,8.38-.05,12.57,0,1.55,.01,2.04,.83,1.68,2.61-2.15,10.6-4.31,21.21-6.46,31.81-2.7,13.34-5.4,26.69-8.09,40.03-.46,2.3,.07,2.93,2.4,2.93,4.08,0,8.15,0,12.23,0,1.94,0,2.38,.52,2.02,2.38-.66,3.43-1.4,6.85-2.02,10.29-.29,1.59-1.11,2.24-2.7,2.22-4.88-.04-9.76-.01-14.64-.01h0Z" style="fill:#fff;"/><path d="M195.49,48.97c2.07,0,4.13-.03,6.2,0,1.6,.03,2.13,.7,1.82,2.3-3.3,16.61-6.59,33.23-9.92,49.83-2.54,12.67-5.16,25.33-7.68,38.01-.31,1.55-1.09,2.12-2.57,2.12-3.96-.02-7.92,.02-11.88,0-1.94,0-2.45-.67-2.06-2.58,3.58-17.61,7.21-35.21,10.74-52.84,2.3-11.45,4.47-22.92,6.69-34.39,.4-2.06,.85-2.45,3-2.46,1.89,0,3.79,0,5.68,0Z" style="fill:#fff;"/><path d="M467,58.69c.56,.64,.95,3.86,.47,6.76-3.18,15.35-6.35,30.69-9.52,46.04-1.49,7.24-2.99,14.47-4.48,21.71-1.24,6.02-2.44,12.04-3.7,18.05-2.24,10.66-12.23,18.83-23.11,18.86-10.46,.03-20.92-.02-31.37,.04-1.33,0-1.57-.34-1.23-1.54,.48-1.73,.32-4.03,1.41-5.09,1.12-1.09,3.43-.32,5.22-.33,7.88-.03,15.77-.01,23.65-.01,10.36,0,16.78-5.17,18.86-15.25,2.07-10.06,4.08-20.14,6.14-30.2,2.15-10.54,4.33-21.07,6.49-31.61,1.42-6.95,2.78-13.92,4.26-20.86,.5-2.32-.07-4.44-.75-6.58" style="fill:url(#linear-gradient-5);"/><path d="M451.37,16.28c.56-4.4,1.14-9.23,1.8-14.05,.22-1.6,1.64-2.47,3.28-2.19,1.49,.26,2.3,1.4,2.09,2.99-.6,4.66-1.19,9.32-1.81,13.98-.22,1.67-1.36,2.57-2.94,2.41-1.6-.16-2.54-1.21-2.43-3.14Z" style="fill:#e56c2b;"/><path d="M463.28,23.07c0-.82,.34-1.47,.96-2,3.16-2.71,6.3-5.44,9.47-8.13,1.64-1.39,3.17-1.33,4.29,.07,1.02,1.28,.66,2.75-.9,4.09-3.11,2.67-6.22,5.36-9.3,8.07-.98,.87-2.04,1.05-3.17,.48-1.03-.52-1.44-1.45-1.34-2.6Z" style="fill:#e56c2b;"/><path d="M470.34,33.12c4.17,.54,8.6,1.1,13.04,1.71,1.63,.22,2.5,1.41,2.33,2.98-.17,1.56-1.29,2.42-3.04,2.2-4.38-.53-8.77-1.08-13.14-1.68-1.71-.23-2.48-1.4-2.26-3.17,.18-1.41,1.22-2.18,3.08-2.04Z" style="fill:#e56c2b;"/><path d="M433.75,6.96c.97,.03,1.63,.45,2.18,1.13,2.58,3.26,5.18,6.5,7.75,9.77,1.2,1.52,1.17,2.9,0,3.9-1.24,1.05-2.98,.79-4.17-.69-2.61-3.24-5.18-6.51-7.78-9.75-.74-.92-.82-1.91-.32-2.91,.48-.96,1.39-1.34,2.34-1.45Z" style="fill:#e56c2b;"/><path d="M132.75,163.17c3.31,0,6.5,0,9.69,0,2.79,0,5.57,.07,8.36-.02,1.39-.05,1.57,.42,1.16,1.6-.32,.92-.45,1.91-.72,2.85-.24,.85,.03,2.15-.9,2.44-1.15,.36-2.56,.45-3.7-.06-4.57-2.05-9.09-4.23-13.63-6.37-.07-.03-.1-.16-.26-.44Z" style="fill:#f78d1e;"/><polygon points=".04 170.08 0 170.13 .02 170.08 .04 170.08" style="fill:#e56c2b;"/><path d="M220.6,168.88c.98-1.75,1.87-3.27,2.7-4.82,1.16-2.14,1.14-2.15,3.96-1.64-1.92,3.84-3.8,7.64-5.73,11.42-.56,1.09-1.66,.58-2.53,.58-.91,0-.64-.86-.73-1.39-.28-1.78-.51-3.57-.76-5.34-.62-.14-.63,.38-.79,.67-.84,1.59-1.78,3.16-2.45,4.82-.56,1.4-1.59,1.26-2.68,1.22-1.26-.04-.85-1.08-.96-1.73-.51-3.07-.95-6.15-1.42-9.22-.09-.59-.36-1.36,.66-1.19,.81,.14,2.1-.79,2.37,.86,.23,1.45,.42,2.9,.66,4.35,.05,.34-.14,.91,.4,.91,.27,0,.63-.38,.79-.68,.69-1.3,1.42-2.59,1.96-3.95,.53-1.36,1.44-1.82,2.77-1.53,1.17,.26,.85,1.32,.99,2.09,.25,1.44,.28,2.92,.79,4.55Z" style="fill:#030303;"/><path d="M281.58,167.17c-.48,2.4-.9,4.31-1.25,6.23-.31,1.69-1.62,.96-2.49,.97-1.28,.02-.49-.99-.41-1.44,.57-3.11,1.23-6.21,1.87-9.31,.12-.59-.05-1.46,.96-1.39,.9,.06,1.86-.39,2.51,.88,1.05,2.05,2.39,3.96,3.64,6,.89-2.03,.94-4.12,1.52-6.08,.48-1.63,1.69-.7,2.51-.76,1.12-.08,.5,.85,.41,1.31-.6,3.17-1.27,6.32-1.91,9.48-.13,.63-.06,1.42-1.03,1.37-.86-.04-1.8,.38-2.44-.77-1.15-2.09-2.45-4.09-3.91-6.49Z" style="fill:#030303;"/><path d="M246.24,174.42c-.25,0-.36,0-.47,0-1.09-.02-2.48,.35-3.2-.18-.86-.63-.02-2.01,.12-3.02,.4-2.75,.84-5.49,1.57-8.19,.2-.72,.46-.85,1.05-.84,1.75,0,3.5-.04,5.25,.02,1.3,.05,2.55,.41,3.12,1.71,.57,1.29,.15,2.46-.84,3.43-.33,.32-.54,.48-.14,1.03,1.5,2.05,.79,4.27-1.61,5.46-1.6,.79-3.32,.52-4.86,.58Zm1.91-5.08h0c-.44,0-.88-.03-1.31,.01-1.03,.11-.7,1.07-.96,1.65-.14,.33-.22,.87,.31,.91,1.23,.09,2.51,.33,3.66-.38,.51-.32,.7-.83,.55-1.42-.14-.56-.6-.74-1.12-.77-.38-.02-.76,0-1.14,0Zm.19-4.81c-.98-.36-1.36,.48-1.55,1.68-.15,.93,.43,.89,.97,.82,1.11-.16,2.7,.42,2.95-1.28,.19-1.32-1.09-1.03-2.37-1.21Z" style="fill:#030303;"/><path d="M337.84,162.18c.66,0,1.31,0,1.97,0,1.69,.02,3.2,.47,3.9,2.15,.73,1.76,.25,3.57-1.17,4.59-1.67,1.21-1.46,2.21-.62,3.69,.29,.51,1.45,1.32,.21,2-1.03,.56-2.65-.09-3.1-1.05-.35-.74-.76-1.45-1.07-2.21-.3-.74-.89-.66-1.49-.68-.74-.02-.91,.43-1.01,1.02-.07,.48-.19,.96-.3,1.44-.25,1.15-1.83,1.85-2.9,1.29-.49-.26-.3-.65-.23-.99,.64-3.37,1.31-6.73,1.94-10.11,.15-.82,.5-1.24,1.41-1.16,.81,.07,1.64,.02,2.46,.02Zm.83,2.54c-1.81-.02-2.4,.73-2.37,2.71,.01,1.05,.81,.65,1.29,.67,2.08,.07,3.22-.6,3.23-1.9,.02-1.7-1.28-1.42-2.15-1.47Z" style="fill:#030303;"/><path d="M321.57,174.6c-3.34,.02-5.73-2.12-5.77-5.16-.04-3.87,3.58-7.37,7.68-7.41,3.32-.04,5.78,2.14,5.79,5.15,.02,3.85-3.65,7.39-7.7,7.42Zm-2.62-5.67c0,1.8,1.2,3.02,2.96,3,2.24-.03,4.11-1.94,4.16-4.25,.04-1.82-1.13-3-2.95-2.97-2.25,.03-4.17,1.97-4.17,4.22Z" style="fill:#030303;"/><path d="M366.06,174.62c-3.31,.03-5.74-2.16-5.79-5.2-.05-3.93,3.67-7.45,7.88-7.44,3.28,0,5.52,2.11,5.53,5.19,.02,4.04-3.43,7.41-7.63,7.44Zm-2.62-5.71c.01,1.8,1.21,3.02,2.96,3.01,2.2,0,4.16-1.99,4.18-4.25,.02-1.7-1.31-3.03-3-3.01-2.22,.03-4.16,2.01-4.15,4.24Z" style="fill:#030303;"/><path d="M268.36,174.47c-.93,0-1.86-.07-2.78,.02-1.45,.14-2.05-.16-1.65-1.83,.74-3.07,1.29-6.2,1.85-9.31,.16-.88,.52-1.19,1.4-1.17,2.29,.05,4.59,0,6.88,.05,.44,0,1.32-.34,1.13,.61-.13,.68,.21,1.83-1.1,1.84-1.47,.02-2.96,.11-4.42-.01-1.41-.12-1.35,.89-1.41,1.68-.07,1.04,.83,.57,1.32,.61,.92,.09,1.86,.05,2.78,.12,.47,.03,1.26-.25,1.06,.73-.14,.67,.13,1.66-1.08,1.66-1.09,0-2.2,.13-3.27-.01-1.46-.19-1.67,.71-1.72,1.73-.06,1.31,1,.65,1.54,.7,1.14,.12,2.29,.02,3.44,.07,.45,.02,1.29-.32,1.12,.66-.12,.72,.13,1.79-1.15,1.81-1.31,.01-2.62,0-3.93,0v.04Z" style="fill:#030303;"/><path d="M190.79,174.59c-3.84,.01-5.55-2.08-4.87-5.88,.32-1.77,.54-3.55,.81-5.33,.25-1.71,1.6-1.09,2.55-1.13,1.2-.06,.68,.91,.61,1.42-.27,1.82-.67,3.62-.96,5.44-.19,1.2-.11,2.33,1.37,2.7,1.57,.39,3.24-.29,3.63-1.67,.46-1.61,.76-3.28,1.01-4.94,.1-.67,.28-1.35,.4-2,.26-1.39,1.59-.99,2.57-.96,1.26,.04,.56,1,.49,1.46-.26,1.83-.64,3.65-1.02,5.46-.72,3.39-3.21,5.42-6.61,5.43Z" style="fill:#030303;"/><path d="M235.68,162.21c1.04,0,2.08-.05,3.11,.02,.49,.04,1.44-.39,1.35,.56-.07,.76,.07,1.98-1.41,1.9-1.31-.07-2.64,.11-3.93-.05-1.51-.19-1.63,.84-1.65,1.76-.03,1.06,.95,.54,1.47,.62,.75,.11,1.54-.06,2.28,.08,.51,.09,1.52-.56,1.46,.55-.04,.81,.15,2.09-1.51,1.85-1.07-.16-2.18,0-3.27-.03-.62-.02-1.07,.13-1.23,.78-.25,1.02-.36,1.86,1.2,1.71,1.24-.12,2.51-.03,3.77,.03,.45,.02,1.32-.31,1.13,.62-.13,.68,.13,1.82-1.16,1.82-2.57,.01-5.14,0-7.7,.02-.76,0-.92-.3-.79-1,.66-3.43,1.29-6.86,1.89-10.3,.13-.75,.47-1,1.2-.98,1.26,.04,2.51,.01,3.77,.01v.02Z" style="fill:#030303;"/><path d="M306.57,174.61c-4.29,.01-6.83-3.39-5.37-7.38,1.75-4.78,7.37-6.56,10.94-4.11,.55,.38,1.79,.86,1.02,1.76-.6,.7-1.48,1.86-2.85,.59-1.18-1.11-3.01-.97-4.42-.01-1.51,1.03-2.26,2.83-1.83,4.4,.57,2.08,3,2.66,5.31,1.3,.43-.25,.72-.86,1.42-.54,1.27,.59,1.41,1.54,.32,2.39-1.34,1.05-2.85,1.6-4.55,1.6Z" style="fill:#030303;"/><path d="M178.16,162.2c1.36,0,2.73-.02,4.09,0,.45,0,1.18-.21,1.18,.48,0,.65,.01,1.46-.67,1.91-.16,.11-.42,.06-.64,.08q-3.09,.33-3.67,3.45c-.34,1.81-.71,3.61-1.01,5.42-.27,1.6-1.49,1.11-2.4,1.08-1.26-.04-.53-.99-.45-1.46,.39-2.37,.82-4.73,1.35-7.06,.24-1.09,.01-1.53-1.14-1.38-.32,.04-.66,.06-.98,0-.5-.09-1.41,.37-1.31-.64,.08-.81-.11-1.98,1.4-1.9,1.41,.08,2.84,.02,4.26,.02h0Z" style="fill:#030303;"/><path d="M353.3,162.19c1.37,0,2.74-.02,4.1,.02,.41,.01,1.21-.23,1.02,.58-.15,.65,.18,1.64-.89,1.88-.21,.05-.44,.04-.65,.05-2.59,.19-2.6,.19-3.13,2.82-.39,1.92-.83,3.84-1.12,5.78-.26,1.7-1.51,1.12-2.42,1.11-1.33-.02-.63-1.02-.53-1.57,.4-2.31,.84-4.62,1.36-6.92,.22-.98-.03-1.32-1.01-1.2-.32,.04-.67,.07-.98,0-.53-.12-1.52,.45-1.45-.68,.05-.92,.05-2.03,1.59-1.9,1.36,.12,2.73,.02,4.1,.02h0Z" style="fill:#030303;"/><g><path d="M362.89,126.35c-.4,0-.8,.01-1.21,0,.4,.01,.8,0,1.21,0,2.53,0,3.58-.47,4.12-2.17-.54,1.69-1.59,2.17-4.12,2.16Z" style="fill:url(#linear-gradient-6);"/><path d="M387.21,48.95c-3.16-.02-6.31,0-9.47,0-2.93,0-5.86,0-8.78,0-6.74,0-11.87,4.13-13.29,10.71-.46,2.13-.88,4.26-1.32,6.39-2.09,10.32-4.18,20.65-6.24,30.98-2.14,10.72-4.35,21.43-6.49,32.15-1.55,7.76,3.63,12.1,9.52,12.04,6.03-.07,12.05,0,18.08-.02,5.05-.01,8.72-2.37,11.29-6.64,1.49-2.48,1.78-5.31,2.34-8.04,3.77-18.42,7.52-36.84,11.21-55.28,.84-4.21,2.05-8.37,2.31-12.67,.33-5.43-3.71-9.58-9.16-9.61Zm-8.93,19.15c-2.87,13.1-5.2,26.31-8.03,39.42-1.09,5.06-2.15,10.16-2.94,15.29-.08,.53-.18,.98-.3,1.37-.54,1.69-1.59,2.17-4.12,2.17-.4,0-.8,0-1.21,0-1.95-.07-2.72-.93-2.35-2.87,1.25-6.52,2.55-13.04,3.86-19.55,2.5-12.47,5-24.93,7.51-37.39,.43-2.15,1.49-2.99,3.7-3.02,4.4-.06,4.81,.33,3.88,4.58Z" style="fill:url(#linear-gradient-7);"/></g><path d="M248.14,169.34c.38,0,.76-.02,1.14,0,.52,.03,.98,.21,1.12,.77,.15,.59-.04,1.1-.55,1.42-1.15,.71-2.43,.47-3.66,.38-.54-.04-.46-.58-.31-.91,.26-.58-.07-1.54,.96-1.65,.43-.05,.87,0,1.31,0h0Z" style="fill:#e56c2b;"/><path d="M248.34,164.53c1.29,.18,2.56-.11,2.37,1.21-.24,1.7-1.84,1.13-2.95,1.28-.55,.08-1.12,.11-.97-.82,.19-1.2,.56-2.05,1.55-1.68Z" style="fill:#e56c2b;"/><path d="M338.67,164.72c.87,.05,2.18-.23,2.15,1.47-.02,1.31-1.16,1.98-3.23,1.9-.48-.02-1.28,.39-1.29-.67-.03-1.98,.56-2.73,2.37-2.71Z" style="fill:#e56c2b;"/><path d="M318.95,168.94c0-2.25,1.92-4.18,4.17-4.22,1.81-.03,2.98,1.15,2.95,2.97-.05,2.31-1.92,4.21-4.16,4.25-1.75,.03-2.96-1.2-2.96-3Z" style="fill:#e56c2b;"/><path d="M363.44,168.91c-.01-2.23,1.92-4.21,4.15-4.24,1.69-.02,3.02,1.31,3,3.01-.03,2.26-1.98,4.24-4.18,4.25-1.75,0-2.95-1.22-2.96-3.01Z" style="fill:#e56c2b;"/></svg>
+    <small>Tu Web en Corto · Cd. Obregón, Son.</small>
+  </div>
+  <div class="footer-copy">© 2025 ClickSon. Todos los derechos reservados.</div>
+  <div class="footer-links">
+    <a href="#hero">Inicio</a><a href="#demos">Demos</a><a href="#paquetes">Paquetes</a><a href="#formulario">Contacto</a>
+  </div>
+</footer>
+
+
+
+<script>
+    // ── PARTICLES ──
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+    container.appendChild(p);
+  }
+
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) { nav.style.background = 'rgba(0,0,0,0.95)'; nav.style.borderBottom = '1px solid rgba(255,92,0,0.1)'; }
+    else { nav.style.background = 'linear-gradient(to bottom,rgba(0,0,0,0.92),transparent)'; nav.style.borderBottom = 'none'; }
+  });
+
+  // ── GLOW FOLLOW ──
+  document.addEventListener('mousemove', (e) => {
+    const glow = document.querySelector('.hero-bg');
+    if (!glow) return;
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    glow.style.background = `radial-gradient(ellipse 80% 50% at ${x}% ${Math.max(y,60)}%,rgba(255,92,0,0.13) 0%,transparent 70%),radial-gradient(ellipse 40% 30% at 80% 80%,rgba(255,61,0,0.06) 0%,transparent 60%)`;
+  });
+
+  // ── TIPO SELECTOR ──
+  function selectTipo(label) {
+    document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+    label.classList.add('active');
+    label.querySelector('input').checked = true;
+  }
+// ── FORM SUBMIT ──
+  async function submitForm() {
+    const empresa = document.getElementById('f-empresa').value.trim();
+    const rep = document.getElementById('f-rep').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    if (!empresa || !rep || !tel) {
+      alert('Por favor llena los campos requeridos: empresa, representante y teléfono.');
+      return;
+    }
+    const tipo = document.querySelector('input[name="tipo"]:checked');
+    const horario = document.getElementById('f-horario').value.trim();
+    const promo = document.getElementById('f-promo').value.trim();
+    const dir = document.getElementById('f-dir').value.trim();
+
+    // ── Enviar a info@clickson.net via Web3Forms ──
+    try {
+      var fd = new FormData();
+      fd.append('access_key', '9d714567-897b-404e-91c8-ff44534e2797');
+      fd.append('subject', 'Nuevo cliente ClickSon: ' + empresa);
+      fd.append('from_name', 'ClickSon Web');
+      fd.append('Empresa', empresa);
+      fd.append('Representante', rep);
+      fd.append('Telefono', tel);
+      fd.append('Direccion', dir || 'No indicada');
+      fd.append('Tipo_de_web', tipo ? tipo.value : 'No seleccionado');
+      fd.append('Horario', horario || 'No indicado');
+      fd.append('Promociones', promo || 'No indicadas');
+      var resp = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: fd
+      });
+      var result = await resp.json();
+      console.log('Web3Forms:', result);
+    } catch(e) { console.log('Form error:', e); }
+
+    // ── Abrir WhatsApp con resumen ──
+    let msg = '¡Hola ClickSon! Quiero mi página web 🚀\n\n';
+    msg += '🏢 Empresa: ' + empresa + '\n';
+    msg += '👤 Representante: ' + rep + '\n';
+    msg += '📱 Teléfono: ' + tel + '\n';
+    if (dir) msg += '📍 Dirección: ' + dir + '\n';
+    if (tipo) msg += '🌐 Tipo de web: ' + tipo.value + '\n';
+    if (horario) msg += '🕐 Horario: ' + horario + '\n';
+    if (promo) msg += '🎉 Promociones: ' + promo + '\n';
+    msg += '\n¡Espero su contacto!';
+
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    setTimeout(function() {
+      window.open('https://wa.me/526441550412?text=' + encodeURIComponent(msg), '_blank');
+    }, 800);
+  }
+</script>
+
+
+
+
+
+
+
+<!-- ══ WHATSAPP FLOAT (respaldo) ══ -->
+
+
+
+<!-- Chat Float Button -->
+<div id="chat-float-wrap" style="position:fixed;bottom:28px;right:28px;z-index:9000;display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+  <!-- Bubble message -->
+  <div id="chat-bubble-msg" style="background:#1a1a1a;border:1px solid rgba(255,92,0,0.3);border-radius:14px 14px 4px 14px;padding:10px 16px;font-size:0.82rem;color:var(--text);max-width:220px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,0.4);animation:introSlide 0.5s 3s cubic-bezier(0.16,1,0.3,1) both;cursor:pointer" onclick="openChatWA()">
+    👋 ¿Tienes dudas? <strong style="color:var(--orange-light)">Escríbenos</strong>
+    <span onclick="event.stopPropagation();document.getElementById('chat-bubble-msg').style.display='none'" style="margin-left:8px;opacity:0.5;cursor:pointer">✕</span>
+  </div>
+  <!-- Robot button -->
+  <a href="https://wa.me/526441550412?text=Hola,%20quiero%20información%20sobre%20una%20página%20web%20para%20mi%20negocio"
+     id="chat-float-btn"
+     target="_blank"
+     title="Chatea con nosotros"
+     style="width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#FF5C00,#FF3D00);display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 30px rgba(255,92,0,0.55);animation:wa-pulse 3s ease-in-out infinite;transition:transform 0.3s ease;position:relative"
+     onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Robot face -->
+      <rect x="12" y="16" width="40" height="32" rx="8" fill="white" opacity="0.95"/>
+      <!-- Eyes -->
+      <circle cx="22" cy="28" r="5" fill="#FF5C00"/>
+      <circle cx="42" cy="28" r="5" fill="#FF5C00"/>
+      <circle cx="24" cy="26" r="2" fill="white"/>
+      <circle cx="44" cy="26" r="2" fill="white"/>
+      <!-- Mouth -->
+      <rect x="20" y="36" width="24" height="4" rx="2" fill="#FF5C00"/>
+      <rect x="24" y="36" width="4" height="4" rx="1" fill="white"/>
+      <rect x="32" y="36" width="4" height="4" rx="1" fill="white"/>
+      <!-- Antenna -->
+      <line x1="32" y1="16" x2="32" y2="8" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="32" cy="6" r="3" fill="white"/>
+      <!-- Ears -->
+      <rect x="6" y="24" width="6" height="10" rx="3" fill="white" opacity="0.8"/>
+      <rect x="52" y="24" width="6" height="10" rx="3" fill="white" opacity="0.8"/>
+    </svg>
+    <!-- Notification dot -->
+    <div style="position:absolute;top:4px;right:4px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #FF3D00;animation:blink 2s ease-in-out infinite"></div>
+  </a>
+</div>
+<script>
+function openChatWA() {
+  window.open('https://wa.me/526441550412?text=Hola,%20quiero%20información%20sobre%20una%20página%20web%20para%20mi%20negocio', '_blank');
+}
+</script>
+
+
+<script>
+// ══ COUNTDOWN + SPOTS ══
+(function() {
+  var endTime = localStorage.getItem('cs_end');
+  if (!endTime || parseInt(endTime) < Date.now()) {
+    endTime = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem('cs_end', String(endTime));
+  }
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function tick() {
+    var diff = parseInt(endTime) - Date.now();
+    var el = document.getElementById('countdown-timer');
+    if (!el) return;
+    if (diff <= 0) {
+      endTime = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem('cs_end', String(endTime));
+      return;
+    }
+    var h = Math.floor(diff/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
+    el.textContent = pad(h)+':'+pad(m)+':'+pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+  var spots = [3,2,3,2,4,3,2];
+  var el2 = document.getElementById('spots-left');
+  if (el2) el2.textContent = spots[new Date().getDay()];
+})();
+</script>
+</body>
+</html>
