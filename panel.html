@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClickSon · Panel CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- ════════════════════════════════════════════
+  FIREBASE CONFIG — Crea tu proyecto en:
+  https://console.firebase.google.com
+  Reemplaza los valores de abajo con los tuyos
+═════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc,
+  deleteDoc, onSnapshot, query, orderBy, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCZ-aisNGIXFT2wGyIz1SLjXpXSZied1PA",
+  authDomain: "clickson.firebaseapp.com",
+  projectId: "clickson",
+  storageBucket: "clickson.firebasestorage.app",
+  messagingSenderId: "539935149186",
+  appId: "1:539935149186:web:8f8c31c83e1df3e8def89b"
+};
+
+// ── Init ──
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ── Expose to window for non-module code ──
+window._fb = { auth, db, signInWithEmailAndPassword, signOut,
+  onAuthStateChanged, collection, addDoc, getDocs, doc, updateDoc,
+  deleteDoc, onSnapshot, query, orderBy, serverTimestamp };
+
+// Auth state watcher
+onAuthStateChanged(auth, user => {
+  if (user) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    document.getElementById('user-email').textContent = user.email;
+    window.currentUser = user;
+    loadClients();
+  } else {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    window.currentUser = null;
+  }
+});
+</script>
+
+<style>
+:root {
+  --orange: #FF5C00;
+  --red: #FF3D00;
+  --orange-light: #FF8C00;
+  --bg: #000000;
+  --bg2: #0a0a0a;
+  --bg3: #111111;
+  --bg4: #161616;
+  --text: #f0e8dc;
+  --text-muted: #9a8a78;
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,92,0,0.15);
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+  --glow: 0 0 30px rgba(255,92,0,0.3);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
+
+/* ── LOGIN ── */
+#login-screen {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.login-card {
+  width: 420px; max-width: 90vw;
+  background: var(--bg3);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), var(--glow);
+}
+.login-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem; letter-spacing: 3px; margin-bottom: 4px;
+}
+.login-logo span { background: linear-gradient(90deg,var(--orange),var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.login-subtitle { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 36px; }
+.login-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 10px; font-size: 0.85rem; color: #f87171; margin-bottom: 16px; display: none; }
+
+/* ── INPUTS ── */
+.form-group { margin-bottom: 16px; text-align: left; }
+.form-group label { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange-light); margin-bottom: 7px; }
+.form-control {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,92,0,0.2);
+  border-radius: 10px; padding: 12px 14px;
+  color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+  outline: none; transition: all 0.3s;
+}
+.form-control:focus { border-color: var(--orange); background: rgba(255,92,0,0.07); box-shadow: 0 0 0 3px rgba(255,92,0,0.12); }
+.form-control::placeholder { color: rgba(240,232,220,0.3); }
+select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FF5C00' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+select.form-control option { background: #111; }
+textarea.form-control { resize: vertical; min-height: 80px; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.88rem; cursor: pointer; border: none; transition: all 0.25s ease; text-decoration: none; white-space: nowrap; }
+.btn-primary { background: linear-gradient(135deg,var(--orange),var(--red)); color: #fff; box-shadow: 0 4px 20px rgba(255,92,0,0.35); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255,92,0,0.55); }
+.btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); }
+.btn-ghost:hover { border-color: rgba(255,92,0,0.4); color: var(--text); background: rgba(255,92,0,0.05); }
+.btn-danger { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.btn-danger:hover { background: rgba(239,68,68,0.25); }
+.btn-sm { padding: 7px 14px; font-size: 0.8rem; border-radius: 6px; }
+.btn-icon { padding: 8px; border-radius: 8px; background: var(--glass); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); cursor: pointer; transition: all 0.25s; font-size: 0.9rem; }
+.btn-icon:hover { border-color: rgba(255,92,0,0.4); color: var(--orange); background: rgba(255,92,0,0.08); }
+
+/* ── APP SHELL ── */
+#app { display: none; height: 100vh; flex-direction: row; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 220px; flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; flex-direction: column;
+  padding: 0;
+}
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.sidebar-logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem; letter-spacing: 2px;
+}
+.sidebar-logo-text span { background: linear-gradient(90deg,var(--orange),var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.sidebar-logo small { display: block; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+.sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: 10px;
+  color: var(--text-muted); font-weight: 600; font-size: 0.88rem;
+  cursor: pointer; transition: all 0.25s; border: 1px solid transparent;
+}
+.nav-item:hover { color: var(--text); background: var(--glass); border-color: rgba(255,255,255,0.07); }
+.nav-item.active { background: linear-gradient(135deg,rgba(255,92,0,0.15),rgba(255,61,0,0.08)); border-color: rgba(255,92,0,0.3); color: var(--orange-light); }
+.nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+.nav-badge { margin-left: auto; background: linear-gradient(135deg,var(--orange),var(--red)); color: #fff; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: 10px; }
+
+.sidebar-footer { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+.user-info { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,var(--orange),var(--red)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; color: #fff; flex-shrink: 0; }
+.user-email { font-size: 0.75rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+
+/* ── MAIN CONTENT ── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.topbar {
+  height: 60px; flex-shrink: 0;
+  background: var(--bg2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; padding: 0 24px; gap: 12px;
+}
+.topbar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; }
+.topbar-count { font-size: 0.75rem; color: var(--text-muted); background: var(--glass); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 3px 10px; }
+.topbar-spacer { flex: 1; }
+
+.search-wrap { position: relative; }
+.search-input { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px 12px 8px 34px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.875rem; outline: none; width: 220px; transition: all 0.3s; }
+.search-input:focus { border-color: rgba(255,92,0,0.5); width: 260px; }
+.search-input::placeholder { color: rgba(240,232,220,0.3); }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; pointer-events: none; }
+
+.content-area { flex: 1; overflow-y: auto; padding: 20px 24px; }
+
+/* ── STAT CARDS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--bg3); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px; padding: 16px;
+  transition: all 0.3s;
+}
+.stat-card:hover { border-color: rgba(255,92,0,0.3); transform: translateY(-2px); }
+.stat-card-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px; }
+.stat-card-value { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; }
+.stat-card-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
+.grad-text { background: linear-gradient(135deg,var(--orange),var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* ── FILTER BAR ── */
+.filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+.filter-btn { padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--text-muted); transition: all 0.25s; }
+.filter-btn:hover { color: var(--text); border-color: rgba(255,92,0,0.3); }
+.filter-btn.active { background: linear-gradient(135deg,rgba(255,92,0,0.15),rgba(255,61,0,0.08)); border-color: rgba(255,92,0,0.4); color: var(--orange-light); }
+
+/* ── TABLE ── */
+.table-wrap { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden; }
+.table-header { display: grid; grid-template-columns: 1.6fr 1.3fr 1fr 1fr 0.9fr 1fr 0.5fr; padding: 11px 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+.table-row { display: grid; grid-template-columns: 1.6fr 1.3fr 1fr 1fr 0.9fr 1fr 0.5fr; padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: center; cursor: pointer; transition: background 0.2s; }
+.table-row:hover { background: rgba(255,92,0,0.04); }
+.table-row:last-child { border-bottom: none; }
+.cell-empresa { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.cell-empresa small { display: block; font-weight: 400; font-size: 0.75rem; color: var(--text-muted); }
+.cell-phone { font-size: 0.85rem; color: var(--text-muted); }
+.cell-date { font-size: 0.78rem; color: var(--text-muted); }
+.cell-actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+/* ── STATUS BADGES ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 0.72rem; font-weight: 700; white-space: nowrap;
+}
+.badge-prospecto { background: rgba(148,163,184,0.12); color: #94a3b8; border: 1px solid rgba(148,163,184,0.2); }
+.badge-contactado { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+.badge-propuesta { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+.badge-negociacion { background: rgba(255,92,0,0.12); color: var(--orange-light); border: 1px solid rgba(255,92,0,0.25); }
+.badge-ganado { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+.badge-perdido { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+
+/* ── SEGUIMIENTO BADGE ── */
+.seg-hoy { color: #f87171; font-weight: 700; }
+.seg-pronto { color: #fbbf24; }
+.seg-ok { color: var(--text-muted); }
+
+/* ── PIPELINE VIEW ── */
+.pipeline-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; align-items: start; }
+.pipeline-col { background: var(--bg3); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden; }
+.pipeline-col-header { padding: 12px 14px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+.pipeline-col-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 120px; }
+.pipeline-card { background: var(--bg4); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.25s; }
+.pipeline-card:hover { border-color: rgba(255,92,0,0.35); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+.pipeline-card-name { font-weight: 700; font-size: 0.85rem; margin-bottom: 4px; }
+.pipeline-card-rep { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; }
+.pipeline-card-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); }
+
+/* ── TODAY'S FOLLOW-UPS ── */
+.followups-section { margin-bottom: 20px; }
+.section-title-sm { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.followup-list { display: flex; flex-direction: column; gap: 8px; }
+.followup-item { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.25s; }
+.followup-item:hover { background: rgba(239,68,68,0.12); }
+.followup-name { font-weight: 700; font-size: 0.9rem; }
+.followup-rep { font-size: 0.78rem; color: var(--text-muted); }
+.followup-note { font-size: 0.8rem; color: #fca5a5; margin-left: auto; max-width: 300px; text-align: right; }
+
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 500; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--bg3); border: 1px solid rgba(255,92,0,0.2); border-radius: 20px; width: 660px; max-width: 95vw; max-height: 92vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 40px 80px rgba(0,0,0,0.6), var(--glow); }
+.modal-header { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; }
+.modal-body { flex: 1; overflow-y: auto; padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 10px; justify-content: flex-end; flex-shrink: 0; }
+
+/* ── DETAIL DRAWER ── */
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 400; display: none; }
+.drawer-overlay.open { display: block; }
+.drawer { position: fixed; right: 0; top: 0; bottom: 0; width: 520px; background: var(--bg3); border-left: 1px solid rgba(255,92,0,0.2); z-index: 401; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); box-shadow: -20px 0 60px rgba(0,0,0,0.5); }
+.drawer.open { transform: translateX(0); }
+.drawer-header { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+.drawer-empresa { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 4px; }
+.drawer-rep { font-size: 0.88rem; color: var(--text-muted); }
+.drawer-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.drawer-footer { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 10px; flex-shrink: 0; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.info-item { background: var(--bg4); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; }
+.info-item-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 5px; }
+.info-item-value { font-size: 0.9rem; color: var(--text); font-weight: 600; }
+
+/* ── NOTES SECTION ── */
+.notes-section { margin-bottom: 20px; }
+.notes-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 12px; }
+.note-item { background: var(--bg4); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; margin-bottom: 8px; position: relative; }
+.note-item-text { font-size: 0.88rem; color: var(--text); line-height: 1.6; margin-bottom: 6px; }
+.note-item-meta { font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.note-item-user { color: var(--orange-light); font-weight: 600; }
+.note-input-wrap { display: flex; gap: 8px; margin-top: 8px; }
+.note-input-wrap .form-control { border-radius: 8px; padding: 10px 12px; font-size: 0.88rem; }
+
+/* ── STATUS SELECT ── */
+.status-select-wrap { margin-bottom: 20px; }
+.status-options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.status-option { padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; opacity: 0.5; }
+.status-option.selected { opacity: 1; transform: scale(1.05); }
+.status-option[data-v="Prospecto"] { background: rgba(148,163,184,0.1); color: #94a3b8; border-color: rgba(148,163,184,0.3); }
+.status-option[data-v="Contactado"] { background: rgba(59,130,246,0.1); color: #60a5fa; border-color: rgba(59,130,246,0.3); }
+.status-option[data-v="Propuesta enviada"] { background: rgba(245,158,11,0.1); color: #fbbf24; border-color: rgba(245,158,11,0.3); }
+.status-option[data-v="Negociación"] { background: rgba(255,92,0,0.1); color: var(--orange-light); border-color: rgba(255,92,0,0.3); }
+.status-option[data-v="Cerrado ganado"] { background: rgba(34,197,94,0.1); color: #4ade80; border-color: rgba(34,197,94,0.3); }
+.status-option[data-v="Cerrado perdido"] { background: rgba(239,68,68,0.1); color: #f87171; border-color: rgba(239,68,68,0.3); }
+
+/* ── IMPORT ── */
+.import-drop { border: 2px dashed rgba(255,92,0,0.3); border-radius: 14px; padding: 40px 24px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; background: rgba(255,92,0,0.02); }
+.import-drop:hover, .import-drop.drag { border-color: var(--orange); background: rgba(255,92,0,0.06); }
+.import-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.import-icon { font-size: 3rem; margin-bottom: 12px; }
+.import-preview { margin-top: 16px; }
+.preview-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.preview-table th { background: rgba(255,92,0,0.1); color: var(--orange-light); padding: 8px 10px; text-align: left; font-weight: 700; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; }
+.preview-table td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-muted); }
+
+/* ── EMPTY STATE ── */
+.empty-state { text-align: center; padding: 80px 20px; }
+.empty-icon { font-size: 4rem; margin-bottom: 16px; opacity: 0.4; }
+.empty-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px; }
+.empty-sub { font-size: 0.9rem; color: var(--text-muted); }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); z-index: 9999; background: var(--bg3); border: 1px solid rgba(255,92,0,0.3); border-radius: 12px; padding: 12px 20px; font-size: 0.88rem; font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,0.5); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { border-color: rgba(34,197,94,0.4); color: #4ade80; }
+.toast.error { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+/* ── GRID ROWS ── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ════ LOGIN ════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">CLICK<span>SON</span></div>
+    <div class="login-subtitle">Panel CRM · Acceso restringido</div>
+    <div class="login-error" id="login-error"></div>
+    <div class="form-group">
+      <label>Correo</label>
+      <input type="email" id="login-email" class="form-control" placeholder="tu@correo.com">
+    </div>
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" id="login-pass" class="form-control" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px;margin-top:8px;font-size:1rem" onclick="doLogin()">
+      Entrar al Panel
+    </button>
+    <p style="font-size:0.72rem;color:var(--text-muted);margin-top:16px">🔒 Acceso exclusivo para el equipo ClickSon</p>
+  </div>
+</div>
+
+<!-- ════ APP ════ -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-text">CLICK<span>SON</span></div>
+      <small>Panel CRM</small>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showView('dashboard')" id="nav-dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showView('clientes')" id="nav-clientes">
+        <span class="nav-icon">👥</span> Clientes
+        <span class="nav-badge" id="badge-total">0</span>
+      </div>
+      <div class="nav-item" onclick="showView('pipeline')" id="nav-pipeline">
+        <span class="nav-icon">🔀</span> Pipeline
+      </div>
+      <div class="nav-item" onclick="showView('seguimientos')" id="nav-seguimientos">
+        <span class="nav-icon">🔔</span> Seguimientos
+        <span class="nav-badge" id="badge-hoy" style="background:#ef4444">0</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar" id="user-avatar">U</div>
+        <div class="user-email" id="user-email">usuario@email.com</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center" onclick="doLogout()">
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <span class="topbar-title" id="view-title">Dashboard</span>
+      <span class="topbar-count" id="view-count" style="display:none">0</span>
+      <div class="topbar-spacer"></div>
+      <div class="search-wrap" id="search-wrap" style="display:none">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="Buscar empresa o contacto..." id="search-input" oninput="filterClients()">
+      </div>
+      <select class="form-control" id="filter-status-top" style="width:130px;display:none;padding:8px 32px 8px 10px;font-size:0.82rem" onchange="filterClients()">
+        <option value="">Todos los estados</option>
+        <option>Prospecto</option>
+        <option>Contactado</option>
+        <option>Propuesta enviada</option>
+        <option>Negociación</option>
+        <option>Cerrado ganado</option>
+        <option>Cerrado perdido</option>
+        <option>No viable</option>
+      </select>
+      <select class="form-control" id="filter-cat-top" style="width:130px;display:none;padding:8px 32px 8px 10px;font-size:0.82rem" onchange="filterClients()"><option value="">Categoría...</option></select>
+      <select class="form-control" id="filter-city-top" style="width:120px;display:none;padding:8px 32px 8px 10px;font-size:0.82rem" onchange="filterClients()"><option value="">Ciudad...</option></select>
+      <button class="btn btn-ghost btn-sm" onclick="openManageCats()" id="btn-manage-cats" style="display:none;padding:8px 10px" title="Gestionar categorías y ciudades">⚙️</button>
+      <button class="btn btn-ghost btn-sm" onclick="openImport()" id="btn-import" style="display:none">📥 Importar</button>
+      <button class="btn btn-primary btn-sm" onclick="openAddClient()" id="btn-add">＋ Nuevo cliente</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-area" id="content-area">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL: ADD / EDIT CLIENT ════ -->
+<div class="modal-overlay" id="modal-client">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-client-title">Nuevo Cliente</span>
+      <button class="btn-icon" onclick="closeModal('modal-client')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Empresa / Negocio *</label>
+          <input type="text" id="f-empresa" class="form-control" placeholder="Taquería El Norteño">
+        </div>
+        <div class="form-group">
+          <label>Categoría del negocio</label>
+          <div style="display:flex;gap:8px">
+            <select id="f-tipo" class="form-control" style="flex:1"></select>
+            <button type="button" class="btn btn-ghost btn-sm" onclick="openManageCats()" title="Agregar categorías" style="flex-shrink:0;padding:8px 10px">⚙️</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Representante / Contacto *</label>
+          <input type="text" id="f-rep" class="form-control" placeholder="Nombre completo">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp / Teléfono *</label>
+          <input type="tel" id="f-tel" class="form-control" placeholder="644 123 4567">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="f-email" class="form-control" placeholder="correo@negocio.com">
+        </div>
+        <div class="form-group">
+          <label>Paquete de interés</label>
+          <select id="f-paquete" class="form-control">
+            <option value="">Por definir</option>
+            <option>Básico — $2,700</option>
+            <option>Negocio — $4,500</option>
+            <option>Pro — $7,500</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Dirección / Colonia</label>
+          <input type="text" id="f-dir" class="form-control" placeholder="Calle, colonia">
+        </div>
+        <div class="form-group">
+          <label>Ciudad</label>
+          <select id="f-ciudad" class="form-control">
+            <option value="Ciudad Obregón">Ciudad Obregón</option>
+            <option value="Hermosillo">Hermosillo</option>
+            <option value="Guaymas">Guaymas</option>
+            <option value="Navojoa">Navojoa</option>
+            <option value="Los Mochis">Los Mochis</option>
+            <option value="Culiacán">Culiacán</option>
+            <option value="Otra">Otra</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Estado del prospecto</label>
+          <select id="f-estado" class="form-control">
+            <option>Prospecto</option>
+            <option>Contactado</option>
+            <option>Propuesta enviada</option>
+            <option>Negociación</option>
+            <option>Cerrado ganado</option>
+            <option>Cerrado perdido</option>
+            <option>No viable</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Próximo seguimiento</label>
+          <input type="date" id="f-seguimiento" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Fuente / Cómo nos conoció</label>
+        <select id="f-fuente" class="form-control">
+          <option>Visita de campo (socio)</option>
+          <option>Referido</option>
+          <option>Instagram / Redes</option>
+          <option>Google / Búsqueda</option>
+          <option>WhatsApp</option>
+          <option>Formulario web</option>
+          <option>Importación Excel</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nota inicial</label>
+        <textarea id="f-nota" class="form-control" placeholder="Primera impresión, intereses, detalles del negocio..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-client')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveClient()">💾 Guardar cliente</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════ MODAL: FICHA DE ONBOARDING ════ -->
+<div class="modal-overlay" id="modal-onboarding">
+  <div class="modal" style="width:720px">
+    <div class="modal-header">
+      <div>
+        <span class="modal-title">🚀 Ficha del Proyecto</span>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px" id="ob-subtitle">Captura los datos para construir la página</div>
+      </div>
+      <button class="btn-icon" onclick="closeModal('modal-onboarding')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:rgba(255,92,0,0.08);border:1px solid rgba(255,92,0,0.2);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:0.85rem;color:var(--orange-light)">
+        ✅ Este cliente <strong>aceptó el servicio</strong>. Captura su información para que Julio construya la página.
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre del negocio *</label>
+          <input type="text" id="ob-empresa" class="form-control" placeholder="Nombre exacto del negocio">
+        </div>
+        <div class="form-group">
+          <label>Dueño / Representante *</label>
+          <input type="text" id="ob-rep" class="form-control" placeholder="Nombre completo">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>WhatsApp *</label>
+          <input type="tel" id="ob-tel" class="form-control" placeholder="644 123 4567">
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="ob-email" class="form-control" placeholder="correo@negocio.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Dirección completa</label>
+        <input type="text" id="ob-dir" class="form-control" placeholder="Calle, colonia, Cd. Obregón">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo de web</label>
+          <select id="ob-tipoweb" class="form-control">
+            <option>Menú digital</option>
+            <option>Catálogo de productos</option>
+            <option>Landing page</option>
+            <option>Landing + Menú digital</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Paquete contratado</label>
+          <select id="ob-paquete" class="form-control">
+            <option>Básico — $2,700</option>
+            <option>Negocio — $4,500</option>
+            <option>Pro — $7,500</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Horario de atención</label>
+          <input type="text" id="ob-horario" class="form-control" placeholder="Lun-Sáb 8am-10pm">
+        </div>
+        <div class="form-group">
+          <label>Dominio deseado (.com)</label>
+          <input type="text" id="ob-dominio" class="form-control" placeholder="minegocio.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Promociones actuales</label>
+        <input type="text" id="ob-promo" class="form-control" placeholder="2x1 martes, envío gratis, etc.">
+      </div>
+      <div class="form-group">
+        <label>Descripción del negocio</label>
+        <textarea id="ob-desc" class="form-control" placeholder="Qué venden, su propuesta de valor, qué los hace diferentes..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Fotos disponibles</label>
+        <textarea id="ob-fotos" class="form-control" style="min-height:70px" placeholder="Logo, fotos del local, platillos, productos... (describe o indica si tiene Instagram/FB)"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Forma de pago</label>
+          <select id="ob-pago" class="form-control">
+            <option>Transferencia bancaria</option>
+            <option>Mercado Pago</option>
+            <option>Efectivo</option>
+            <option>OXXO Pay</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Fecha de inicio</label>
+          <input type="date" id="ob-fecha" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notas adicionales para Julio</label>
+        <textarea id="ob-notas" class="form-control" style="min-height:70px" placeholder="Colores, estilo, competencia, peticiones especiales..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-onboarding')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveOnboarding()">💾 Guardar ficha del proyecto</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ MODAL: IMPORT ════ -->
+<div class="modal-overlay" id="modal-import">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Importar desde Excel / CSV</span>
+      <button class="btn-icon" onclick="closeModal('modal-import')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
+        Sube tu archivo de Google Maps o cualquier Excel. Las columnas que reconocemos automáticamente:
+        <strong style="color:var(--text)">Nombre, Teléfono, Dirección, Categoría, Sitio web, Calificación.</strong>
+      </p>
+      <div class="import-drop" id="drop-zone">
+        <input type="file" id="import-file" accept=".xlsx,.xls,.csv" onchange="readImportFile(this.files[0])">
+        <div class="import-icon">📂</div>
+        <p style="font-weight:700;margin-bottom:6px">Arrastra tu archivo aquí</p>
+        <p style="font-size:0.82rem;color:var(--text-muted)">O haz clic para seleccionar · .xlsx · .xls · .csv</p>
+      </div>
+      <div class="import-preview" id="import-preview" style="display:none">
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:10px" id="import-count"></p>
+        <div style="max-height:280px;overflow-y:auto;border:1px solid rgba(255,255,255,0.07);border-radius:10px">
+          <table class="preview-table" id="preview-table"></table>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+          <label style="font-size:0.78rem;color:var(--text-muted)">Estado inicial:</label>
+          <select id="import-estado" class="form-control" style="width:auto">
+            <option>Prospecto</option>
+            <option>Contactado</option>
+          </select>
+          <label style="font-size:0.78rem;color:var(--text-muted);margin-left:8px">Fuente:</label>
+          <select id="import-fuente" class="form-control" style="width:auto">
+            <option>Importación Excel</option>
+            <option>Google Maps</option>
+            <option>Base de datos</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-import')">Cancelar</button>
+      <button class="btn btn-primary" id="btn-do-import" onclick="doImport()" style="display:none">📥 Importar registros</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ DRAWER: CLIENT DETAIL ════ -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="client-drawer">
+  <div class="drawer-header">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div class="drawer-empresa" id="d-empresa">—</div>
+        <div class="drawer-rep" id="d-rep">—</div>
+      </div>
+      <button class="btn-icon" onclick="closeDrawer()">✕</button>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap" id="d-badges"></div>
+  </div>
+  <div class="drawer-body" id="drawer-body">
+    <!-- Rendered by JS -->
+  </div>
+  <div class="drawer-footer" style="flex-wrap:wrap;gap:8px">
+    <button class="btn btn-ghost btn-sm" onclick="editCurrentClient()">✏️ Editar</button>
+    <button class="btn btn-ghost btn-sm" id="d-wa-btn" onclick="openWA()">💬 WhatsApp</button>
+    <button class="btn btn-primary btn-sm" onclick="openOnboarding()" id="d-onboard-btn" title="Capturar datos para construir la página">🚀 ¡Quiere su página!</button>
+    <div style="flex:1"></div>
+    <button class="btn btn-danger btn-sm" onclick="deleteCurrentClient()">🗑️ Eliminar</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
+var clients = [];
+var filteredClients = [];
+var currentClientId = null;
+var editingClientId = null;
+var importData = [];
+var currentView = 'dashboard';
+var fb = null; // Firebase reference (set when module loads)
+
+// Wait for Firebase to be ready
+var fbReady = false;
+function waitForFB(cb) {
+  if (window._fb) { fb = window._fb; fbReady = true; cb(); }
+  else setTimeout(() => waitForFB(cb), 100);
+}
+
+// ════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════
+async function doLogin() {
+  var email = document.getElementById('login-email').value.trim();
+  var pass = document.getElementById('login-pass').value;
+  var errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  if (!email || !pass) { errEl.textContent = 'Completa correo y contraseña'; errEl.style.display = 'block'; return; }
+  waitForFB(async () => {
+    try {
+      await fb.signInWithEmailAndPassword(fb.auth, email, pass);
+    } catch(e) {
+      errEl.textContent = 'Correo o contraseña incorrectos';
+      errEl.style.display = 'block';
+    }
+  });
+}
+
+async function doLogout() {
+  waitForFB(async () => { await fb.signOut(fb.auth); });
+}
+
+// ════════════════════════════════════════
+// LOAD CLIENTS (real-time)
+// ════════════════════════════════════════
+function loadClients() {
+  waitForFB(() => {
+    var q = fb.query(fb.collection(fb.db, 'clients'), fb.orderBy('createdAt', 'desc'));
+    fb.onSnapshot(q, snap => {
+      clients = [];
+      snap.forEach(d => { clients.push({ id: d.id, ...d.data() }); });
+      filteredClients = [...clients];
+      updateBadges();
+      renderCurrentView();
+    });
+  });
+}
+
+// ════════════════════════════════════════
+// VIEWS
+// ════════════════════════════════════════
+function showView(view) {
+  currentView = view;
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('nav-' + view).classList.add('active');
+  var titles = { dashboard: 'Dashboard', clientes: 'Clientes', pipeline: 'Pipeline', seguimientos: 'Seguimientos' };
+  document.getElementById('view-title').textContent = titles[view];
+  var showSearch = view === 'clientes';
+  document.getElementById('search-wrap').style.display = showSearch ? 'block' : 'none';
+  document.getElementById('filter-status-top').style.display = showSearch ? 'block' : 'none';
+  document.getElementById('btn-import').style.display = showSearch ? 'flex' : 'none';
+  document.getElementById('filter-cat-top').style.display = showSearch ? 'block' : 'none';
+  document.getElementById('filter-city-top').style.display = showSearch ? 'block' : 'none';
+  document.getElementById('btn-manage-cats').style.display = showSearch ? 'flex' : 'none';
+  if (showSearch) { populateCatFilter(); populateCityFilter(); }
+  document.getElementById('view-count').style.display = 'none';
+  filterClients();
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  var ca = document.getElementById('content-area');
+  if (currentView === 'dashboard') renderDashboard();
+  else if (currentView === 'clientes') renderClients();
+  else if (currentView === 'pipeline') renderPipeline();
+  else if (currentView === 'seguimientos') renderSeguimientos();
+}
+
+// ════════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════════
+function renderDashboard() {
+  var total = clients.length;
+  var prospectos = clients.filter(c => c.estado === 'Prospecto').length;
+  var enProceso = clients.filter(c => ['Contactado','Propuesta enviada','Negociación'].includes(c.estado)).length;
+  var ganados = clients.filter(c => c.estado === 'Cerrado ganado').length;
+  var perdidos = clients.filter(c => c.estado === 'Cerrado perdido').length;
+  var today = todayStr();
+  var hoy = clients.filter(c => c.seguimiento === today);
+  var proximos = clients.filter(c => c.seguimiento && c.seguimiento > today && c.seguimiento <= addDays(today, 3) && c.estado !== 'Cerrado ganado' && c.estado !== 'Cerrado perdido');
+  var convRate = total > 0 ? Math.round((ganados / total) * 100) : 0;
+
+  var html = '<div class="stats-grid">';
+  html += statCard('Total clientes', total, 'grad-text', 'En base de datos');
+  html += statCard('Prospectos', prospectos, '', 'Sin contactar');
+  html += statCard('En proceso', enProceso, '', 'Activos ahora');
+  html += statCard('Ganados', ganados, '', 'Cerrados ✅');
+  html += statCard('Perdidos', perdidos, '', 'Cerrados ❌');
+  html += statCard('Conversión', convRate + '%', 'grad-text', 'Tasa de cierre');
+  html += '</div>';
+  var cityCount = {};
+  clients.forEach(function(c) { var city = c.ciudad || 'Cd. Obregón'; cityCount[city] = (cityCount[city]||0)+1; });
+  var cityEntries = Object.entries(cityCount).sort(function(a,b){return b[1]-a[1];});
+  if (cityEntries.length > 0) {
+    html += '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">';
+    cityEntries.forEach(function(e) {
+      html += '<div style="background:var(--bg3);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:10px"><span style="font-size:0.78rem;color:var(--text-muted)">🏙️ ' + e[0] + '</span><span style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;background:linear-gradient(135deg,var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent">' + e[1] + '</span></div>';
+    });
+    html += '</div>';
+  }
+
+  if (hoy.length > 0) {
+    html += '<div class="followups-section">';
+    html += '<div class="section-title-sm">🔴 Seguimientos de hoy <span style="font-size:0.9rem;color:#f87171;font-family:Barlow,sans-serif;font-weight:700">(' + hoy.length + ')</span></div>';
+    html += '<div class="followup-list">';
+    hoy.forEach(c => {
+      html += `<div class="followup-item" onclick="openDrawer('${c.id}')">
+        <div><div class="followup-name">${c.empresa}</div><div class="followup-rep">${c.rep} · ${c.tel || ''}</div></div>
+        <div style="margin-left:auto">${statusBadge(c.estado)}</div>
+        <div class="followup-note">${c.paquete || ''}</div>
+      </div>`;
+    });
+    html += '</div></div>';
+  }
+
+  if (proximos.length > 0) {
+    html += '<div class="followups-section">';
+    html += '<div class="section-title-sm">🟡 Próximos 3 días</div>';
+    html += '<div class="followup-list">';
+    proximos.forEach(c => {
+      html += `<div class="followup-item" style="background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2)" onclick="openDrawer('${c.id}')">
+        <div><div class="followup-name">${c.empresa}</div><div class="followup-rep">${c.rep}</div></div>
+        <div style="margin-left:auto">${statusBadge(c.estado)}</div>
+        <div class="followup-note" style="color:#fbbf24">📅 ${formatDate(c.seguimiento)}</div>
+      </div>`;
+    });
+    html += '</div></div>';
+  }
+
+  // Recent clients
+  var recent = clients.slice(0, 8);
+  if (recent.length > 0) {
+    html += '<div class="section-title-sm" style="margin-bottom:12px">🕐 Clientes recientes</div>';
+    html += '<div class="table-wrap">';
+    html += '<div class="table-header"><div>Empresa</div><div>Contacto</div><div>Teléfono</div><div>Estado</div><div>Paquete</div><div>Seguimiento</div><div></div></div>';
+    recent.forEach(c => { html += renderRow(c); });
+    html += '</div>';
+  }
+
+  document.getElementById('content-area').innerHTML = html;
+  var dashRows = document.getElementById('dash-rows');
+  if (dashRows) { recent.forEach(function(c) { dashRows.appendChild(renderRow(c)); }); }
+}
+
+function statCard(label, value, cls, sub) {
+  return `<div class="stat-card"><div class="stat-card-label">${label}</div><div class="stat-card-value ${cls}">${value}</div><div class="stat-card-sub">${sub}</div></div>`;
+}
+
+// ════════════════════════════════════════
+// CLIENTS TABLE
+// ════════════════════════════════════════
+function renderClients() {
+  var list = filteredClients;
+  document.getElementById('view-count').style.display = 'inline-flex';
+  document.getElementById('view-count').textContent = list.length + ' clientes';
+
+  var html = '';
+  if (list.length === 0) {
+    html = `<div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">Sin clientes aún</div><div class="empty-sub">Agrega tu primer prospecto o importa desde Excel</div></div>`;
+  } else {
+    html = '<div class="table-wrap" id="client-table-wrap"><div class="table-header"><div>Empresa</div><div>Contacto</div><div>Teléfono</div><div>Estado</div><div>Paquete</div><div>Seguimiento</div><div></div></div><div id="client-rows"></div></div>';
+    document.getElementById('content-area').innerHTML = html;
+    var rowContainer = document.getElementById('client-rows');
+    list.forEach(function(c) { rowContainer.appendChild(renderRow(c)); });
+    return;
+  }
+  document.getElementById('content-area').innerHTML = html;
+}
+
+function renderRow(c) {
+  var segClass = getSeguimientoClass(c.seguimiento);
+  var segText = c.seguimiento
+    ? '<span class="' + segClass + '">' + formatDate(c.seguimiento) + '</span>'
+    : '<span style="color:var(--text-muted)">—</span>';
+
+  var badges = statusBadge(c.estado);
+  if (c.tieneDelivery) badges += '<span class="badge badge-delivery">📦 delivery</span>';
+  if (c.mapsUrl) {
+    badges += '<a href="' + c.mapsUrl + '" target="_blank" class="btn-icon"'
+            + ' onclick="event.stopPropagation()" title="Ver en Maps"'
+            + ' style="font-size:0.75rem;padding:4px 6px">🗺️</a>';
+  }
+
+  var prioClass = (c.tieneDelivery && c.estado === 'Prospecto') ? ' priority-high' : '';
+  var waBtn = c.tel
+    ? '<button class="btn-icon" title="WhatsApp"'
+      + ' onclick="event.stopPropagation();waOpen(this)"'
+      + ' data-tel="' + c.tel + '">💬</button>'
+    : '';
+
+  var repText = c.rep
+    ? c.rep
+    : '<span style="color:var(--text-muted);font-style:italic">Sin capturar</span>';
+
+  var div = document.createElement('div');
+  div.className = 'table-row' + prioClass;
+  div.dataset.clientId = c.id;
+  div.innerHTML =
+    '<div class="cell-empresa">' + (c.empresa||'—') + '<small>' + (c.tipo||'') + '</small></div>' +
+    '<div class="cell-empresa" style="font-weight:400">' + repText + '</div>' +
+    '<div class="cell-phone">' + (c.tel || '<span style="color:var(--text-muted)">—</span>') + '</div>' +
+    '<div>' + badges + '</div>' +
+    '<div style="font-size:0.8rem;color:var(--text-muted)">' + (c.paquete||'—') + '</div>' +
+    '<div class="cell-date">' + segText + '</div>' +
+    '<div class="cell-actions">' + waBtn + '</div>';
+
+  div.addEventListener('click', function() { openDrawer(this.dataset.clientId); });
+  return div;
+}
+
+function waOpen(btn) {
+  var tel = btn.dataset.tel.replace(/\D/g,'');
+  window.open('https://wa.me/52' + tel, '_blank');
+}
+
+// ════════════════════════════════════════
+// PIPELINE
+// ════════════════════════════════════════
+function renderPipeline() {
+  var stages = ['Prospecto','Contactado','Propuesta enviada','Negociación','Cerrado ganado','Cerrado perdido'];
+  var colors = ['#94a3b8','#60a5fa','#fbbf24','#FF8C00','#4ade80','#f87171'];
+  var html = '<div class="pipeline-grid">';
+  stages.forEach((stage, i) => {
+    var cols = clients.filter(c => c.estado === stage);
+    html += `<div class="pipeline-col">
+      <div class="pipeline-col-header" style="color:${colors[i]}">
+        ${stage} <span style="background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:10px;font-size:0.65rem;color:var(--text-muted)">${cols.length}</span>
+      </div>
+      <div class="pipeline-col-body">`;
+    cols.forEach(c => {
+      html += `<div class="pipeline-card" onclick="openDrawer('${c.id}')">
+        <div class="pipeline-card-name">${c.empresa}</div>
+        <div class="pipeline-card-rep">${c.rep || ''}</div>
+        <div class="pipeline-card-meta">
+          <span>${c.paquete ? c.paquete.split('—')[0].trim() : '—'}</span>
+          <span>${c.seguimiento ? '📅 ' + formatDate(c.seguimiento) : ''}</span>
+        </div>
+      </div>`;
+    });
+    if (cols.length === 0) html += '<div style="text-align:center;padding:20px 0;font-size:0.78rem;color:var(--text-muted)">Sin registros</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById('content-area').innerHTML = html;
+}
+
+// ════════════════════════════════════════
+// SEGUIMIENTOS VIEW
+// ════════════════════════════════════════
+function renderSeguimientos() {
+  var today = todayStr();
+  var vencidos = clients.filter(c => c.seguimiento && c.seguimiento < today && !['Cerrado ganado','Cerrado perdido'].includes(c.estado));
+  var hoy = clients.filter(c => c.seguimiento === today && !['Cerrado ganado','Cerrado perdido'].includes(c.estado));
+  var proximos = clients.filter(c => c.seguimiento && c.seguimiento > today && !['Cerrado ganado','Cerrado perdido'].includes(c.estado)).sort((a,b) => a.seguimiento.localeCompare(b.seguimiento));
+  var sinFecha = clients.filter(c => !c.seguimiento && !['Cerrado ganado','Cerrado perdido'].includes(c.estado));
+
+  var html = '';
+  if (vencidos.length > 0) {
+    html += followupSection('🚨 Vencidos — Requieren atención urgente', vencidos, 'rgba(239,68,68,0.07)', 'rgba(239,68,68,0.2)');
+  }
+  if (hoy.length > 0) {
+    html += followupSection('🔴 Hoy — ' + formatDate(today), hoy, 'rgba(239,68,68,0.07)', 'rgba(239,68,68,0.2)');
+  }
+  if (proximos.length > 0) {
+    html += followupSection('📅 Próximos seguimientos', proximos, 'rgba(245,158,11,0.05)', 'rgba(245,158,11,0.15)');
+  }
+  if (sinFecha.length > 0) {
+    html += followupSection('⚪ Sin fecha de seguimiento', sinFecha, 'rgba(255,255,255,0.02)', 'rgba(255,255,255,0.07)');
+  }
+  if (html === '') {
+    html = `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">Todo al día</div><div class="empty-sub">No tienes seguimientos pendientes</div></div>`;
+  }
+  document.getElementById('content-area').innerHTML = html;
+}
+
+function followupSection(title, list, bg, borderColor) {
+  var html = `<div style="margin-bottom:24px">
+    <div class="section-title-sm" style="margin-bottom:10px">${title} <span style="font-size:0.85rem;font-family:Barlow,sans-serif;font-weight:600;color:var(--text-muted)">(${list.length})</span></div>
+    <div class="followup-list">`;
+  list.forEach(c => {
+    html += `<div class="followup-item" style="background:${bg};border-color:${borderColor}" onclick="openDrawer('${c.id}')">
+      <div><div class="followup-name">${c.empresa}</div><div class="followup-rep">${c.rep} · ${c.tel || ''}</div></div>
+      <div>${statusBadge(c.estado)}</div>
+      <div style="margin-left:auto;text-align:right">
+        <div style="font-size:0.78rem;color:var(--text-muted)">${c.paquete || ''}</div>
+        <div style="font-size:0.78rem;color:#fbbf24">${c.seguimiento ? '📅 ' + formatDate(c.seguimiento) : 'Sin fecha'}</div>
+      </div>
+    </div>`;
+  });
+  html += '</div></div>';
+  return html;
+}
+
+// ════════════════════════════════════════
+// DRAWER
+// ════════════════════════════════════════
+function openDrawer(id) {
+  var c = clients.find(x => x.id === id);
+  if (!c) return;
+  currentClientId = id;
+  document.getElementById('d-empresa').textContent = c.empresa || '—';
+  document.getElementById('d-rep').textContent = (c.rep || '') + (c.tipo ? ' · ' + c.tipo : '');
+  var badgeHtml = statusBadge(c.estado);
+  if (c.paquete) badgeHtml += '<span class="badge" style="background:rgba(255,92,0,0.1);color:var(--orange-light);border:1px solid rgba(255,92,0,0.3)">' + c.paquete + '</span>';
+  if (c.tipo)    badgeHtml += '<span class="badge" style="background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid rgba(255,255,255,0.1)">' + c.tipo + '</span>';
+  if (c.ciudad)  badgeHtml += '<span class="badge" style="background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid rgba(255,255,255,0.1)">🏙️ ' + c.ciudad + '</span>';
+  document.getElementById('d-badges').innerHTML = badgeHtml;
+  document.getElementById('d-wa-btn').onclick = () => window.open('https://wa.me/52' + (c.tel||'').replace(/\D/g,''), '_blank');
+
+  var body = '';
+  // Info grid
+  body += '<div class="info-grid">';
+  body += infoItem('📱 WhatsApp', c.tel || '—');
+  body += infoItem('📧 Correo', c.email || '—');
+  body += infoItem('📍 Dirección', c.dir || '—');
+  body += infoItem('🏙️ Ciudad', c.ciudad || 'Ciudad Obregón');
+  body += infoItem('🔍 Fuente', c.fuente || '—');
+  body += infoItem('📅 Registro', formatDate(c.createdAtStr || ''));
+  body += infoItem('🔔 Seguimiento', c.seguimiento ? formatDate(c.seguimiento) : '—');
+  body += '</div>';
+  // Special badges for Google Maps imports
+  if (c.tieneDelivery || c.mapsUrl || c.precio) {
+    body += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;padding:12px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:10px">';
+    if (c.tieneDelivery) body += '<span class="badge badge-delivery">⚠️ Usa apps de delivery — sin comisiones con ClickSon</span>';
+    if (c.precio) body += '<span class="badge" style="background:rgba(255,255,255,0.06);color:var(--text-muted);border:1px solid rgba(255,255,255,0.1)">💰 ' + c.precio + '</span>';
+    if (c.mapsUrl) body += '<a href="' + c.mapsUrl + '" target="_blank" class="badge" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);text-decoration:none">🗺️ Ver en Google Maps</a>';
+    body += '</div>';
+  }
+  // Show ficha del proyecto if captured
+  if (c.fichaProyecto) {
+    var fp = c.fichaProyecto;
+    body += '<div style="background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:14px;margin-bottom:16px">';
+    body += '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#4ade80;margin-bottom:10px">🚀 Ficha del proyecto capturada</div>';
+    body += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.82rem">';
+    if (fp.tipoweb) body += '<div><span style="color:var(--text-muted)">Tipo web:</span> <strong>' + fp.tipoweb + '</strong></div>';
+    if (fp.dominio) body += '<div><span style="color:var(--text-muted)">Dominio:</span> <strong>' + fp.dominio + '</strong></div>';
+    if (fp.horario) body += '<div><span style="color:var(--text-muted)">Horario:</span> ' + fp.horario + '</div>';
+    if (fp.pago) body += '<div><span style="color:var(--text-muted)">Pago:</span> ' + fp.pago + '</div>';
+    if (fp.inicio) body += '<div><span style="color:var(--text-muted)">Inicio:</span> ' + fp.inicio + '</div>';
+    body += '</div>';
+    if (fp.desc) body += '<div style="margin-top:8px;font-size:0.82rem;color:var(--text-muted)">' + fp.desc + '</div>';
+    body += '</div>';
+  }
+
+  // Status changer
+  body += '<div class="status-select-wrap"><div class="notes-title">Estado del prospecto</div><div class="status-options">';
+  ['Prospecto','Contactado','Propuesta enviada','Negociación','Cerrado ganado','Cerrado perdido'].forEach(s => {
+    body += `<div class="status-option${c.estado === s ? ' selected' : ''}" data-v="${s}" onclick="changeStatus('${id}','${s}')">${s}</div>`;
+  });
+  body += '</div></div>';
+
+  // Change seguimiento
+  body += `<div style="margin-bottom:20px"><div class="notes-title">Próximo seguimiento</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+      <input type="date" id="d-seg-input" value="${c.seguimiento||''}" class="form-control" style="flex:1">
+      <button class="btn btn-primary btn-sm" onclick="changeSeguimiento('${id}')">Guardar</button>
+    </div></div>`;
+
+  // Notes
+  var notes = c.notes || [];
+  body += '<div class="notes-section"><div class="notes-title">📝 Historial de notas (' + notes.length + ')</div>';
+  if (notes.length === 0) body += '<p style="font-size:0.82rem;color:var(--text-muted);padding:8px 0">Sin notas todavía.</p>';
+  notes.slice().reverse().forEach(n => {
+    body += `<div class="note-item">
+      <div class="note-item-text">${n.text}</div>
+      <div class="note-item-meta"><span class="note-item-user">${n.user || 'Equipo'}</span><span>·</span><span>${n.date || ''}</span></div>
+    </div>`;
+  });
+  body += `<div class="note-input-wrap">
+    <input type="text" id="note-input" class="form-control" placeholder="Agregar nota o comentario..." onkeydown="if(event.key==='Enter')addNote('${id}')">
+    <button class="btn btn-primary btn-sm" onclick="addNote('${id}')">＋</button>
+  </div></div>`;
+
+  document.getElementById('drawer-body').innerHTML = body;
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('client-drawer').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('client-drawer').classList.remove('open');
+  currentClientId = null;
+}
+
+function infoItem(label, value) {
+  return `<div class="info-item"><div class="info-item-label">${label}</div><div class="info-item-value">${value}</div></div>`;
+}
+
+// ════════════════════════════════════════
+// SAVE / EDIT / DELETE
+// ════════════════════════════════════════
+function openAddClient() {
+  editingClientId = null;
+  document.getElementById('modal-client-title').textContent = 'Nuevo Cliente';
+  ['empresa','rep','tel','email','dir','nota'].forEach(f => document.getElementById('f-'+f).value = '');
+  document.getElementById('f-tipo').value = '';
+  document.getElementById('f-paquete').value = '';
+  document.getElementById('f-estado').value = 'Prospecto';
+  document.getElementById('f-fuente').value = 'Visita de campo (socio)';
+  document.getElementById('f-seguimiento').value = '';
+  document.getElementById('f-ciudad').value = 'Ciudad Obregón';
+  populateCatSelect();
+  openModal('modal-client');
+}
+
+function editCurrentClient() {
+  var c = clients.find(x => x.id === currentClientId);
+  if (!c) return;
+  editingClientId = currentClientId;
+  document.getElementById('modal-client-title').textContent = 'Editar Cliente';
+  document.getElementById('f-empresa').value = c.empresa || '';
+  document.getElementById('f-rep').value = c.rep || '';
+  document.getElementById('f-tel').value = c.tel || '';
+  document.getElementById('f-email').value = c.email || '';
+  document.getElementById('f-dir').value = c.dir || '';
+  document.getElementById('f-tipo').value = c.tipo || '';
+  document.getElementById('f-paquete').value = c.paquete || '';
+  document.getElementById('f-estado').value = c.estado || 'Prospecto';
+  document.getElementById('f-fuente').value = c.fuente || '';
+  document.getElementById('f-seguimiento').value = c.seguimiento || '';
+  document.getElementById('f-ciudad').value = c.ciudad || 'Ciudad Obregón';
+  populateCatSelect();
+  document.getElementById('f-nota').value = '';
+  openModal('modal-client');
+}
+
+async function saveClient() {
+  var empresa = document.getElementById('f-empresa').value.trim();
+  var rep = document.getElementById('f-rep').value.trim();
+  var tel = document.getElementById('f-tel').value.trim();
+  if (!empresa || !rep) { showToast('Empresa y representante son requeridos', 'error'); return; }
+
+  var data = {
+    empresa, rep, tel,
+    email: document.getElementById('f-email').value.trim(),
+    dir: document.getElementById('f-dir').value.trim(),
+    tipo: document.getElementById('f-tipo').value,
+    ciudad: document.getElementById('f-ciudad').value,
+    paquete: document.getElementById('f-paquete').value,
+    estado: document.getElementById('f-estado').value,
+    fuente: document.getElementById('f-fuente').value,
+    seguimiento: document.getElementById('f-seguimiento').value,
+  };
+
+  var notaText = document.getElementById('f-nota').value.trim();
+
+  waitForFB(async () => {
+    if (editingClientId) {
+      var existing = clients.find(c => c.id === editingClientId);
+      var notes = existing ? (existing.notes || []) : [];
+      if (notaText) notes.push({ text: notaText, date: nowStr(), user: shortEmail() });
+      await fb.updateDoc(fb.doc(fb.db, 'clients', editingClientId), { ...data, notes });
+      showToast('Cliente actualizado ✅', 'success');
+    } else {
+      var notes = notaText ? [{ text: notaText, date: nowStr(), user: shortEmail() }] : [];
+      data.notes = notes;
+      data.createdAt = fb.serverTimestamp();
+      data.createdAtStr = todayStr();
+      await fb.addDoc(fb.collection(fb.db, 'clients'), data);
+      showToast('Cliente guardado ✅', 'success');
+    }
+    closeModal('modal-client');
+  });
+}
+
+async function deleteCurrentClient() {
+  if (!currentClientId) return;
+  var c = clients.find(x => x.id === currentClientId);
+  if (!confirm('¿Eliminar a ' + (c ? c.empresa : 'este cliente') + '? Esta acción no se puede deshacer.')) return;
+  waitForFB(async () => {
+    await fb.deleteDoc(fb.doc(fb.db, 'clients', currentClientId));
+    closeDrawer();
+    showToast('Cliente eliminado', 'error');
+  });
+}
+
+async function changeStatus(id, newStatus) {
+  waitForFB(async () => {
+    await fb.updateDoc(fb.doc(fb.db, 'clients', id), { estado: newStatus });
+    // Update status options visually
+    document.querySelectorAll('.status-option').forEach(el => {
+      el.classList.toggle('selected', el.dataset.v === newStatus);
+    });
+    showToast('Estado actualizado → ' + newStatus, 'success');
+  });
+}
+
+async function changeSeguimiento(id) {
+  var val = document.getElementById('d-seg-input').value;
+  waitForFB(async () => {
+    await fb.updateDoc(fb.doc(fb.db, 'clients', id), { seguimiento: val });
+    showToast('Seguimiento guardado ✅', 'success');
+    updateBadges();
+  });
+}
+
+async function addNote(id) {
+  var input = document.getElementById('note-input');
+  var text = input.value.trim();
+  if (!text) return;
+  var c = clients.find(x => x.id === id);
+  if (!c) return;
+  var notes = c.notes || [];
+  notes.push({ text, date: nowStr(), user: shortEmail() });
+  waitForFB(async () => {
+    await fb.updateDoc(fb.doc(fb.db, 'clients', id), { notes });
+    input.value = '';
+    showToast('Nota guardada', 'success');
+  });
+}
+
+// ════════════════════════════════════════
+// FILTER
+// ════════════════════════════════════════
+function filterClients() {
+  var q      = (document.getElementById('search-input').value || '').toLowerCase();
+  var status = document.getElementById('filter-status-top').value;
+  var cat    = (document.getElementById('filter-cat-top') || {}).value || '';
+  var city   = (document.getElementById('filter-city-top') || {}).value || '';
+  filteredClients = clients.filter(function(c) {
+    var matchQ    = !q || (c.empresa||'').toLowerCase().includes(q) || (c.rep||'').toLowerCase().includes(q) || (c.tel||'').includes(q);
+    var matchS    = !status || c.estado === status;
+    var matchCat  = !cat  || (c.tipo||'') === cat;
+    var matchCity = !city || (c.ciudad||'') === city;
+    return matchQ && matchS && matchCat && matchCity;
+  });
+  if (currentView === 'clientes') renderClients();
+}
+
+// ════════════════════════════════════════
+// IMPORT
+// ════════════════════════════════════════
+function openImport() {
+  importData = [];
+  document.getElementById('import-preview').style.display = 'none';
+  document.getElementById('btn-do-import').style.display = 'none';
+  document.getElementById('import-file').value = '';
+  openModal('modal-import');
+}
+
+function readImportFile(file) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var wb = XLSX.read(e.target.result, { type: 'binary' });
+    var ws = wb.Sheets[wb.SheetNames[0]];
+    var data = XLSX.utils.sheet_to_json(ws, { defval: '' });
+    importData = data;
+    showImportPreview(data);
+  };
+  reader.readAsBinaryString(file);
+}
+
+function showImportPreview(data) {
+  if (!data.length) return;
+  var cols = Object.keys(data[0]).slice(0, 6);
+  var preview = data.slice(0, 5);
+  var html = '<thead><tr>' + cols.map(c => '<th>' + c + '</th>').join('') + '</tr></thead><tbody>';
+  preview.forEach(row => {
+    html += '<tr>' + cols.map(c => '<td>' + (row[c] || '') + '</td>').join('') + '</tr>';
+  });
+  html += '</tbody>';
+  document.getElementById('preview-table').innerHTML = html;
+  document.getElementById('import-count').textContent = '📊 ' + data.length + ' registros encontrados. Se mostrarán los primeros 5 como preview.';
+  document.getElementById('import-preview').style.display = 'block';
+  document.getElementById('btn-do-import').style.display = 'flex';
+}
+
+async function doImport() {
+  if (!importData.length) return;
+  var estado = document.getElementById('import-estado').value;
+  var fuente = document.getElementById('import-fuente').value;
+  var today = todayStr();
+  var count = 0;
+
+  // Detect if this is a Google Maps export (has 'qBF1Pd' column)
+  var isGoogleMaps = importData.length > 0 && importData[0].hasOwnProperty('qBF1Pd');
+
+  function getGMapsField(row, colName, fallback) {
+    return (row[colName] || fallback || '').toString().trim();
+  }
+
+  function findCol(row, keys) {
+    for (var k of keys) { if (row[k] !== undefined && row[k] !== '') return String(row[k]); }
+    var rowKeys = Object.keys(row);
+    for (var k of keys) {
+      var found = rowKeys.find(rk => rk.toLowerCase() === k.toLowerCase());
+      if (found && row[found] !== '') return String(row[found]);
+    }
+    return '';
+  }
+
+  waitForFB(async () => {
+    for (var row of importData) {
+      var empresa, tel, dir, tipo, mapsUrl, tieneDelivery, tieneWeb, nota, precio;
+
+      if (isGoogleMaps) {
+        // Google Maps scraper column mapping
+        empresa       = getGMapsField(row, 'qBF1Pd', 'Sin nombre');
+        tipo          = getGMapsField(row, 'W4Efsd', '');
+        dir           = getGMapsField(row, 'W4Efsd 5', '') || getGMapsField(row, 'doJOZc', '');
+        precio        = getGMapsField(row, 'AJB7ye 2', '');
+        mapsUrl       = getGMapsField(row, 'hfpxzc href', '');
+        var rating    = getGMapsField(row, 'MW4etd', '');
+        var webCol    = getGMapsField(row, 'A1zNzb href', '');
+        tieneWeb      = webCol !== '' && webCol.indexOf('searchviewer') === -1 && webCol.indexOf('google.com/maps') === -1;
+        tieneDelivery = getGMapsField(row, 'J8zHNe', '').indexOf('Pedir') >= 0;
+        tel           = '';
+        nota = 'Importado de Google Maps. ' +
+               (rating ? 'Rating: ' + rating + ' ⭐ · ' : '') +
+               (precio ? 'Precio: ' + precio + ' · ' : '') +
+               (tieneDelivery ? '⚠️ Usa apps de delivery (oportunidad: sin comisiones con ClickSon). ' : 'Sin delivery. ') +
+               (tieneWeb ? '⚠️ Ya tiene web — verificar antes de visitar.' : '✅ Sin web propia — alta prioridad.');
+
+        // Auto-set status based on web detection
+        if (tieneWeb) estado = 'No viable';
+        else if (tieneDelivery) estado = 'Prospecto'; // high priority
+
+      } else {
+        // Generic Excel/CSV
+        empresa = findCol(row, ['Nombre','Name','Empresa','Business Name','Nombre del lugar','title']) || 'Sin nombre';
+        tel     = findCol(row, ['Teléfono','Telefono','Phone','Tel','Número','phone','celular']);
+        dir     = findCol(row, ['Dirección','Direccion','Address','address','Ubicación']);
+        tipo    = findCol(row, ['Categoría','Categoria','Category','Tipo','category']);
+        nota    = '';
+        tieneWeb = false; tieneDelivery = false; mapsUrl = ''; precio = '';
+      }
+
+      if (!empresa || empresa === 'Sin nombre' && !dir) continue;
+
+      await fb.addDoc(fb.collection(fb.db, 'clients'), {
+        empresa, tel: tel||'', dir: dir||'', tipo: tipo||'', ciudad: 'Ciudad Obregón', paquete: '',
+        rep: '', email: '', estado,
+        fuente: isGoogleMaps ? 'Google Maps' : fuente,
+        seguimiento: '',
+        tieneWeb: tieneWeb || false,
+        tieneDelivery: tieneDelivery || false,
+        mapsUrl: mapsUrl || '',
+        precio: precio || '',
+        notes: nota ? [{ text: nota, date: nowStr(), user: 'Sistema' }] : [],
+        createdAt: fb.serverTimestamp(),
+        createdAtStr: today,
+      });
+      count++;
+    }
+    closeModal('modal-import');
+    showToast('✅ ' + count + ' prospectos importados', 'success');
+  });
+}
+
+
+
+// ════════════════════════════════════════
+// CATEGORIES & CITIES
+// ════════════════════════════════════════
+var DEFAULT_CATS = [
+  'Restaurante','Cafetería','Marisquería','Taquería','Sushi',
+  'Brunch / Desayunos','Parrilla / Carne','Pizzería','Hamburguesas',
+  'Estética / Belleza','Barbería','Spa / Masajes',
+  'Médico / Clínica','Dentista','Optometría','Farmacia',
+  'Gimnasio / Fitness','Academia / Escuela','Música / Arte',
+  'Ferretería','Tienda / Boutique','Abarrotes',
+  'Taller mecánico','Refaccionaria',
+  'Abogado / Notaría','Contador',
+  'Hotel / Hospedaje','Fotografía / Video',
+  'Marketing / Publicidad','Otro'
+];
+
+var DEFAULT_CITIES = [
+  'Ciudad Obregón','Hermosillo','Guaymas','Navojoa',
+  'Los Mochis','Culiacán','Mazatlán','La Paz','Tijuana','Otra'
+];
+
+function getCats() {
+  try { return JSON.parse(localStorage.getItem('cs_cats') || 'null') || DEFAULT_CATS.slice(); }
+  catch(e) { return DEFAULT_CATS.slice(); }
+}
+function saveCats(arr) { localStorage.setItem('cs_cats', JSON.stringify(arr)); }
+function getCities() {
+  try { return JSON.parse(localStorage.getItem('cs_cities') || 'null') || DEFAULT_CITIES.slice(); }
+  catch(e) { return DEFAULT_CITIES.slice(); }
+}
+function saveCities(arr) { localStorage.setItem('cs_cities', JSON.stringify(arr)); }
+
+function populateCatSelect() {
+  var sel = document.getElementById('f-tipo');
+  if (!sel) return;
+  var cur = sel.value;
+  var cats = getCats();
+  sel.innerHTML = '<option value="">Seleccionar categoría...</option>';
+  cats.forEach(function(c) {
+    var opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    if (c === cur) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function populateCatFilter() {
+  var sel = document.getElementById('filter-cat-top');
+  if (!sel) return;
+  var cur = sel.value;
+  var cats = getCats();
+  sel.innerHTML = '<option value="">Categoría...</option>';
+  cats.forEach(function(c) {
+    var opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    if (c === cur) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function populateCityFilter() {
+  var sel = document.getElementById('filter-city-top');
+  if (!sel) return;
+  var usedCities = Array.from(new Set(clients.map(function(c){return c.ciudad;}).filter(Boolean)));
+  var allCities = Array.from(new Set(DEFAULT_CITIES.concat(usedCities)));
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">Ciudad...</option>';
+  allCities.forEach(function(c) {
+    var opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    if (c === cur) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function populateCitySelect() {
+  var sel = document.getElementById('f-ciudad');
+  if (!sel) return;
+  var cur = sel.value || 'Ciudad Obregón';
+  var cities = getCities();
+  sel.innerHTML = '';
+  cities.forEach(function(c) {
+    var opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    if (c === cur) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function openManageCats() { renderManageModal('cats'); openModal('modal-manage'); }
+
+function renderManageModal(type) {
+  var isCat = type === 'cats';
+  var items = isCat ? getCats() : getCities();
+  document.getElementById('manage-type').value = type;
+  document.getElementById('modal-manage-title').textContent = isCat ? '⚙️ Categorías de negocio' : '🏙️ Ciudades';
+  document.getElementById('manage-new-input').placeholder = isCat ? 'Ej: Peluquería, Veterinaria...' : 'Ej: Nogales, Guasave...';
+  var list = document.getElementById('manage-list');
+  list.innerHTML = '';
+  items.forEach(function(item, idx) {
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px;border-bottom:1px solid rgba(255,255,255,0.05)';
+    row.innerHTML = '<span style="flex:1;font-size:0.9rem">' + item + '</span>'
+      + '<button class="btn-icon" data-idx="' + idx + '" data-type="' + type + '" onclick="deleteManageItem(parseInt(this.dataset.idx),this.dataset.type)" style="font-size:0.75rem;padding:4px 8px;color:#f87171">✕</button>';
+    list.appendChild(row);
+  });
+}
+
+function addManageItem() {
+  var input = document.getElementById('manage-new-input');
+  var val = input.value.trim();
+  if (!val) return;
+  var type = document.getElementById('manage-type').value;
+  var items = type === 'cats' ? getCats() : getCities();
+  if (items.includes(val)) { showToast('Ya existe', 'error'); return; }
+  items.push(val);
+  if (type === 'cats') saveCats(items); else saveCities(items);
+  input.value = '';
+  renderManageModal(type);
+  populateCatSelect();
+  if (type === 'cities') populateCitySelect();
+  showToast('Agregado: ' + val, 'success');
+}
+
+function deleteManageItem(idx, type) {
+  var items = type === 'cats' ? getCats() : getCities();
+  var removed = items.splice(idx, 1)[0];
+  if (type === 'cats') saveCats(items); else saveCities(items);
+  renderManageModal(type);
+  populateCatSelect();
+  if (type === 'cities') populateCitySelect();
+  showToast('Eliminado: ' + removed, 'error');
+}
+
+// ════════════════════════════════════════
+// ONBOARDING (ficha del proyecto)
+// ════════════════════════════════════════
+function openOnboarding() {
+  var c = clients.find(x => x.id === currentClientId);
+  if (!c) return;
+  document.getElementById('ob-subtitle').textContent = c.empresa + ' — Captura los datos del proyecto';
+  document.getElementById('ob-empresa').value = c.empresa || '';
+  document.getElementById('ob-rep').value = c.rep || '';
+  document.getElementById('ob-tel').value = c.tel || '';
+  document.getElementById('ob-email').value = c.email || '';
+  document.getElementById('ob-dir').value = c.dir || '';
+  document.getElementById('ob-paquete').value = c.paquete || 'Básico — $2,700';
+  document.getElementById('ob-fecha').value = todayStr();
+  document.getElementById('ob-horario').value = '';
+  document.getElementById('ob-dominio').value = '';
+  document.getElementById('ob-promo').value = '';
+  document.getElementById('ob-desc').value = '';
+  document.getElementById('ob-fotos').value = '';
+  document.getElementById('ob-notas').value = '';
+  openModal('modal-onboarding');
+}
+
+async function saveOnboarding() {
+  var empresa = document.getElementById('ob-empresa').value.trim();
+  var rep = document.getElementById('ob-rep').value.trim();
+  var tel = document.getElementById('ob-tel').value.trim();
+  if (!empresa || !tel) { showToast('Empresa y WhatsApp son requeridos', 'error'); return; }
+
+  var ficha = {
+    empresa,
+    rep,
+    tel,
+    email:    document.getElementById('ob-email').value.trim(),
+    dir:      document.getElementById('ob-dir').value.trim(),
+    tipoweb:  document.getElementById('ob-tipoweb').value,
+    paquete:  document.getElementById('ob-paquete').value,
+    horario:  document.getElementById('ob-horario').value.trim(),
+    dominio:  document.getElementById('ob-dominio').value.trim(),
+    promo:    document.getElementById('ob-promo').value.trim(),
+    desc:     document.getElementById('ob-desc').value.trim(),
+    fotos:    document.getElementById('ob-fotos').value.trim(),
+    pago:     document.getElementById('ob-pago').value,
+    inicio:   document.getElementById('ob-fecha').value,
+    notas:    document.getElementById('ob-notas').value.trim(),
+  };
+
+  var resumen = '🚀 FICHA DE PROYECTO CAPTURADA:\n' +
+    '📦 Paquete: ' + ficha.paquete + '\n' +
+    '🌐 Tipo web: ' + ficha.tipoweb + '\n' +
+    (ficha.dominio ? '🔗 Dominio: ' + ficha.dominio + '\n' : '') +
+    (ficha.horario ? '🕐 Horario: ' + ficha.horario + '\n' : '') +
+    (ficha.promo ? '🎉 Promo: ' + ficha.promo + '\n' : '') +
+    (ficha.desc ? '📝 Desc: ' + ficha.desc + '\n' : '') +
+    (ficha.fotos ? '📸 Fotos: ' + ficha.fotos + '\n' : '') +
+    '💳 Pago: ' + ficha.pago + '\n' +
+    '📅 Inicio: ' + ficha.inicio;
+
+  waitForFB(async () => {
+    var existing = clients.find(c => c.id === currentClientId);
+    var notes = existing ? (existing.notes || []) : [];
+    notes.push({ text: resumen, date: nowStr(), user: shortEmail() });
+
+    await fb.updateDoc(fb.doc(fb.db, 'clients', currentClientId), {
+      empresa, rep, tel,
+      email:    ficha.email,
+      dir:      ficha.dir,
+      paquete:  ficha.paquete,
+      estado:   'Cerrado ganado',
+      fichaProyecto: ficha,
+      notes,
+    });
+
+    closeModal('modal-onboarding');
+    showToast('🎉 Ficha guardada — ¡A construir la página!', 'success');
+
+    // Open WhatsApp with the onboarding summary
+    setTimeout(function() {
+      var msg = '¡Hola ' + rep + '! 👋 Soy del equipo ClickSon.\n\n' +
+        'Confirmamos que arrancaremos tu página web:\n' +
+        '📦 ' + ficha.paquete + '\n' +
+        '🌐 ' + ficha.tipoweb + '\n' +
+        '📅 Inicio: ' + ficha.inicio + '\n\n' +
+        'En las próximas 48 horas tendrás tu página lista.\n\nCualquier duda, aquí estamos. 🚀';
+      window.open('https://wa.me/52' + tel.replace(/\D/g,'') + '?text=' + encodeURIComponent(msg), '_blank');
+    }, 1000);
+  });
+}
+
+// ════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════
+function statusBadge(estado) {
+  var map = {
+    'Prospecto': 'badge-prospecto',
+    'Contactado': 'badge-contactado',
+    'Propuesta enviada': 'badge-propuesta',
+    'Negociación': 'badge-negociacion',
+    'Cerrado ganado': 'badge-ganado',
+    'Cerrado perdido': 'badge-perdido',
+    'No viable': 'badge-noviable',
+  };
+  return '<span class="badge ' + (map[estado]||'badge-prospecto') + '">' + (estado||'Prospecto') + '</span>';
+}
+
+function getSeguimientoClass(date) {
+  if (!date) return 'seg-ok';
+  var today = todayStr();
+  if (date < today) return 'seg-hoy';
+  if (date === today) return 'seg-hoy';
+  if (date <= addDays(today, 2)) return 'seg-pronto';
+  return 'seg-ok';
+}
+
+function todayStr() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function addDays(dateStr, days) {
+  var d = new Date(dateStr);
+  d.setDate(d.getDate() + days);
+  return d.toISOString().split('T')[0];
+}
+
+function formatDate(str) {
+  if (!str) return '—';
+  var [y, m, d] = str.split('-');
+  return d + '/' + m + '/' + y;
+}
+
+function nowStr() {
+  var now = new Date();
+  return now.toLocaleDateString('es-MX', { day:'2-digit', month:'short', year:'numeric' }) + ' ' +
+         now.toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
+}
+
+function shortEmail() {
+  return window.currentUser ? window.currentUser.email.split('@')[0] : 'Equipo';
+}
+
+function updateBadges() {
+  var total = clients.length;
+  var today = todayStr();
+  var hoy = clients.filter(c => c.seguimiento && c.seguimiento <= today && !['Cerrado ganado','Cerrado perdido'].includes(c.estado)).length;
+  document.getElementById('badge-total').textContent = total;
+  document.getElementById('badge-hoy').textContent = hoy;
+  if (hoy > 0) document.getElementById('badge-hoy').style.display = 'inline';
+  else document.getElementById('badge-hoy').style.display = 'none';
+  // Avatar initials
+  if (window.currentUser) {
+    var email = window.currentUser.email;
+    document.getElementById('user-avatar').textContent = email.charAt(0).toUpperCase();
+  }
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  setTimeout(() => { t.className = 'toast'; }, 3000);
+}
+
+// Drop zone drag events
+document.addEventListener('DOMContentLoaded', () => {
+  var dz = document.getElementById('drop-zone');
+  if (dz) {
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+    dz.addEventListener('drop', e => {
+      e.preventDefault(); dz.classList.remove('drag');
+      if (e.dataTransfer.files[0]) readImportFile(e.dataTransfer.files[0]);
+    });
+  }
+});
+</script>
+</body>
+</html>
