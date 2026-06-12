@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClickSon · Información de tu negocio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL }
+  from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCZ-aisNGIXFT2wGyIz1SLjXpXSZied1PA",
+  authDomain: "clickson.firebaseapp.com",
+  projectId: "clickson",
+  storageBucket: "clickson.firebasestorage.app",
+  messagingSenderId: "539935149186",
+  appId: "1:539935149186:web:8f8c31c83e1df3e8def89b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+window._fb = { db, storage, collection, addDoc, serverTimestamp, ref, uploadBytes, getDownloadURL };
+window._fbReady = true;
+</script>
+
+<style>
+:root {
+  --orange:#FF5C00; --red:#FF3D00; --orange-light:#FF8C00;
+  --bg:#000; --bg2:#0a0a0a; --bg3:#111; --bg4:#161616;
+  --text:#f0e8dc; --text-muted:#9a8a78;
+  --glass-border:rgba(255,92,0,0.15);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;padding:24px 16px 80px;}
+.wrap{max-width:680px;margin:0 auto;}
+
+.header{text-align:center;margin-bottom:32px;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:3px;}
+.logo span{background:linear-gradient(90deg,var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header p{font-size:0.9rem;color:var(--text-muted);margin-top:6px;}
+
+.progress{display:flex;gap:6px;margin-bottom:28px;}
+.progress-bar{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden;}
+.progress-bar.done{background:linear-gradient(90deg,var(--orange),var(--red));}
+
+.section{display:none;}
+.section.active{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+.section-sub{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px;}
+
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange-light);margin-bottom:7px;}
+.form-group .hint{font-size:0.78rem;color:var(--text-muted);margin-top:5px;line-height:1.5;}
+.form-control{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,92,0,0.2);border-radius:10px;padding:13px 14px;color:var(--text);font-family:'Barlow',sans-serif;font-size:0.95rem;outline:none;transition:all 0.3s;}
+.form-control:focus{border-color:var(--orange);background:rgba(255,92,0,0.07);box-shadow:0 0 0 3px rgba(255,92,0,0.12);}
+.form-control::placeholder{color:rgba(240,232,220,0.3);}
+textarea.form-control{resize:vertical;min-height:90px;}
+select.form-control{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FF5C00' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+select.form-control option{background:#111;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:560px){.form-row{grid-template-columns:1fr;}}
+
+/* color picker */
+.color-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.color-opt{width:42px;height:42px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all 0.25s;position:relative;}
+.color-opt.sel{border-color:#fff;transform:scale(1.12);}
+.color-opt.sel::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;text-shadow:0 1px 3px rgba(0,0,0,0.5);}
+
+/* file upload */
+.file-drop{border:2px dashed rgba(255,92,0,0.25);border-radius:14px;padding:28px;text-align:center;cursor:pointer;transition:all 0.3s;background:rgba(255,92,0,0.02);position:relative;}
+.file-drop.drag,.file-drop:hover{border-color:var(--orange);background:rgba(255,92,0,0.06);}
+.file-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.file-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:14px;}
+.file-thumb{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--bg3);border:1px solid rgba(255,255,255,0.07);}
+.file-thumb img{width:100%;height:100%;object-fit:cover;}
+.file-thumb .del{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.7);color:#f87171;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:0.65rem;}
+.upload-progress{font-size:0.78rem;color:var(--orange-light);margin-top:8px;display:none;}
+
+/* nav buttons */
+.nav-btns{display:flex;gap:10px;margin-top:28px;}
+.btn{flex:1;padding:14px;border-radius:10px;font-family:'Barlow',sans-serif;font-weight:800;font-size:0.95rem;cursor:pointer;border:none;transition:all 0.25s;text-align:center;}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;box-shadow:0 4px 20px rgba(255,92,0,0.35);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,92,0,0.55);}
+.btn-ghost{background:transparent;color:var(--text-muted);border:1px solid rgba(255,255,255,0.12);}
+.btn-ghost:hover{border-color:rgba(255,92,0,0.4);color:var(--text);}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none !important;}
+
+/* success */
+.success-screen{text-align:center;padding:60px 20px;display:none;}
+.success-screen.active{display:block;}
+.success-icon{font-size:4rem;margin-bottom:20px;}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:1px;margin-bottom:10px;}
+.success-sub{font-size:0.95rem;color:var(--text-muted);line-height:1.6;max-width:420px;margin:0 auto;}
+
+/* checkbox lists */
+.check-grid{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.check-item{display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:9px;cursor:pointer;transition:all 0.2s;}
+.check-item:hover{border-color:rgba(255,92,0,0.3);}
+.check-item.sel{background:rgba(255,92,0,0.08);border-color:rgba(255,92,0,0.35);}
+.check-item input{accent-color:var(--orange);width:17px;height:17px;cursor:pointer;}
+
+/* error */
+.field-error{font-size:0.78rem;color:#f87171;margin-top:5px;display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="logo">CLICK<span>SON</span></div>
+    <p>Cuéntanos sobre tu negocio para crear tu página 🚀</p>
+  </div>
+
+  <div class="progress" id="progress"></div>
+
+  <form id="intake-form">
+
+    <!-- ═══ SECCIÓN 1: DATOS DEL NEGOCIO ═══ -->
+    <div class="section active" data-section="1">
+      <div class="section-title">📋 Datos de tu negocio</div>
+      <div class="section-sub">Lo básico para identificar y contactar tu negocio</div>
+
+      <div class="form-group">
+        <label>Nombre del negocio *</label>
+        <input type="text" id="q-empresa" class="form-control" placeholder="Ej: Taquería El Norteño" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tu nombre (dueño/encargado) *</label>
+          <input type="text" id="q-rep" class="form-control" placeholder="Nombre completo" required>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp para pedidos *</label>
+          <input type="tel" id="q-tel" class="form-control" placeholder="644 123 4567" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="q-email" class="form-control" placeholder="correo@negocio.com">
+        </div>
+        <div class="form-group">
+          <label>Ciudad</label>
+          <select id="q-ciudad" class="form-control">
+            <option>Ciudad Obregón</option>
+            <option>Hermosillo</option>
+            <option>Guaymas</option>
+            <option>Navojoa</option>
+            <option>Los Mochis</option>
+            <option>Otra</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Dirección completa *</label>
+        <input type="text" id="q-dir" class="form-control" placeholder="Calle, número, colonia" required>
+        <p class="hint">Así aparecerá en Google Maps</p>
+      </div>
+      <div class="form-group">
+        <label>Horario de atención *</label>
+        <input type="text" id="q-horario" class="form-control" placeholder="Ej: Lunes a sábado 8am - 9pm, Domingo cerrado" required>
+      </div>
+      <div class="form-group">
+        <label>Redes sociales (opcional)</label>
+        <input type="text" id="q-redes" class="form-control" placeholder="Instagram: @minegocio · Facebook: /minegocio">
+      </div>
+    </div>
+
+    <!-- ═══ SECCIÓN 2: SOBRE TU NEGOCIO ═══ -->
+    <div class="section" data-section="2">
+      <div class="section-title">✨ Sobre tu negocio</div>
+      <div class="section-sub">Esto nos ayuda a escribir y diseñar tu página</div>
+
+      <div class="form-group">
+        <label>Describe tu negocio en pocas palabras *</label>
+        <textarea id="q-desc" class="form-control" placeholder="¿Qué venden? ¿Qué los hace especiales? ¿Hace cuánto abrieron?" required></textarea>
+        <p class="hint">No te preocupes por la redacción, nosotros lo hacemos ver profesional ✍️</p>
+      </div>
+      <div class="form-group">
+        <label>¿Tienen alguna frase o eslogan?</label>
+        <input type="text" id="q-eslogan" class="form-control" placeholder="Ej: El sabor de toda la vida">
+      </div>
+      <div class="form-group">
+        <label>¿Tienen alguna promoción activa?</label>
+        <input type="text" id="q-promo" class="form-control" placeholder="Ej: 2x1 los martes, envío gratis en compras mayores a $200">
+      </div>
+      <div class="form-group">
+        <label>Colores de tu marca</label>
+        <p class="hint" style="margin-top:0;margin-bottom:8px">Elige los que más representen tu negocio (puedes elegir varios)</p>
+        <div class="color-grid" id="color-grid"></div>
+      </div>
+      <div class="form-group">
+        <label>¿Hacen entregas a domicilio?</label>
+        <div class="check-grid">
+          <label class="check-item"><input type="radio" name="delivery" value="Sí, propio"> Sí, con repartidor propio</label>
+          <label class="check-item"><input type="radio" name="delivery" value="Sí, apps"> Sí, por apps de delivery (Rappi, Uber Eats, etc.)</label>
+          <label class="check-item"><input type="radio" name="delivery" value="No"> No hacemos entregas</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SECCIÓN 3: PRODUCTOS / SERVICIOS / MENÚ ═══ -->
+    <div class="section" data-section="3">
+      <div class="section-title">🍽️ Productos, servicios o menú</div>
+      <div class="section-sub">Lo que ofreces a tus clientes — con precios si los tienes</div>
+
+      <div class="form-group">
+        <label>Lista tus productos, platillos o servicios *</label>
+        <textarea id="q-productos" class="form-control" style="min-height:160px" placeholder="Ejemplo:
+Tacos de asada - $18
+Tacos de pastor - $15
+Quesadilla - $25
+Agua fresca - $20
+
+Escribe uno por línea, con su precio si tienes" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Formas de pago que aceptan</label>
+        <div class="check-grid" id="pago-grid">
+          <label class="check-item"><input type="checkbox" value="Efectivo"> Efectivo</label>
+          <label class="check-item"><input type="checkbox" value="Transferencia"> Transferencia</label>
+          <label class="check-item"><input type="checkbox" value="Tarjeta"> Tarjeta (débito/crédito)</label>
+          <label class="check-item"><input type="checkbox" value="Mercado Pago"> Mercado Pago</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SECCIÓN 4: FOTOS ═══ -->
+    <div class="section" data-section="4">
+      <div class="section-title">📸 Fotos de tu negocio</div>
+      <div class="section-sub">Mientras más fotos, más bonita queda tu página</div>
+
+      <div class="form-group">
+        <label>🎨 Logo de tu negocio</label>
+        <p class="hint" style="margin-top:0;margin-bottom:8px">Si no tienes uno, no te preocupes — podemos crearte uno</p>
+        <div class="file-drop" data-section="logo">
+          <input type="file" accept="image/*" onchange="handleFiles(this.files,'logo')">
+          <div style="font-size:1.8rem;margin-bottom:6px">🎨</div>
+          <div style="font-weight:700;font-size:0.9rem">Subir logo</div>
+        </div>
+        <div class="file-gallery" id="gallery-logo"></div>
+        <div class="upload-progress" id="prog-logo"></div>
+      </div>
+
+      <div class="form-group">
+        <label>📷 Fotos del local / negocio *</label>
+        <p class="hint" style="margin-top:0;margin-bottom:8px">Fachada, interior, ambiente — sube las que tengas</p>
+        <div class="file-drop" data-section="local">
+          <input type="file" accept="image/*" multiple onchange="handleFiles(this.files,'local')">
+          <div style="font-size:1.8rem;margin-bottom:6px">🏪</div>
+          <div style="font-weight:700;font-size:0.9rem">Subir fotos del local</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">Puedes seleccionar varias</div>
+        </div>
+        <div class="file-gallery" id="gallery-local"></div>
+        <div class="upload-progress" id="prog-local"></div>
+      </div>
+
+      <div class="form-group">
+        <label>🍽️ Fotos de productos / platillos / menú</label>
+        <p class="hint" style="margin-top:0;margin-bottom:8px">Las fotos que mejor se vean de lo que vendes</p>
+        <div class="file-drop" data-section="productos">
+          <input type="file" accept="image/*" multiple onchange="handleFiles(this.files,'productos')">
+          <div style="font-size:1.8rem;margin-bottom:6px">🍴</div>
+          <div style="font-weight:700;font-size:0.9rem">Subir fotos de productos</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">Puedes seleccionar varias</div>
+        </div>
+        <div class="file-gallery" id="gallery-productos"></div>
+        <div class="upload-progress" id="prog-productos"></div>
+      </div>
+    </div>
+
+    <!-- ═══ SECCIÓN 5: TOQUES FINALES ═══ -->
+    <div class="section" data-section="5">
+      <div class="section-title">🎯 Últimos detalles</div>
+      <div class="section-sub">Ya casi terminamos</div>
+
+      <div class="form-group">
+        <label>¿Cómo te gustaría que se llame tu página web?</label>
+        <input type="text" id="q-dominio" class="form-control" placeholder="Ej: tacoselnortenо.com">
+        <p class="hint">Si está disponible, lo usamos. Si no, te sugerimos opciones similares</p>
+      </div>
+      <div class="form-group">
+        <label>¿Algo más que quieras que sepamos?</label>
+        <textarea id="q-notas" class="form-control" placeholder="Ideas, referencias de páginas que te gusten, peticiones especiales..."></textarea>
+      </div>
+    </div>
+
+    <div class="nav-btns" id="nav-btns">
+      <button type="button" class="btn btn-ghost" id="btn-prev" onclick="changeSection(-1)" style="visibility:hidden">← Atrás</button>
+      <button type="button" class="btn btn-primary" id="btn-next" onclick="changeSection(1)">Siguiente →</button>
+    </div>
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">¡Información recibida!</div>
+    <p class="success-sub">Gracias por tu tiempo. Nuestro equipo ya tiene todo lo que necesita para construir tu página. Te avisaremos por WhatsApp cuando esté lista para revisión.</p>
+  </div>
+
+</div>
+
+<script>
+var TOTAL_SECTIONS = 5;
+var currentSection = 1;
+var uploadedFiles = { logo: [], local: [], productos: [] };
+
+var COLORS = [
+  {name:'Naranja', hex:'#FF5C00'},
+  {name:'Rojo', hex:'#E53935'},
+  {name:'Verde', hex:'#43A047'},
+  {name:'Azul', hex:'#1E88E5'},
+  {name:'Amarillo', hex:'#FBC02D'},
+  {name:'Morado', hex:'#8E24AA'},
+  {name:'Rosa', hex:'#EC407A'},
+  {name:'Negro', hex:'#1a1a1a'},
+  {name:'Café', hex:'#6D4C41'},
+  {name:'Turquesa', hex:'#00ACC1'},
+];
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Progress bars
+  var pg = document.getElementById('progress');
+  for(var i=1;i<=TOTAL_SECTIONS;i++){
+    var b = document.createElement('div');
+    b.className = 'progress-bar' + (i===1?' done':'');
+    b.dataset.s = i;
+    pg.appendChild(b);
+  }
+
+  // Color picker
+  var cg = document.getElementById('color-grid');
+  COLORS.forEach(function(c){
+    var d = document.createElement('div');
+    d.className = 'color-opt';
+    d.style.background = c.hex;
+    d.dataset.name = c.name;
+    d.title = c.name;
+    d.onclick = function(){ this.classList.toggle('sel'); };
+    cg.appendChild(d);
+  });
+
+  // Checkbox visual toggle
+  document.querySelectorAll('.check-item input').forEach(function(inp){
+    inp.addEventListener('change', function(){
+      if(this.type==='checkbox'){
+        this.closest('.check-item').classList.toggle('sel', this.checked);
+      } else {
+        document.querySelectorAll('input[name="'+this.name+'"]').forEach(function(r){
+          r.closest('.check-item').classList.toggle('sel', r.checked);
+        });
+      }
+    });
+  });
+
+  // Drag & drop
+  document.querySelectorAll('.file-drop').forEach(function(fd){
+    fd.addEventListener('dragover', function(e){ e.preventDefault(); this.classList.add('drag'); });
+    fd.addEventListener('dragleave', function(){ this.classList.remove('drag'); });
+    fd.addEventListener('drop', function(e){
+      e.preventDefault(); this.classList.remove('drag');
+      handleFiles(e.dataTransfer.files, this.dataset.section);
+    });
+  });
+});
+
+function changeSection(dir) {
+  if (dir === 1 && !validateSection(currentSection)) return;
+
+  var next = currentSection + dir;
+  if (next < 1 || next > TOTAL_SECTIONS) return;
+
+  document.querySelector('.section[data-section="'+currentSection+'"]').classList.remove('active');
+  document.querySelector('.section[data-section="'+next+'"]').classList.add('active');
+  currentSection = next;
+
+  // Update progress
+  document.querySelectorAll('.progress-bar').forEach(function(b){
+    b.classList.toggle('done', parseInt(b.dataset.s) <= currentSection);
+  });
+
+  // Update buttons
+  document.getElementById('btn-prev').style.visibility = currentSection===1 ? 'hidden' : 'visible';
+  var nextBtn = document.getElementById('btn-next');
+  if (currentSection === TOTAL_SECTIONS) {
+    nextBtn.textContent = '✅ Enviar información';
+    nextBtn.onclick = submitForm;
+  } else {
+    nextBtn.textContent = 'Siguiente →';
+    nextBtn.onclick = function(){ changeSection(1); };
+  }
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function validateSection(s) {
+  var required = {
+    1: ['q-empresa','q-rep','q-tel','q-dir','q-horario'],
+    2: ['q-desc'],
+    3: ['q-productos'],
+    4: [],
+    5: []
+  };
+  var missing = [];
+  (required[s]||[]).forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el.value.trim()) missing.push(el);
+  });
+  if (missing.length) {
+    missing[0].style.borderColor = '#f87171';
+    missing[0].focus();
+    missing[0].addEventListener('input', function(){ this.style.borderColor = ''; }, {once:true});
+    return false;
+  }
+  if (s === 4) {
+    if (uploadedFiles.local.length === 0) {
+      alert('Por favor sube al menos una foto de tu local 📷');
+      return false;
+    }
+  }
+  return true;
+}
+
+// ── FILE UPLOAD ──
+function handleFiles(fileList, section) {
+  if (!fileList.length) return;
+  var prog = document.getElementById('prog-'+section);
+  prog.style.display = 'block';
+  prog.textContent = 'Subiendo ' + fileList.length + ' archivo(s)...';
+
+  waitForFB(async function() {
+    for (var i=0; i<fileList.length; i++) {
+      var file = fileList[i];
+      if (file.size > 8*1024*1024) { alert(file.name + ' es muy grande (máx 8MB)'); continue; }
+      var path = 'form-uploads/' + Date.now() + '_' + Math.random().toString(36).slice(2) + '_' + file.name;
+      var sref = window._fb.ref(window._fb.storage, path);
+      await window._fb.uploadBytes(sref, file);
+      var url = await window._fb.getDownloadURL(sref);
+      uploadedFiles[section].push({ name: file.name, url: url, path: path });
+      renderGallery(section);
+    }
+    prog.style.display = 'none';
+  });
+}
+
+function renderGallery(section) {
+  var g = document.getElementById('gallery-'+section);
+  g.innerHTML = '';
+  uploadedFiles[section].forEach(function(f, idx){
+    var div = document.createElement('div');
+    div.className = 'file-thumb';
+    div.innerHTML = '<img src="'+f.url+'" alt="'+f.name+'">';
+    var delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'del';
+    delBtn.textContent = '✕';
+    delBtn.dataset.section = section;
+    delBtn.dataset.idx = idx;
+    delBtn.onclick = function(){ removeFile(this.dataset.section, parseInt(this.dataset.idx)); };
+    div.appendChild(delBtn);
+    g.appendChild(div);
+  });
+}
+
+function removeFile(section, idx) {
+  uploadedFiles[section].splice(idx,1);
+  renderGallery(section);
+}
+
+function waitForFB(cb) {
+  if (window._fbReady) cb();
+  else setTimeout(function(){ waitForFB(cb); }, 100);
+}
+
+// ── SUBMIT ──
+function submitForm() {
+  if (!validateSection(5)) return;
+  var btn = document.getElementById('btn-next');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  var selectedColors = Array.from(document.querySelectorAll('.color-opt.sel')).map(function(el){ return el.dataset.name; });
+  var deliveryEl = document.querySelector('input[name="delivery"]:checked');
+  var pagos = Array.from(document.querySelectorAll('#pago-grid input:checked')).map(function(el){ return el.value; });
+
+  // Get URL params for client linking
+  var params = new URLSearchParams(window.location.search);
+  var clientId = params.get('id') || '';
+
+  var data = {
+    clientId: clientId,
+    empresa:  document.getElementById('q-empresa').value.trim(),
+    rep:      document.getElementById('q-rep').value.trim(),
+    tel:      document.getElementById('q-tel').value.trim(),
+    email:    document.getElementById('q-email').value.trim(),
+    ciudad:   document.getElementById('q-ciudad').value,
+    dir:      document.getElementById('q-dir').value.trim(),
+    horario:  document.getElementById('q-horario').value.trim(),
+    redes:    document.getElementById('q-redes').value.trim(),
+    desc:     document.getElementById('q-desc').value.trim(),
+    eslogan:  document.getElementById('q-eslogan').value.trim(),
+    promo:    document.getElementById('q-promo').value.trim(),
+    colores:  selectedColors,
+    delivery: deliveryEl ? deliveryEl.value : '',
+    productos:document.getElementById('q-productos').value.trim(),
+    pagos:    pagos,
+    dominio:  document.getElementById('q-dominio').value.trim(),
+    notas:    document.getElementById('q-notas').value.trim(),
+    files:    uploadedFiles,
+    status:   'Nuevo',
+    createdAt: new Date().toISOString(),
+  };
+
+  waitForFB(async function() {
+    try {
+      await window._fb.addDoc(window._fb.collection(window._fb.db, 'formResponses'), {
+        ...data,
+        createdAtServer: window._fb.serverTimestamp(),
+      });
+      document.getElementById('intake-form').style.display = 'none';
+      document.getElementById('progress').style.display = 'none';
+      document.getElementById('success-screen').classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    } catch(e) {
+      alert('Hubo un error al enviar. Por favor intenta de nuevo.');
+      btn.disabled = false;
+      btn.textContent = '✅ Enviar información';
+      console.error(e);
+    }
+  });
+}
+</script>
+</body>
+</html>
